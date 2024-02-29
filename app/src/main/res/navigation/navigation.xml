@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/issuesFragment">
+
+    <fragment
+        android:id="@+id/issuesFragment"
+        android:name="com.example.crimeguardian.IncidentsFragment"
+        android:label="fragment_issues"
+        tools:layout="@layout/fragment_incidents" />
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.example.crimeguardian.NewsFragment"
+        android:label="fragment_news"
+        tools:layout="@layout/fragment_news" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.crimeguardian.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>
