@@ -1,19 +1,40 @@
 package com.example.crimeguardian
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.crimeguardian.adapter.CrimeNewsAdapter
+import com.example.crimeguardian.data.CrimeNews
+
 
 class NewsFragment : Fragment() {
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var crimeNewsAdapter: CrimeNewsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_news, container, false)
+        val view = inflater.inflate(R.layout.fragment_news, container, false)
+
+        recyclerView = view.findViewById(R.id.recyclerViewCrimeNews)
+        crimeNewsAdapter = CrimeNewsAdapter(getDummyCrimeNewsList())  // Replace with your actual list of CrimeNews
+        recyclerView.adapter = crimeNewsAdapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        return view
     }
 
+    private fun getDummyCrimeNewsList(): List<CrimeNews> {
+        // Replace this with your actual list of CrimeNews
+        return listOf(
+            CrimeNews(R.drawable.crime_1, "Assault", R.string.text_crime_1),
+
+        )
+    }
 }
