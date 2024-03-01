@@ -34,7 +34,13 @@ class NewsFragment : Fragment() {
         // Replace this with your actual list of CrimeNews
         return listOf(
             CrimeNews(R.drawable.crime_1, "Assault", R.string.text_crime_1),
+            CrimeNews(R.drawable.crime_1, "Assault", R.string.text_crime_1),
+            CrimeNews(R.drawable.crime_1, "Assault", R.string.text_crime_1),
+            CrimeNews(R.drawable.crime_1, "Assault", R.string.text_crime_1),
+            CrimeNews(R.drawable.crime_1, "Assault", R.string.text_crime_1),
+            CrimeNews(R.drawable.crime_1, "Assault", R.string.text_crime_1),
 
-        )
+
+            )
     }
 }
