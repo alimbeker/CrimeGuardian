@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import android.widget.Toast
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -14,6 +16,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 
 class IncidentsFragment : Fragment(), OnMapReadyCallback {
+    private lateinit var searchView: SearchView
     private lateinit var mapView: MapView
     private lateinit var map: GoogleMap
     override fun onCreateView(
@@ -23,10 +26,25 @@ class IncidentsFragment : Fragment(), OnMapReadyCallback {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_incidents, container, false)
 
+
+        searchView = rootView.findViewById(R.id.searchView)
+
         // Initialize the MapView
         mapView = rootView.findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
+
+        // Set up search functionality
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                Toast.makeText(requireContext(), "Search: $query", Toast.LENGTH_SHORT).show()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+        })
 
         return rootView
     }
