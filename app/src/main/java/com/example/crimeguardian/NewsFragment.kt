@@ -33,12 +33,12 @@ class NewsFragment : Fragment() {
     private fun getDummyCrimeNewsList(): List<CrimeNews> {
         // Replace this with your actual list of CrimeNews
         return listOf(
-            CrimeNews(R.drawable.crime_1, "Assault", R.string.text_crime_1),
-            CrimeNews(R.drawable.crime_1, "Assault", R.string.text_crime_1),
-            CrimeNews(R.drawable.crime_1, "Assault", R.string.text_crime_1),
-            CrimeNews(R.drawable.crime_1, "Assault", R.string.text_crime_1),
-            CrimeNews(R.drawable.crime_1, "Assault", R.string.text_crime_1),
-            CrimeNews(R.drawable.crime_1, "Assault", R.string.text_crime_1),
+            CrimeNews(R.drawable.crime_1, getString(R.string.assault), R.string.text_crime_1),
+            CrimeNews(R.drawable.crime_1, getString(R.string.assault), R.string.text_crime_1),
+            CrimeNews(R.drawable.crime_1, getString(R.string.assault), R.string.text_crime_1),
+            CrimeNews(R.drawable.crime_1, getString(R.string.theft), R.string.text_crime_1),
+            CrimeNews(R.drawable.crime_1, getString(R.string.burglary), R.string.text_crime_1),
+            CrimeNews(R.drawable.crime_1, getString(R.string.burglary), R.string.text_crime_1),
 
 
             )
