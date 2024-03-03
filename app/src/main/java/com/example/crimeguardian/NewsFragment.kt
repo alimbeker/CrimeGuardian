@@ -21,15 +21,12 @@ class NewsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_news, container, false)
-
         recyclerView = view.findViewById(R.id.recyclerViewCrimeNews)
         crimeNewsAdapter = CrimeNewsAdapter(getDummyCrimeNewsList())  // Replace with your actual list of CrimeNews
         recyclerView.adapter = crimeNewsAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
         return view
     }
-
     private fun getDummyCrimeNewsList(): List<CrimeNews> {
         // Replace this with your actual list of CrimeNews
         return listOf(
