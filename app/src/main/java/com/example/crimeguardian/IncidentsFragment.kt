@@ -28,15 +28,23 @@ class IncidentsFragment : Fragment(), OnMapReadyCallback {
         // Inflate the layout for this fragment
         binding = FragmentIncidentsBinding.inflate(inflater, container, false)
 
-
+        // Initialize the SearchView
         searchView = binding.searchView
 
         // Initialize the MapView
         mapView = binding.mapView
+
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
         // Set up search functionality
+        addSearchView()
+
+
+        return binding.root
+    }
+
+    private fun addSearchView() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 Toast.makeText(requireContext(), "Search: $query", Toast.LENGTH_SHORT).show()
@@ -47,8 +55,6 @@ class IncidentsFragment : Fragment(), OnMapReadyCallback {
                 return true
             }
         })
-
-        return binding.root
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
