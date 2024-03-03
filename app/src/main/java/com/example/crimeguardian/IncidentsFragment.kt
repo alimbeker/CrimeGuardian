@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
+import com.example.crimeguardian.databinding.FragmentIncidentsBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -16,6 +17,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 
 class IncidentsFragment : Fragment(), OnMapReadyCallback {
+    private lateinit var binding: FragmentIncidentsBinding
     private lateinit var searchView: SearchView
     private lateinit var mapView: MapView
     private lateinit var map: GoogleMap
@@ -24,13 +26,13 @@ class IncidentsFragment : Fragment(), OnMapReadyCallback {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val rootView = inflater.inflate(R.layout.fragment_incidents, container, false)
+        binding = FragmentIncidentsBinding.inflate(inflater, container, false)
 
 
-        searchView = rootView.findViewById(R.id.searchView)
+        searchView = binding.searchView
 
         // Initialize the MapView
-        mapView = rootView.findViewById(R.id.mapView)
+        mapView = binding.mapView
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
@@ -46,7 +48,7 @@ class IncidentsFragment : Fragment(), OnMapReadyCallback {
             }
         })
 
-        return rootView
+        return binding.root
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

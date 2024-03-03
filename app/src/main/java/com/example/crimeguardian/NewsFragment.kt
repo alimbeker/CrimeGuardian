@@ -9,10 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crimeguardian.adapter.CrimeNewsAdapter
 import com.example.crimeguardian.data.CrimeNews
+import com.example.crimeguardian.databinding.ActivityMainBinding
+import com.example.crimeguardian.databinding.FragmentIncidentsBinding
+import com.example.crimeguardian.databinding.FragmentNewsBinding
 
 
 class NewsFragment : Fragment() {
-
+    private lateinit var binding: FragmentNewsBinding
     private lateinit var recyclerView: RecyclerView
     private lateinit var crimeNewsAdapter: CrimeNewsAdapter
 
@@ -20,12 +23,16 @@ class NewsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_news, container, false)
-        recyclerView = view.findViewById(R.id.recyclerViewCrimeNews)
+
+        binding = FragmentNewsBinding.inflate(inflater, container, false)
+
+        //RecyclerView
+        recyclerView = binding.recyclerViewCrimeNews
         crimeNewsAdapter = CrimeNewsAdapter(getDummyCrimeNewsList())  // Replace with your actual list of CrimeNews
         recyclerView.adapter = crimeNewsAdapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        return view
+        recyclerView.layoutManager = LinearLayoutManager(this.context)
+
+        return binding.root
     }
     private fun getDummyCrimeNewsList(): List<CrimeNews> {
         // Replace this with your actual list of CrimeNews

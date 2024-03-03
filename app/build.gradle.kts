@@ -33,6 +33,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -51,6 +55,8 @@ dependencies {
 
     //Google Cloud and Map
     implementation ("com.google.android.gms:play-services-maps:18.1.0")
+
+
 
 
 }

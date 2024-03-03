@@ -12,8 +12,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.crimeguardian.databinding.FragmentNewsBinding
+import com.example.crimeguardian.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
+    private lateinit var binding: FragmentProfileBinding
 
     private val PICK_CONTACT_REQUEST = 1  // Request code for the intent
 
@@ -24,17 +27,16 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
+        contactNameTextView = binding.name
+        contactNumberTextView = binding.phoneNumber
 
-        contactNameTextView = view.findViewById(R.id.name)
-        contactNumberTextView = view.findViewById(R.id.phone_number)
-
-        val selectContactButton: Button = view.findViewById(R.id.extra_call)
+        val selectContactButton = binding.extraCall
         selectContactButton.setOnClickListener {
             pickContact()
         }
 
-        return view
+        return binding.root
     }
 
     private fun pickContact() {
