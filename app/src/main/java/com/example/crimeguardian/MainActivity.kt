@@ -15,7 +15,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
        override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+           binding = ActivityMainBinding.inflate(layoutInflater)
+
+           setContentView(binding.root)
+
 
            val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainContainer) as NavHostFragment
            navController = navHostFragment.navController
