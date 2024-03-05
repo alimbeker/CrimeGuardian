@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.telephony.PhoneNumberUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -98,8 +97,7 @@ class ProfileFragment : Fragment() {
         //handle intent results || calls when user from Intent (Contact Pick) picks or cancels pick contact
         if (resultCode == AppCompatActivity.RESULT_OK){
             //calls when user click a contact from contacts (intent) list
-            if (requestCode == CONTACT_PICK_CODE){
-                binding.name.text = ""
+            if (requestCode == CONTACT_PICK_CODE) {
 
                 val cursor1: Cursor
                 val cursor2: Cursor?
@@ -114,7 +112,11 @@ class ProfileFragment : Fragment() {
                     val idResults = cursor1.getString(cursor1.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
                     val idResultHold = idResults.toInt()
                     //set details: contact id, contact name, image
-                    binding.name.text = contactName
+                    val shortName = contactName.split(" ").joinToString("") { it[0].uppercase() }
+
+                    binding.contactName.text = contactName
+                    binding.shortName.text = shortName
+
 
                     //check if contact has a phone number or not
                     if (idResultHold == 1){
@@ -129,14 +131,9 @@ class ProfileFragment : Fragment() {
                             //get phone number
                             val contactNumber = cursor2.getString(cursor2.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
 
-                            //Make formatted number
-                            val formattedPhoneNumber = PhoneNumberUtils.formatNumberToE164(contactNumber,
-                                (+7).toString()
-                            )
-
                             //set phone number
-                            binding.phoneNumber.text = formattedPhoneNumber
-                            binding.phoneNumber1.text = formattedPhoneNumber
+                            binding.phoneNumber.text = contactNumber
+                            binding.phoneNumber1.text = contactNumber
 
                         }
 
@@ -152,6 +149,9 @@ class ProfileFragment : Fragment() {
             Toast.makeText(this.context, "Cancelled", Toast.LENGTH_SHORT).show()
         }
     }
+
+
+
 
 
 }
