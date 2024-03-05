@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.LayoutInflater
@@ -21,12 +22,16 @@ class ProfileFragment : Fragment() {
 
     //view binding
     private lateinit var binding: FragmentProfileBinding
+    private lateinit var contactNumber: String
 
     //contact permission code
     private val CONTACT_PERMISSION_CODE = 1
 
     //contact pick code
     private val CONTACT_PICK_CODE = 2
+
+
+    private val REQUEST_PHONE_CALL = 3
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -42,6 +47,24 @@ class ProfileFragment : Fragment() {
             } else {
                 //not allowed, request
                 requestContactPermission()
+            }
+        }
+
+        binding.extraCall.setOnClickListener {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(), android.Manifest.permission.CALL_PHONE
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                contactNumber?.let {
+                    startActivity(Intent(Intent.ACTION_CALL, Uri.parse(it)))
+                }
+            } else {
+                // Request the CALL_PHONE permission if not granted
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(android.Manifest.permission.CALL_PHONE),
+                    REQUEST_PHONE_CALL
+                )
             }
         }
 
@@ -127,7 +150,7 @@ class ProfileFragment : Fragment() {
                         //a contact may have multiple phone numbers
                         while (cursor2!!.moveToNext()) {
                             //get phone number
-                            val contactNumber =
+                            contactNumber =
                                 cursor2.getString(cursor2.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
 
                             //set phone number
@@ -147,6 +170,4 @@ class ProfileFragment : Fragment() {
             Toast.makeText(this.context, "Cancelled", Toast.LENGTH_SHORT).show()
         }
     }
-
-
 }
