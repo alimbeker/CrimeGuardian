@@ -30,7 +30,7 @@ class ProfileFragment : Fragment() {
     //contact pick code
     private val CONTACT_PICK_CODE = 2
 
-
+    //contact call code
     private val REQUEST_PHONE_CALL = 3
 
     override fun onCreateView(
@@ -85,8 +85,6 @@ class ProfileFragment : Fragment() {
 
         startActivity(intent)
     }
-
-
 
 
     private fun checkContactPermission(): Boolean {
