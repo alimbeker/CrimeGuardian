@@ -10,10 +10,12 @@ import com.example.crimeguardian.R
 import com.example.crimeguardian.data.CrimeNews
 
 
-class CrimeNewsAdapter(private val crimeNewsList: List<CrimeNews>) : RecyclerView.Adapter<CrimeNewsAdapter.CrimeNewsViewHolder>() {
+class CrimeNewsAdapter(private val crimeNewsList: List<CrimeNews>) :
+    RecyclerView.Adapter<CrimeNewsAdapter.CrimeNewsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CrimeNewsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_crime_news, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_crime_news, parent, false)
         return CrimeNewsViewHolder(view)
     }
 

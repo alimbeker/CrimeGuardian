@@ -22,8 +22,7 @@ class IncidentsFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mapView: MapView
     private lateinit var map: GoogleMap
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentIncidentsBinding.inflate(inflater, container, false)
@@ -62,9 +61,7 @@ class IncidentsFragment : Fragment(), OnMapReadyCallback {
 
         // Add a marker for Almaty, Kazakhstan
         val almatyLatLng = LatLng(43.2551, 76.9126)
-        val marker = MarkerOptions()
-            .position(almatyLatLng)
-            .title("Almaty City")
+        val marker = MarkerOptions().position(almatyLatLng).title("Almaty City")
             .snippet("Welcome to Almaty!")
 
         map.addMarker(marker)

@@ -29,19 +29,17 @@ class ProfileFragment : Fragment() {
     private val CONTACT_PICK_CODE = 2
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         //handle click, to pick contact
         binding.rectangleView.setOnClickListener {
             //check permission allowed or not
-            if (checkContactPermission()){
+            if (checkContactPermission()) {
                 //allowed
                 pickContact()
-            }
-            else{
+            } else {
                 //not allowed, request
                 requestContactPermission()
             }
@@ -53,13 +51,12 @@ class ProfileFragment : Fragment() {
 
     private fun checkContactPermission(): Boolean {
         //check if permission was granted/allowed or not, returns true if granted/allowed, false if not
-        return  ContextCompat.checkSelfPermission(
-            requireContext(),
-            android.Manifest.permission.READ_CONTACTS
+        return ContextCompat.checkSelfPermission(
+            requireContext(), android.Manifest.permission.READ_CONTACTS
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun requestContactPermission(){
+    private fun requestContactPermission() {
         //request the READ_CONTACTS permission
         val permission = arrayOf(android.Manifest.permission.READ_CONTACTS)
         ActivityCompat.requestPermissions(requireActivity(), permission, CONTACT_PERMISSION_CODE)
@@ -72,18 +69,15 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         //handle permission request results || calls when user from Permission request dialog presses Allow or Deny
-        if (requestCode == CONTACT_PERMISSION_CODE){
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == CONTACT_PERMISSION_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //permission granted, can pick contact
                 pickContact()
-            }
-            else{
+            } else {
                 //permission denied, can't pick contact, just show message
                 Toast.makeText(this.context, "Permission denied...", Toast.LENGTH_SHORT).show()
             }
@@ -95,7 +89,7 @@ class ProfileFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         //handle intent results || calls when user from Intent (Contact Pick) picks or cancels pick contact
-        if (resultCode == AppCompatActivity.RESULT_OK){
+        if (resultCode == AppCompatActivity.RESULT_OK) {
             //calls when user click a contact from contacts (intent) list
             if (requestCode == CONTACT_PICK_CODE) {
 
@@ -105,11 +99,14 @@ class ProfileFragment : Fragment() {
                 //get data from intent
                 val uri = data!!.data
                 cursor1 = requireContext().contentResolver.query(uri!!, null, null, null, null)!!
-                if (cursor1.moveToFirst()){
+                if (cursor1.moveToFirst()) {
                     //get contact details
-                    val contactId = cursor1.getString(cursor1.getColumnIndex(ContactsContract.Contacts._ID))
-                    val contactName = cursor1.getString(cursor1.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                    val idResults = cursor1.getString(cursor1.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
+                    val contactId =
+                        cursor1.getString(cursor1.getColumnIndex(ContactsContract.Contacts._ID))
+                    val contactName =
+                        cursor1.getString(cursor1.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+                    val idResults =
+                        cursor1.getString(cursor1.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
                     val idResultHold = idResults.toInt()
                     //set details: contact id, contact name, image
                     val shortName = contactName.split(" ").joinToString("") { it[0].uppercase() }
@@ -119,17 +116,19 @@ class ProfileFragment : Fragment() {
 
 
                     //check if contact has a phone number or not
-                    if (idResultHold == 1){
-                        cursor2 = requireContext().contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                    if (idResultHold == 1) {
+                        cursor2 = requireContext().contentResolver.query(
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                             null,
-                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+contactId,
+                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId,
                             null,
                             null
                         )
                         //a contact may have multiple phone numbers
-                        while (cursor2!!.moveToNext()){
+                        while (cursor2!!.moveToNext()) {
                             //get phone number
-                            val contactNumber = cursor2.getString(cursor2.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                            val contactNumber =
+                                cursor2.getString(cursor2.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
 
                             //set phone number
                             binding.phoneNumber.text = contactNumber
@@ -143,15 +142,11 @@ class ProfileFragment : Fragment() {
                 }
             }
 
-        }
-        else {
+        } else {
             //cancelled picking contact
             Toast.makeText(this.context, "Cancelled", Toast.LENGTH_SHORT).show()
         }
     }
-
-
-
 
 
 }

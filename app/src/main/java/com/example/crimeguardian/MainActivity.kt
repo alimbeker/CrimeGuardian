@@ -1,4 +1,4 @@
-   package com.example.crimeguardian
+package com.example.crimeguardian
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,35 +8,36 @@ import com.example.crimeguardian.databinding.ActivityMainBinding
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-   class MainActivity : AppCompatActivity() {
-       private lateinit var binding: ActivityMainBinding
-       private lateinit var navController: NavController
+class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
 
 
-       override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-            binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
-           setContentView(binding.root)
+        setContentView(binding.root)
 
 
-           val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainContainer) as NavHostFragment
-           navController = navHostFragment.navController
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.mainContainer) as NavHostFragment
+        navController = navHostFragment.navController
 
-           setupBottomNavigation()
+        setupBottomNavigation()
 
     }
 
-       private fun setupBottomNavigation() {
-           val bottomNavView: BottomNavigationView = findViewById(R.id.bottomMenu)
+    private fun setupBottomNavigation() {
+        val bottomNavView: BottomNavigationView = findViewById(R.id.bottomMenu)
 
-           bottomNavView.setOnItemSelectedListener { menuItem ->
-               when (menuItem.itemId) {
-                   R.id.incidentsFragment -> navController.navigate(R.id.issuesFragment)
-                   R.id.newsFragment -> navController.navigate(R.id.newsFragment)
-                   R.id.profileFragment -> navController.navigate(R.id.profileFragment)
-               }
-               true
-           }
-       }
-   }
+        bottomNavView.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.incidentsFragment -> navController.navigate(R.id.issuesFragment)
+                R.id.newsFragment -> navController.navigate(R.id.newsFragment)
+                R.id.profileFragment -> navController.navigate(R.id.profileFragment)
+            }
+            true
+        }
+    }
+}

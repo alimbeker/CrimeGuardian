@@ -20,20 +20,21 @@ class NewsFragment : Fragment() {
     private lateinit var crimeNewsAdapter: CrimeNewsAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
         binding = FragmentNewsBinding.inflate(inflater, container, false)
 
         //RecyclerView
         recyclerView = binding.recyclerViewCrimeNews
-        crimeNewsAdapter = CrimeNewsAdapter(getDummyCrimeNewsList())  // Replace with your actual list of CrimeNews
+        crimeNewsAdapter =
+            CrimeNewsAdapter(getDummyCrimeNewsList())  // Replace with your actual list of CrimeNews
         recyclerView.adapter = crimeNewsAdapter
         recyclerView.layoutManager = LinearLayoutManager(this.context)
 
         return binding.root
     }
+
     private fun getDummyCrimeNewsList(): List<CrimeNews> {
         // Replace this with your actual list of CrimeNews
         return listOf(
@@ -43,6 +44,6 @@ class NewsFragment : Fragment() {
             CrimeNews(R.drawable.crime_4, getString(R.string.theft), R.string.text_crime_4)
 
 
-            )
+        )
     }
 }
