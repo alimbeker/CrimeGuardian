@@ -4,9 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
-import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.telephony.PhoneNumberUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +24,8 @@ class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
 
     //contact permission code
-    private val CONTACT_PERMISSION_CODE = 1;
+    private val CONTACT_PERMISSION_CODE = 1
+
     //contact pick code
     private val CONTACT_PICK_CODE = 2
 
@@ -35,7 +36,7 @@ class ProfileFragment : Fragment() {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         //handle click, to pick contact
-        binding.extraCall.setOnClickListener {
+        binding.rectangleView.setOnClickListener {
             //check permission allowed or not
             if (checkContactPermission()){
                 //allowed
@@ -113,8 +114,7 @@ class ProfileFragment : Fragment() {
                     val idResults = cursor1.getString(cursor1.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
                     val idResultHold = idResults.toInt()
                     //set details: contact id, contact name, image
-                    binding.name.append("ID: $contactId")
-                    binding.name.append("\nName: $contactName")
+                    binding.name.text = contactName
 
                     //check if contact has a phone number or not
                     if (idResultHold == 1){
@@ -128,10 +128,18 @@ class ProfileFragment : Fragment() {
                         while (cursor2!!.moveToNext()){
                             //get phone number
                             val contactNumber = cursor2.getString(cursor2.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+
+                            //Make formatted number
+                            val formattedPhoneNumber = PhoneNumberUtils.formatNumberToE164(contactNumber,
+                                (+7).toString()
+                            )
+
                             //set phone number
-                            binding.name.append("\nPhone: $contactNumber")
+                            binding.phoneNumber.text = formattedPhoneNumber
+                            binding.phoneNumber1.text = formattedPhoneNumber
 
                         }
+
                         cursor2.close()
                     }
                     cursor1.close()
