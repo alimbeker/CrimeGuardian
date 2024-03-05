@@ -51,25 +51,42 @@ class ProfileFragment : Fragment() {
         }
 
         binding.extraCall.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(
-                    requireContext(), android.Manifest.permission.CALL_PHONE
-                ) == PackageManager.PERMISSION_GRANTED
+            // checking permission
+            if (ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    android.Manifest.permission.READ_CONTACTS
+                ) != PackageManager.PERMISSION_GRANTED
             ) {
-                contactNumber?.let {
-                    startActivity(Intent(Intent.ACTION_CALL, Uri.parse(it)))
-                }
-            } else {
-                // Request the CALL_PHONE permission if not granted
                 ActivityCompat.requestPermissions(
                     requireActivity(),
-                    arrayOf(android.Manifest.permission.CALL_PHONE),
+                    arrayOf(android.Manifest.permission.READ_CONTACTS),
                     REQUEST_PHONE_CALL
                 )
+            } else {
+                makeCall()
             }
         }
 
         return binding.root
     }
+
+    private fun makeCall() {
+        val intent = Intent(Intent.ACTION_CALL)
+        intent.data = Uri.parse("tel:$contactNumber")
+
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.READ_CONTACTS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_LONG).show()
+            return
+        }
+
+        startActivity(intent)
+    }
+
+
 
 
     private fun checkContactPermission(): Boolean {
@@ -95,6 +112,11 @@ class ProfileFragment : Fragment() {
         requestCode: Int, permissions: Array<out String>, grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+
+        if (requestCode == REQUEST_PHONE_CALL) {
+            makeCall()
+        }
         //handle permission request results || calls when user from Permission request dialog presses Allow or Deny
         if (requestCode == CONTACT_PERMISSION_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
