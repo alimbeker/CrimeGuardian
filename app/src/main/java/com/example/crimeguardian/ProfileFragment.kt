@@ -22,7 +22,13 @@ class ProfileFragment : Fragment() {
 
     //view binding
     private lateinit var binding: FragmentProfileBinding
-    private lateinit var contactNumber: String
+    private lateinit var _contactNumber: String
+
+    var contactNumber: String
+        get() = if (::_contactNumber.isInitialized) _contactNumber else ""
+        set(value) {
+            _contactNumber = value
+        }
 
     //contact permission code
     private val CONTACT_PERMISSION_CODE = 1
@@ -55,15 +61,14 @@ class ProfileFragment : Fragment() {
             if (ActivityCompat.checkSelfPermission(
                     requireContext(), android.Manifest.permission.READ_CONTACTS
                 ) != PackageManager.PERMISSION_GRANTED
-            )
-            {
+            ) {
                 ActivityCompat.requestPermissions(
                     requireActivity(),
                     arrayOf(android.Manifest.permission.READ_CONTACTS),
                     REQUEST_PHONE_CALL
                 )
             } else {
-                if(!contactNumber.isNullOrEmpty()) {
+                if (!contactNumber.isNullOrEmpty()) {
                     makeCall()
                 }
             }
