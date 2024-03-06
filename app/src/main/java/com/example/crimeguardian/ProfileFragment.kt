@@ -52,29 +52,33 @@ class ProfileFragment : Fragment() {
                 pickContact()
             } else {
                 //not allowed, request
-                requestContactPermission()
+                requestContactPermission(CONTACT_PERMISSION_CODE)
             }
         }
 
         binding.extraCall.setOnClickListener {
             // checking permission
-            if (ActivityCompat.checkSelfPermission(
-                    requireContext(), android.Manifest.permission.READ_CONTACTS
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(android.Manifest.permission.READ_CONTACTS),
-                    REQUEST_PHONE_CALL
-                )
+            if (checkContactPermission()) {
+                makeCall()
             } else {
-                if (!contactNumber.isNullOrEmpty()) {
-                    makeCall()
-                }
+                requestContactPermission(REQUEST_PHONE_CALL)
             }
         }
 
         return binding.root
+    }
+
+    private fun checkContactPermission(): Boolean {
+        //check if permission was granted/allowed or not, returns true if granted/allowed, false if not
+        return ContextCompat.checkSelfPermission(
+            requireContext(), android.Manifest.permission.READ_CONTACTS
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestContactPermission(PERMISSION_CODE: Int) {
+        //request the READ_CONTACTS permission
+        val permission = arrayOf(android.Manifest.permission.READ_CONTACTS)
+        ActivityCompat.requestPermissions(requireActivity(), permission, PERMISSION_CODE)
     }
 
     private fun makeCall() {
@@ -93,19 +97,6 @@ class ProfileFragment : Fragment() {
         startActivity(intent)
     }
 
-
-    private fun checkContactPermission(): Boolean {
-        //check if permission was granted/allowed or not, returns true if granted/allowed, false if not
-        return ContextCompat.checkSelfPermission(
-            requireContext(), android.Manifest.permission.READ_CONTACTS
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun requestContactPermission() {
-        //request the READ_CONTACTS permission
-        val permission = arrayOf(android.Manifest.permission.READ_CONTACTS)
-        ActivityCompat.requestPermissions(requireActivity(), permission, CONTACT_PERMISSION_CODE)
-    }
 
     private fun pickContact() {
         //intent ti pick contact
