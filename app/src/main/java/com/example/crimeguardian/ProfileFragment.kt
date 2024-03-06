@@ -131,7 +131,7 @@ class ProfileFragment : Fragment() {
 
                 //get data from intent
                 val uri = data?.data
-                cursor1 = requireContext().contentResolver.query(uri!!, null, null, null, null)!!
+                cursor1 = uri?.let { requireContext().contentResolver.query(it, null, null, null, null) }!!
                 if (cursor1.moveToFirst()) {
                     //get contact details
                     val contactId =
