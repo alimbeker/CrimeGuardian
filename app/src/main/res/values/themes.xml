@@ -6,4 +6,12 @@
     </style>
 
     <style name="Theme.CrimeGuardian" parent="Base.Theme.CrimeGuardian" />
+
+
+    <style name="AppTextView" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/plusjakartasans_regular</item>
+    </style>
+
 </resources>
