@@ -53,17 +53,19 @@ class ProfileFragment : Fragment() {
         binding.extraCall.setOnClickListener {
             // checking permission
             if (ActivityCompat.checkSelfPermission(
-                    requireContext(),
-                    android.Manifest.permission.READ_CONTACTS
+                    requireContext(), android.Manifest.permission.READ_CONTACTS
                 ) != PackageManager.PERMISSION_GRANTED
-            ) {
+            )
+            {
                 ActivityCompat.requestPermissions(
                     requireActivity(),
                     arrayOf(android.Manifest.permission.READ_CONTACTS),
                     REQUEST_PHONE_CALL
                 )
             } else {
-                makeCall()
+                if(!contactNumber.isNullOrEmpty()) {
+                    makeCall()
+                }
             }
         }
 
@@ -72,11 +74,11 @@ class ProfileFragment : Fragment() {
 
     private fun makeCall() {
         val intent = Intent(Intent.ACTION_CALL)
+
         intent.data = Uri.parse("tel:$contactNumber")
 
         if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                android.Manifest.permission.READ_CONTACTS
+                requireContext(), android.Manifest.permission.READ_CONTACTS
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_LONG).show()
@@ -152,12 +154,10 @@ class ProfileFragment : Fragment() {
                         cursor1.getString(cursor1.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
                     val idResultHold = idResults.toInt()
                     //set details: contact id, contact name, image
-                    val shortName = contactName.replace(Regex("[^\\p{L} ]"), "")
-                        .split(" ")
-                        .filter { it.isNotEmpty() }
-                        .joinToString("") { it[0].uppercase() }
+                    val shortName = contactName.replace(Regex("[^\\p{L} ]"), "").split(" ")
+                        .filter { it.isNotEmpty() }.joinToString("") { it[0].uppercase() }
 
-                    binding.contactName.text = contactName.replace(" ", "")
+                    binding.contactName.text = contactName
                     binding.shortName.text = shortName
 
 
