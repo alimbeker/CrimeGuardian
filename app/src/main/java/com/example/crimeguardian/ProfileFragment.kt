@@ -155,7 +155,8 @@ class ProfileFragment : Fragment() {
                     val shortName = contactName.replace(Regex("[^A-Za-z ]"), "")
                         .split(" ")
                         .joinToString("") { it[0].uppercase() }
-                    binding.contactName.text = contactName
+
+                    binding.contactName.text = contactName.replace(" ", "")
                     binding.shortName.text = shortName
 
 
