@@ -30,14 +30,6 @@ class ProfileFragment : Fragment() {
             _contactNumber = value
         }
 
-    //contact permission code
-    private val CONTACT_PERMISSION_CODE = 1
-
-    //contact pick code
-    private val CONTACT_PICK_CODE = 2
-
-    //contact call code
-    private val REQUEST_PHONE_CALL = 3
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -52,7 +44,7 @@ class ProfileFragment : Fragment() {
                 pickContact()
             } else {
                 //not allowed, request
-                requestContactPermission(CONTACT_PERMISSION_CODE)
+                requestContactPermission(PermissionCode.CONTACT_PERMISSION.ordinal)
             }
         }
 
@@ -61,7 +53,7 @@ class ProfileFragment : Fragment() {
             if (checkContactPermission()) {
                 makeCall()
             } else {
-                requestContactPermission(REQUEST_PHONE_CALL)
+                requestContactPermission(PermissionCode.REQUEST_PHONE_CALL.ordinal)
             }
         }
 
@@ -189,4 +181,10 @@ class ProfileFragment : Fragment() {
             Toast.makeText(this.context, "Cancelled", Toast.LENGTH_SHORT).show()
         }
     }
+}
+
+enum class PermissionCode {
+    CONTACT_PERMISSION,
+    CONTACT_PICK,
+    REQUEST_PHONE_CALL
 }
