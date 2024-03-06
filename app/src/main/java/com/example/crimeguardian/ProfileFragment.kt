@@ -152,8 +152,9 @@ class ProfileFragment : Fragment() {
                         cursor1.getString(cursor1.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
                     val idResultHold = idResults.toInt()
                     //set details: contact id, contact name, image
-                    val shortName = contactName.replace(Regex("[^A-Za-z ]"), "")
+                    val shortName = contactName.replace(Regex("[^\\p{L} ]"), "")
                         .split(" ")
+                        .filter { it.isNotEmpty() }
                         .joinToString("") { it[0].uppercase() }
 
                     binding.contactName.text = contactName.replace(" ", "")
