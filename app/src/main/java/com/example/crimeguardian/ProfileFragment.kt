@@ -93,7 +93,7 @@ class ProfileFragment : Fragment() {
     private fun pickContact() {
         //intent ti pick contact
         val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
-        startActivityForResult(intent, CONTACT_PICK_CODE)
+        startActivityForResult(intent, PermissionCode.CONTACT_PICK.ordinal)
     }
 
     override fun onRequestPermissionsResult(
@@ -102,11 +102,11 @@ class ProfileFragment : Fragment() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
 
-        if (requestCode == REQUEST_PHONE_CALL) {
+        if (requestCode == PermissionCode.REQUEST_PHONE_CALL.ordinal) {
             makeCall()
         }
         //handle permission request results || calls when user from Permission request dialog presses Allow or Deny
-        if (requestCode == CONTACT_PERMISSION_CODE) {
+        if (requestCode == PermissionCode.CONTACT_PERMISSION.ordinal) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //permission granted, can pick contact
                 pickContact()
@@ -124,7 +124,7 @@ class ProfileFragment : Fragment() {
         //handle intent results || calls when user from Intent (Contact Pick) picks or cancels pick contact
         if (resultCode == AppCompatActivity.RESULT_OK) {
             //calls when user click a contact from contacts (intent) list
-            if (requestCode == CONTACT_PICK_CODE) {
+            if (requestCode == PermissionCode.CONTACT_PICK.ordinal) {
 
                 val cursor1: Cursor
                 val cursor2: Cursor?
