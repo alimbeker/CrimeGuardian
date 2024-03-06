@@ -24,7 +24,7 @@ class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private lateinit var _contactNumber: String
 
-    var contactNumber: String
+    private var contactNumber: String
         get() = if (::_contactNumber.isInitialized) _contactNumber else ""
         set(value) {
             _contactNumber = value
@@ -130,7 +130,7 @@ class ProfileFragment : Fragment() {
                 val cursor2: Cursor?
 
                 //get data from intent
-                val uri = data!!.data
+                val uri = data?.data
                 cursor1 = requireContext().contentResolver.query(uri!!, null, null, null, null)!!
                 if (cursor1.moveToFirst()) {
                     //get contact details
@@ -184,7 +184,5 @@ class ProfileFragment : Fragment() {
 }
 
 enum class PermissionCode {
-    CONTACT_PERMISSION,
-    CONTACT_PICK,
-    REQUEST_PHONE_CALL
+    CONTACT_PERMISSION, CONTACT_PICK, REQUEST_PHONE_CALL
 }
