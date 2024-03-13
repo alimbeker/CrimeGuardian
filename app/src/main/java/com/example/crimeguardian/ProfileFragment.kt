@@ -132,7 +132,8 @@ class ProfileFragment : Fragment() {
                     requireContext().contentResolver.query(
                         it, null, null, null, null
                     )
-                }!!
+                } ?: throw IllegalStateException("Uri is null")
+
                 if (cursor1.moveToFirst()) {
                     //get contact details
                     val contactId =
