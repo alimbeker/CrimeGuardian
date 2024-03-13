@@ -78,10 +78,7 @@ class ProfileFragment : Fragment() {
 
         intent.data = Uri.parse("tel:$contactNumber")
 
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(), android.Manifest.permission.READ_CONTACTS
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
+        if (!checkContactPermission()) {
             Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_LONG).show()
             return
         }
@@ -132,7 +129,11 @@ class ProfileFragment : Fragment() {
 
                 //get data from intent
                 val uri = data?.data
-                cursor1 = uri?.let { requireContext().contentResolver.query(it, null, null, null, null) }!!
+                cursor1 = uri?.let {
+                    requireContext().contentResolver.query(
+                        it, null, null, null, null
+                    )
+                }!!
                 if (cursor1.moveToFirst()) {
                     //get contact details
                     val contactId =
