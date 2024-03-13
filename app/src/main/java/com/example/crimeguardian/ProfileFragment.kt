@@ -101,18 +101,19 @@ class ProfileFragment : Fragment() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
+        when (requestCode) {
+            PermissionCode.REQUEST_PHONE_CALL.ordinal -> {
+                makeCall()
+            }
 
-        if (requestCode == PermissionCode.REQUEST_PHONE_CALL.ordinal) {
-            makeCall()
-        }
-        //handle permission request results || calls when user from Permission request dialog presses Allow or Deny
-        if (requestCode == PermissionCode.CONTACT_PERMISSION.ordinal) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //permission granted, can pick contact
-                pickContact()
-            } else {
-                //permission denied, can't pick contact, just show message
-                Toast.makeText(this.context, "Permission denied...", Toast.LENGTH_SHORT).show()
+            PermissionCode.CONTACT_PERMISSION.ordinal -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission granted, can pick contact
+                    pickContact()
+                } else {
+                    // Permission denied, can't pick contact, just show message
+                    Toast.makeText(this.context, "Permission denied...", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
