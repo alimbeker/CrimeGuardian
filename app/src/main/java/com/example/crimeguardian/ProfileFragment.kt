@@ -166,11 +166,11 @@ class ProfileFragment : Fragment() {
                             contactNumber =
                                 cursor2.getString(cursor2.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
 
-                            //set phone number
-                            binding.phoneNumber.text = contactNumber
-                            binding.phoneNumber1.text = contactNumber
-
                         }
+
+                        //set phone number
+                        binding.phoneNumber.text = contactNumber
+                        binding.phoneNumber1.text = contactNumber
 
                         cursor2.close()
                     }
