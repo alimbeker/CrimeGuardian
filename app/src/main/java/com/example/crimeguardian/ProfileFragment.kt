@@ -123,7 +123,7 @@ class ProfileFragment : Fragment() {
             //calls when user click a contact from contacts (intent) list
             if (requestCode == PermissionCode.CONTACT_PICK.ordinal) {
 
-                val cursor1: Cursor
+                val cursor1: Cursor?
                 val cursor2: Cursor?
 
                 //get data from intent
@@ -132,7 +132,7 @@ class ProfileFragment : Fragment() {
                     requireContext().contentResolver.query(
                         it, null, null, null, null
                     )
-                } ?: throw IllegalStateException("Uri is null")
+                } ?: throw IllegalStateException("Uri in Cursor1 is null")
 
                 if (cursor1.moveToFirst()) {
                     //get contact details
@@ -159,14 +159,14 @@ class ProfileFragment : Fragment() {
                             ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId,
                             null,
                             null
-                        )
+                        ) ?: throw IllegalStateException("Cursor2 is null")
                         //a contact may have multiple phone numbers
-                        while (cursor2!!.moveToNext()) {
-                            //get phone number
-                            contactNumber =
-                                cursor2.getString(cursor2.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                            while (cursor2.moveToNext()) {
+                                //get phone number
+                                contactNumber =
+                                    cursor2.getString(cursor2.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
 
-                        }
+                            }
 
                         //set phone number
                         binding.phoneNumber.text = contactNumber
