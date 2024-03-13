@@ -80,7 +80,6 @@ class ProfileFragment : Fragment() {
 
         if (!checkContactPermission()) {
             Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_LONG).show()
-            return
         }
 
         startActivity(intent)
