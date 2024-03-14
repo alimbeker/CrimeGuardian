@@ -1,4 +1,4 @@
-package com.example.crimeguardian.data
+package com.example.crimeguardian.api
 
 import com.google.gson.annotations.SerializedName
 
