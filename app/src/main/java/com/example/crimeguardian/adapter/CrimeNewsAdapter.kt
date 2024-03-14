@@ -7,10 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crimeguardian.R
+import com.example.crimeguardian.api.Page
 import com.example.crimeguardian.data.CrimeNews
 
 
-class CrimeNewsAdapter(private val crimeNewsList: List<CrimeNews>) :
+class CrimeNewsAdapter(private val crimeNewsList: List<Page>) :
     RecyclerView.Adapter<CrimeNewsAdapter.CrimeNewsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CrimeNewsViewHolder {
@@ -22,9 +23,8 @@ class CrimeNewsAdapter(private val crimeNewsList: List<CrimeNews>) :
     override fun onBindViewHolder(holder: CrimeNewsViewHolder, position: Int) {
         val crimeNews = crimeNewsList[position]
 
-        holder.imageViewCrime.setImageResource(crimeNews.imageResId)  // Update with appropriate method based on the type you decide for imageUrl
-        holder.textCrimeType.text = crimeNews.crimeType
-        holder.textCrimeDescription.setText(crimeNews.crimeDescriptionResId)
+        // Update with appropriate method based on the type you decide for imageUrl
+        holder.textCrimeDescription.text = crimeNews.title
     }
 
     override fun getItemCount(): Int {

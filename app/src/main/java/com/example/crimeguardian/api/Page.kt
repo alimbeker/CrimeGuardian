@@ -2,6 +2,7 @@ package com.example.crimeguardian.api
 
 import com.google.gson.annotations.SerializedName
 
+
 data class Page(
     @SerializedName("PageTitle")
     val title: String,
