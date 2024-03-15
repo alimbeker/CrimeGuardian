@@ -75,14 +75,23 @@ class ProfileFragment : Fragment() {
 
     private fun makeCall() {
         val intent = Intent(Intent.ACTION_CALL)
-
         intent.data = Uri.parse("tel:$contactNumber")
 
-        if (!checkContactPermission()) {
-            Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_LONG).show()
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.CALL_PHONE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Permission is not granted, request it
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(android.Manifest.permission.CALL_PHONE),
+                PermissionCode.REQUEST_PHONE_CALL.ordinal
+            )
+        } else {
+            // Permission already granted, make the call
+            startActivity(intent)
         }
-
-        startActivity(intent)
     }
 
 
