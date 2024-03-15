@@ -25,6 +25,8 @@ class CrimeNewsAdapter(private val crimeNewsList: List<Page>) :
 
         // Update with appropriate method based on the type you decide for imageUrl
         holder.textCrimeDescription.text = crimeNews.title
+        holder.textCrimeDescription.setText(R.string.text_crime_1)
+
     }
 
     override fun getItemCount(): Int {
@@ -32,8 +34,6 @@ class CrimeNewsAdapter(private val crimeNewsList: List<Page>) :
     }
 
     class CrimeNewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageViewCrime: ImageView = itemView.findViewById(R.id.crime_news_image)
-        val textCrimeType: TextView = itemView.findViewById(R.id.type_of_crime)
         val textCrimeDescription: TextView = itemView.findViewById(R.id.description)
     }
 }
