@@ -10,9 +10,13 @@ import com.example.crimeguardian.R
 import com.example.crimeguardian.api.Page
 
 
-class CrimeNewsAdapter(private val crimeNewsList: List<Page?>) :
+class CrimeNewsAdapter(private var crimeNewsList: List<Page?>) :
     RecyclerView.Adapter<CrimeNewsAdapter.CrimeNewsViewHolder>() {
 
+    fun updateData(newCrimeNewsList: List<Page?>) {
+        crimeNewsList = newCrimeNewsList
+        notifyDataSetChanged()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CrimeNewsViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_crime_news, parent, false)

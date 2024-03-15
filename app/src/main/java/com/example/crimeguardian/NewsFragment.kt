@@ -24,7 +24,11 @@ class NewsFragment : Fragment() {
 
         binding = FragmentNewsBinding.inflate(inflater, container, false)
         recyclerView = binding.recyclerViewCrimeNews
-        recyclerView.layoutManager = LinearLayoutManager(this.context)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        // Initialize adapter with empty list or null
+        crimeNewsAdapter = CrimeNewsAdapter(emptyList())
+        recyclerView.adapter = crimeNewsAdapter
 
         viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
 
@@ -37,8 +41,7 @@ class NewsFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.pageData.observe(viewLifecycleOwner) { pageData ->
-            crimeNewsAdapter = CrimeNewsAdapter(pageData)
-            recyclerView.adapter = crimeNewsAdapter
+            crimeNewsAdapter.updateData(pageData)
         }
     }
 }
