@@ -24,13 +24,13 @@ class NewsFragment : Fragment() {
 
         binding = FragmentNewsBinding.inflate(inflater, container, false)
         recyclerView = binding.recyclerViewCrimeNews
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.layoutManager = LinearLayoutManager(this.context)
 
         viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
 
         observeViewModel()
 
-        viewModel.fetchDataFromApi()
+        viewModel.getPageData()
 
         return binding.root
     }

@@ -9,12 +9,12 @@ class ApiClient {
 
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(Companion.baseUrl)
+            .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
-    fun getApi(): TengriNewsApi {
+    private fun getApi(): TengriNewsApi {
         return getRetrofit()
             .create(TengriNewsApi::class.java)
     }
