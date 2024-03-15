@@ -1,5 +1,6 @@
 package com.example.crimeguardian
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,22 +8,50 @@ import com.example.crimeguardian.api.Page
 import com.example.crimeguardian.module.ApiClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class NewsViewModel : ViewModel() {
+class NewsViewModel : BaseViewModel() {
     private val apiClient = ApiClient()
 
     private val _pageData = MutableLiveData<List<Page>>()
     val pageData: LiveData<List<Page>> = _pageData
 
     fun fetchDataFromApi() {
-        CoroutineScope(Dispatchers.IO).launch {
+        launch(
+            request = {
+                apiClient.getPageData()
+            },
+            onSuccess = {
+                _pageData.postValue(it)
+            }
+        )
+    }
+}
+
+abstract class BaseViewModel: ViewModel() {
+    private val coroutineScope = CoroutineScope(Dispatchers.IO + Job())
+
+    private var _loadingLiveData = MutableLiveData<Boolean>()
+    val loadingLiveData: LiveData<Boolean> = _loadingLiveData
+
+    private var _exceptionLiveData = MutableLiveData<String?>()
+    val exceptionLiveData: LiveData<String?> = _exceptionLiveData
+
+    fun <T> launch(
+        request: suspend () -> T,
+        onSuccess: (T) -> Unit = { }
+    ) {
+        coroutineScope.launch {
             try {
-                val data = apiClient.getPageData()
-                _pageData.postValue(data)
+                _loadingLiveData.postValue(true)
+                val response = request.invoke()
+                onSuccess.invoke(response)
             } catch (e: Exception) {
-                // Handle error
-                e.printStackTrace()
+                _exceptionLiveData.postValue(e.message)
+                Log.e(">>>", e.message.orEmpty())
+            } finally {
+                _loadingLiveData.postValue(false)
             }
         }
     }
