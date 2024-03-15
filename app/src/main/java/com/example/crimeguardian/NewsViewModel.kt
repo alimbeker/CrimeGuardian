@@ -8,7 +8,6 @@ import com.example.crimeguardian.module.ApiClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class NewsViewModel : ViewModel() {
     private val apiClient = ApiClient()
@@ -20,9 +19,7 @@ class NewsViewModel : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val data = apiClient.getPageData()
-                withContext(Dispatchers.Main) {
-                    _pageData.value = data
-                }
+                _pageData.postValue(data)
             } catch (e: Exception) {
                 // Handle error
                 e.printStackTrace()
