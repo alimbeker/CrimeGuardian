@@ -5,12 +5,11 @@ import com.example.crimeguardian.api.TengriNewsApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object ApiClient {
-    private const val baseUrl = "https://tengrinews.kz/"
+class ApiClient {
 
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(Companion.baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -22,6 +21,10 @@ object ApiClient {
 
     suspend fun getPageData(): List<Page> {
         return getApi().getPageData()
+    }
+
+    companion object {
+        private const val baseUrl = "https://tengrinews.kz/"
     }
 }
 
