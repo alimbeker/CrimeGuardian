@@ -21,7 +21,7 @@ object ApiClient {
     }
 
     suspend fun getPageData(): List<Page> {
-        return apiService.getPageData()
+        return getApi().getPageData()
     }
 }
 
