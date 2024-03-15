@@ -5,19 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crimeguardian.adapter.CrimeNewsAdapter
 import com.example.crimeguardian.databinding.FragmentNewsBinding
-import com.example.crimeguardian.module.ApiClient
-import kotlinx.coroutines.*
+
 
 class NewsFragment : Fragment() {
     private lateinit var binding: FragmentNewsBinding
     private lateinit var recyclerView: RecyclerView
-    private lateinit var pageAdapter: CrimeNewsAdapter
-    private val apiClient = ApiClient()
-    private var job: Job? = null
+    private lateinit var crimeNewsAdapter: CrimeNewsAdapter
+    private lateinit var viewModel: NewsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -27,28 +26,19 @@ class NewsFragment : Fragment() {
         recyclerView = binding.recyclerViewCrimeNews
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        // Fetch data from API
-        fetchDataFromApi()
+        viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
+
+        observeViewModel()
+
+        viewModel.fetchDataFromApi()
 
         return binding.root
     }
 
-    private fun fetchDataFromApi() {
-        job = CoroutineScope(Dispatchers.Main).launch {
-            try {
-                val pageData = apiClient.getPageData()
-                // Update RecyclerView with data
-                pageAdapter = CrimeNewsAdapter(pageData)
-                recyclerView.adapter = pageAdapter
-            } catch (e: Exception) {
-                // Handle error
-                e.printStackTrace()
-            }
+    private fun observeViewModel() {
+        viewModel.pageData.observe(viewLifecycleOwner) { pageData ->
+            crimeNewsAdapter = CrimeNewsAdapter(pageData)
+            recyclerView.adapter = crimeNewsAdapter
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        job?.cancel()
     }
 }
