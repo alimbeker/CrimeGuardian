@@ -5,15 +5,23 @@ import com.example.crimeguardian.api.TengriNewsApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ApiClient {
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://tengrinews.kz/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
+object ApiClient {
+    private const val baseUrl = "https://tengrinews.kz/"
 
-    private val apiService = retrofit.create(TengriNewsApi::class.java)
+    private fun getRetrofit(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    fun getApi(): TengriNewsApi {
+        return getRetrofit()
+            .create(TengriNewsApi::class.java)
+    }
 
     suspend fun getPageData(): List<Page> {
         return apiService.getPageData()
     }
 }
+
