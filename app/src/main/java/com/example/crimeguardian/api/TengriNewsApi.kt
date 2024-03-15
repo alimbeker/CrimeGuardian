@@ -6,5 +6,6 @@ import retrofit2.http.Query
 
 interface TengriNewsApi {
     @GET("services/analytics/api/get/widget/data")
-    suspend fun getPageData(): List<Page?>
+    suspend fun getPageData(): List<Page>
 }
+

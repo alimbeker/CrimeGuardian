@@ -31,3 +31,12 @@ data class Read(
     val second: Int? = null
 )
 
+
+data class TengriNewsApiError(
+    val error: TengriNewsApiErrorData? = null
+)
+
+data class TengriNewsApiErrorData(
+    val code: Int? = null,
+    val message: String? = null
+)

@@ -19,7 +19,7 @@ class ApiClient {
             .create(TengriNewsApi::class.java)
     }
 
-    suspend fun getPageData(): List<Page> {
+    suspend fun getPageData(): List<Page?> {
         return getApi().getPageData()
     }
 

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.example.crimeguardian.api.Page
 import com.example.crimeguardian.module.ApiClient
 import com.example.crimeguardian.repository.PageRepository
+import com.example.crimeguardian.repository.PageRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -14,10 +15,10 @@ import kotlinx.coroutines.launch
 
 class NewsViewModel : BaseViewModel() {
     private val api: ApiClient = ApiClient()
-    private val repository = PageRepository(api)
+    private val repository = PageRepositoryImpl(api)
 
-    private val _pageData = MutableLiveData<List<Page>>()
-    val pageData: LiveData<List<Page>> = _pageData
+    private val _pageData = MutableLiveData<List<Page?>>()
+    val pageData: LiveData<List<Page?>> = _pageData
 
     fun getPageData() {
         launch(
