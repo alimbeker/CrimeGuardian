@@ -8,42 +8,47 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crimeguardian.adapter.CrimeNewsAdapter
-import com.example.crimeguardian.data.CrimeNews
-import com.example.crimeguardian.databinding.ActivityMainBinding
-import com.example.crimeguardian.databinding.FragmentIncidentsBinding
 import com.example.crimeguardian.databinding.FragmentNewsBinding
-
+import com.example.crimeguardian.module.ApiClient
+import kotlinx.coroutines.*
 
 class NewsFragment : Fragment() {
     private lateinit var binding: FragmentNewsBinding
     private lateinit var recyclerView: RecyclerView
-    private lateinit var crimeNewsAdapter: CrimeNewsAdapter
+    private lateinit var pageAdapter: CrimeNewsAdapter
+    private val apiClient = ApiClient()
+    private var job: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
         binding = FragmentNewsBinding.inflate(inflater, container, false)
-
-        //RecyclerView
         recyclerView = binding.recyclerViewCrimeNews
-        crimeNewsAdapter =
-            CrimeNewsAdapter(getDummyCrimeNewsList())  // Replace with your actual list of CrimeNews
-        recyclerView.adapter = crimeNewsAdapter
-        recyclerView.layoutManager = LinearLayoutManager(this.context)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        // Fetch data from API
+        fetchDataFromApi()
 
         return binding.root
     }
 
-    private fun getDummyCrimeNewsList(): List<CrimeNews> {
-        // Replace this with your actual list of CrimeNews
-        return listOf(
-            CrimeNews(R.drawable.crime_1, getString(R.string.assault), R.string.text_crime_1),
-            CrimeNews(R.drawable.crime_2, getString(R.string.assault), R.string.text_crime_2),
-            CrimeNews(R.drawable.crime_3, getString(R.string.burglary), R.string.text_crime_3),
-            CrimeNews(R.drawable.crime_4, getString(R.string.theft), R.string.text_crime_4)
+    private fun fetchDataFromApi() {
+        job = CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val pageData = apiClient.getPageData()
+                // Update RecyclerView with data
+                pageAdapter = CrimeNewsAdapter(pageData)
+                recyclerView.adapter = pageAdapter
+            } catch (e: Exception) {
+                // Handle error
+                e.printStackTrace()
+            }
+        }
+    }
 
-
-        )
+    override fun onDestroy() {
+        super.onDestroy()
+        job?.cancel()
     }
 }
