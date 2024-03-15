@@ -5,29 +5,29 @@ import com.google.gson.annotations.SerializedName
 
 data class Page(
     @SerializedName("PageTitle")
-    val title: String,
+    val title: String? = null,
     @SerializedName("PageUrl")
-    val url: String,
+    val url: String? = null,
     @SerializedName("Count")
-    val count: Int,
+    val count: Int? = null,
     @SerializedName("CountPercent")
-    val countPercent: Double,
+    val countPercent: Double? = null,
     @SerializedName("Diff")
-    val diff: Int,
+    val diff: Int? = null,
     @SerializedName("DiffPercent")
-    val diffPercent: Double,
+    val diffPercent: Double? = null,
     @SerializedName("Read_end")
-    val readEnd: Int,
+    val readEnd: Int? = null,
     @SerializedName("Moved_on")
-    val movedOn: Int,
+    val movedOn: Int? = null,
     @SerializedName("Read")
-    val read: Read
+    val read: Read? = null
 )
 
 data class Read(
     @SerializedName("Minute")
-    val minute: Int,
+    val minute: Int? = null,
     @SerializedName("Second")
-    val second: Int
+    val second: Int? = null
 )
 
