@@ -8,10 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crimeguardian.R
 import com.example.crimeguardian.api.Page
-import com.example.crimeguardian.data.CrimeNews
 
 
-class CrimeNewsAdapter(private val crimeNewsList: List<Page>) :
+class CrimeNewsAdapter(private val crimeNewsList: List<Page?>) :
     RecyclerView.Adapter<CrimeNewsAdapter.CrimeNewsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CrimeNewsViewHolder {
@@ -24,9 +23,11 @@ class CrimeNewsAdapter(private val crimeNewsList: List<Page>) :
         val crimeNews = crimeNewsList[position]
 
         // Update with appropriate method based on the type you decide for imageUrl
-        holder.textCrimeDescription.text = crimeNews.title
-        holder.textCrimeType.setText(R.string.text_crime_1)
-        holder.imageViewCrime.setImageResource(R.drawable.crime_3)
+        crimeNews?.let {crimeNews ->
+            holder.textCrimeDescription.text = crimeNews.title
+            holder.textCrimeType.setText(R.string.text_crime_1)
+            holder.imageViewCrime.setImageResource(R.drawable.crime_3)
+        }
 
     }
 
