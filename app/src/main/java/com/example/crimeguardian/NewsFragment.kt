@@ -23,14 +23,15 @@ class NewsFragment : Fragment() {
     ): View? {
 
         binding = FragmentNewsBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
+
         recyclerView = binding.recyclerViewCrimeNews
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.layoutManager = LinearLayoutManager(this.context)
 
         // Initialize adapter with empty list or null
         crimeNewsAdapter = CrimeNewsAdapter(emptyList())
         recyclerView.adapter = crimeNewsAdapter
 
-        viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
 
         observeViewModel()
 

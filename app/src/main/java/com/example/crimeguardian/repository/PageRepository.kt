@@ -5,8 +5,6 @@ import com.example.crimeguardian.api.TengriNewsApi
 import com.example.crimeguardian.api.TengriNewsApiError
 import com.google.gson.Gson
 import okhttp3.ResponseBody
-import retrofit2.Response
-
 
 interface PageRepository {
     suspend fun getPageData(): List<Page?>?
