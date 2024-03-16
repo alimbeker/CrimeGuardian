@@ -4,7 +4,7 @@ import com.example.crimeguardian.api.TengriNewsApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ApiClient {
+class TengriNewsApiData {
 
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
