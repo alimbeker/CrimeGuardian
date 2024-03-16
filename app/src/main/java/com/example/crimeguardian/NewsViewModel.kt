@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class NewsViewModel : BaseViewModel() {
     private val api: ApiClient = ApiClient()
-    private val repository = PageRepositoryImpl(api)
+    private val repository: PageRepository = PageRepositoryImpl(api.getApi())
 
     private val _pageData = MutableLiveData<List<Page?>>()
     val pageData: LiveData<List<Page?>> = _pageData

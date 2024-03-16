@@ -1,20 +1,23 @@
 package com.example.crimeguardian.repository
 
 import com.example.crimeguardian.api.Page
+import com.example.crimeguardian.api.TengriNewsApi
 import com.example.crimeguardian.api.TengriNewsApiError
-import com.example.crimeguardian.module.ApiClient
 import com.google.gson.Gson
 import okhttp3.ResponseBody
+import retrofit2.Response
 
 
 interface PageRepository {
-    suspend fun getPageData(): List<Page?>
+    suspend fun getPageData(): List<Page?>?
 }
 
-class PageRepositoryImpl(private val api: ApiClient) : PageRepository {
+class PageRepositoryImpl(private val api: TengriNewsApi) : PageRepository {
 
-    override suspend fun getPageData(): List<Page?> {
-        return api.getPageData()
+    override suspend fun getPageData(): List<Page?>? {
+        val response = api.getPageData()
+        if (response.isSuccessful) return response.body()
+        else throw Exception(response.errorBody().getErrorMessage())
     }
 }
 
