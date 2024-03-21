@@ -17,8 +17,8 @@ class NewsViewModel : BaseViewModel() {
     private val api: TengriNewsApiData = TengriNewsApiData()
     private val repository: PageRepository = PageRepositoryImpl(api.getApi())
 
-    private val _pageData = MutableLiveData<List<Page?>>()
-    val pageData: LiveData<List<Page?>> = _pageData
+    private val _pageData = MutableLiveData<Page?>()
+    val pageData: LiveData<Page?> = _pageData
 
     fun getPageData() {
         launch(

@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crimeguardian.adapter.CrimeNewsAdapter
+import com.example.crimeguardian.api.Page
 import com.example.crimeguardian.databinding.FragmentNewsBinding
 
 
@@ -42,7 +43,15 @@ class NewsFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.pageData.observe(viewLifecycleOwner) { pageData ->
-            crimeNewsAdapter.updateData(pageData)
+            pageData?.let {
+                newsList.add(it)
+                crimeNewsAdapter = CrimeNewsAdapter(emptyList())
+                recyclerView.adapter = crimeNewsAdapter
+            }
         }
+    }
+
+    companion object {
+        val newsList = mutableListOf<Page>()
     }
 }

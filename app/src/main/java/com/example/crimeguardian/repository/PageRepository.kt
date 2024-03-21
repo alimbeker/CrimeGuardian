@@ -7,12 +7,12 @@ import com.google.gson.Gson
 import okhttp3.ResponseBody
 
 interface PageRepository {
-    suspend fun getPageData(): List<Page?>?
+    suspend fun getPageData(): Page?
 }
 
 class PageRepositoryImpl(private val api: TengriNewsApi) : PageRepository {
 
-    override suspend fun getPageData(): List<Page?>? {
+    override suspend fun getPageData(): Page? {
         val response = api.getPageData()
         if (response.isSuccessful) return response.body()
         else throw Exception(response.errorBody().getErrorMessage())
