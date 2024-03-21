@@ -45,8 +45,7 @@ class NewsFragment : Fragment() {
         viewModel.pageData.observe(viewLifecycleOwner) { pageData ->
             pageData?.let {
                 newsList.add(it)
-                crimeNewsAdapter = CrimeNewsAdapter(emptyList())
-                recyclerView.adapter = crimeNewsAdapter
+                crimeNewsAdapter.updateData(newsList)
             }
         }
     }

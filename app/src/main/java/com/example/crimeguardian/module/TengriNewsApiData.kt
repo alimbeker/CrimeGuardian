@@ -6,8 +6,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class TengriNewsApiData {
-
+object TengriNewsApiData {
+    private const val baseUrl = "https://tengrinews.kz/"
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
@@ -28,8 +28,5 @@ class TengriNewsApiData {
             .create(TengriNewsApi::class.java)
     }
 
-    companion object {
-        private const val baseUrl = "https://tengrinews.kz/"
-    }
 }
 

@@ -14,8 +14,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class NewsViewModel : BaseViewModel() {
-    private val api: TengriNewsApiData = TengriNewsApiData()
-    private val repository: PageRepository = PageRepositoryImpl(api.getApi())
+    private val repository: PageRepository = PageRepositoryImpl(TengriNewsApiData.getApi())
 
     private val _pageData = MutableLiveData<Page?>()
     val pageData: LiveData<Page?> = _pageData
