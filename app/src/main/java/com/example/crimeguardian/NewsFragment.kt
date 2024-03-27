@@ -40,6 +40,9 @@ class NewsFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = this@NewsFragment.adapter
             setHasFixedSize(true)
+
+            val offsetDecoration = OffsetDecoration(start = 4, top = 10, end = 2, bottom = 10)
+            binding.recyclerViewCrimeNews.addItemDecoration(offsetDecoration)
         }
     }
 
