@@ -1,25 +1,20 @@
 package com.example.crimeguardian.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ListAdapter
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.crimeguardian.R
+import com.bumptech.glide.Glide
 import com.example.crimeguardian.data.Article
-import com.example.crimeguardian.data.NewsResponse
-
+import com.example.crimeguardian.databinding.ItemCrimeNewsBinding
 
 class CrimeNewsAdapter :
     ListAdapter<Article, CrimeNewsAdapter.ArticleViewHolder>(ArticleDiffCallback()) {
-    var itemClick: ((Article) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val binding =
-            .inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemCrimeNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ArticleViewHolder(binding)
     }
 
@@ -28,20 +23,17 @@ class CrimeNewsAdapter :
         holder.bind(article)
     }
 
-    inner class ArticleViewHolder(private val binding: ListItemArticleBinding) :
+    inner class ArticleViewHolder(private val binding: ItemCrimeNewsBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(article: Article) {
             binding.apply {
-                articleTitle.text = article.title
-                articleSource.text = article.source.name
+                typeOfCrime.text = article.title
+                description.text = article.description
+
                 Glide.with(binding.root.context)
                     .load(article.urlToImage)
-                    .into(articleImage)
-            }
-
-            itemView.setOnClickListener {
-                itemClick?.invoke(article)
+                    .into(crimeNewsImage)
             }
         }
     }
@@ -56,4 +48,3 @@ class ArticleDiffCallback : DiffUtil.ItemCallback<Article>() {
         return oldItem == newItem
     }
 }
-
