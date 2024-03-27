@@ -1,60 +1,36 @@
 package com.example.crimeguardian.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.crimeguardian.data.model.NewsResponseDto
+import androidx.lifecycle.viewModelScope
+import com.example.crimeguardian.core.functional.Resource
+import com.example.crimeguardian.core.functional.onFailure
+import com.example.crimeguardian.core.functional.onSuccess
+import com.example.crimeguardian.data.repository.NewsRepository
 import com.example.crimeguardian.module.NewsApiData
-import com.example.crimeguardian.data.repository.PageRepository
-import com.example.crimeguardian.data.repository.PageRepositoryImpl
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import com.example.crimeguardian.presentation.model.model.NewsResponse
 import kotlinx.coroutines.launch
 
-class NewsViewModel : BaseViewModel() {
-    private val repository: PageRepository = PageRepositoryImpl(NewsApiData.getApi())
+class NewsViewModel : ViewModel() {
+    private val repository: NewsRepository = NewsRepository(NewsApiData.getApi())
 
-    private val _newsResponseLiveData = MutableLiveData<NewsResponseDto?>()
-    val newsResponseLiveData: LiveData<NewsResponseDto?> = _newsResponseLiveData
+    private val _newsResponseLiveData = MutableLiveData<Resource<NewsResponse?>>()
+    val newsResponseLiveData: LiveData<Resource<NewsResponse?>> = _newsResponseLiveData
 
-    fun getPageData() {
-        launch(
-            request = {
-                repository.getPageData()
-            },
-            onSuccess = {
-                _newsResponseLiveData.postValue(it)
-            }
-        )
-    }
-}
-
-abstract class BaseViewModel: ViewModel() {
-    private val coroutineScope = CoroutineScope(Dispatchers.IO + Job())
-
-    private var _loadingLiveData = MutableLiveData<Boolean>()
-    val loadingLiveData: LiveData<Boolean> = _loadingLiveData
-
-    private var _exceptionLiveData = MutableLiveData<String?>()
-    val exceptionLiveData: LiveData<String?> = _exceptionLiveData
-
-    fun <T> launch(
-        request: suspend () -> T,
-        onSuccess: (T) -> Unit = { }
-    ) {
-        coroutineScope.launch {
-            try {
-                _loadingLiveData.postValue(true)
-                val response = request.invoke()
-                onSuccess.invoke(response)
-            } catch (e: Exception) {
-                _exceptionLiveData.postValue(e.message)
-                Log.e(">>>", e.message.orEmpty())
-            } finally {
-                _loadingLiveData.postValue(false)
-            }
+    fun getAllData() {
+        _newsResponseLiveData.value = Resource.Loading
+        viewModelScope.launch {
+            repository.getAllData()
+                .onFailure { throwable ->
+                    _newsResponseLiveData.value = Resource.Error(throwable)
+                }
+                .onSuccess { weatherData ->
+                    _newsResponseLiveData.value = Resource.Success(weatherData)
+                }
         }
     }
+
 }
+
+

@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.crimeguardian.core.functional.Resource
 import com.example.crimeguardian.presentation.adapter.OffsetDecoration
 import com.example.crimeguardian.presentation.adapter.CrimeNewsAdapter
 import com.example.crimeguardian.databinding.FragmentNewsBinding
@@ -23,6 +26,12 @@ class NewsFragment : Fragment() {
     ): View? {
 
         binding = FragmentNewsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
 
 
@@ -30,9 +39,8 @@ class NewsFragment : Fragment() {
 
         observeViewModel()
 
-        viewModel.getPageData()
+        viewModel.getAllData()
 
-        return binding.root
     }
 
     private fun setupRecyclerView() {
@@ -49,10 +57,30 @@ class NewsFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.newsResponseLiveData.observe(viewLifecycleOwner) { newsResponse ->
-            newsResponse?.let {
-                adapter.submitArticles(newsResponse.articles)
+        viewModel.newsResponseLiveData.observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+                    binding.loading.isVisible = true
+                }
+
+                is Resource.Success -> {
+                    binding.loading.isVisible = false
+                    val articles = resource.data
+                    articles?.let {
+                        adapter.submitList(it.articles)
+                    }
+                }
+
+                is Resource.Error -> {
+                    binding.loading.isVisible = false
+
+                    Toast.makeText(this.context, resource.exception.toString(), Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+                else -> Unit
             }
         }
     }
+
 }
