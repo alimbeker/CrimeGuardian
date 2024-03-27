@@ -1,5 +1,6 @@
 package com.example.crimeguardian.repository
 
+import com.example.crimeguardian.api.NewsApi
 import com.example.crimeguardian.data.NewsApiError
 import com.example.crimeguardian.data.NewsResponse
 import com.example.crimeguardian.api.TengriNewsApi
@@ -7,12 +8,12 @@ import com.google.gson.Gson
 import okhttp3.ResponseBody
 
 interface PageRepository {
-    suspend fun getPageData(): List<NewsResponse>?
+    suspend fun getPageData(): NewsResponse?
 }
 
-class PageRepositoryImpl(private val api: TengriNewsApi) : PageRepository {
+class PageRepositoryImpl(private val api: NewsApi) : PageRepository {
 
-    override suspend fun getPageData(): List<NewsResponse>? {
+    override suspend fun getPageData(): NewsResponse? {
         val response = api.getAllData(search = "crime")
         if (response.isSuccessful) return response.body()
         else throw Exception(response.errorBody().getErrorMessage())

@@ -1,12 +1,12 @@
 package com.example.crimeguardian.module
 
-import com.example.crimeguardian.api.TengriNewsApi
+import com.example.crimeguardian.api.NewsApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object TengriNewsApiData {
+object NewsApiData {
     private const val baseUrl = "https://newsapi.org/v2/"
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
@@ -23,9 +23,9 @@ object TengriNewsApiData {
         .addInterceptor(loggingInterceptor)
         .build()
 
-    fun getApi(): TengriNewsApi {
+    fun getApi(): NewsApi {
         return getRetrofit()
-            .create(TengriNewsApi::class.java)
+            .create(NewsApi::class.java)
     }
 
 }

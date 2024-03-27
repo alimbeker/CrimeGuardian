@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.crimeguardian.data.NewsResponse
-import com.example.crimeguardian.module.TengriNewsApiData
+import com.example.crimeguardian.module.NewsApiData
 import com.example.crimeguardian.repository.PageRepository
 import com.example.crimeguardian.repository.PageRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
@@ -14,10 +14,10 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class NewsViewModel : BaseViewModel() {
-    private val repository: PageRepository = PageRepositoryImpl(TengriNewsApiData.getApi())
+    private val repository: PageRepository = PageRepositoryImpl(NewsApiData.getApi())
 
-    private val _pageData = MutableLiveData<List<NewsResponse>?>()
-    val pageData: LiveData<List<NewsResponse>?> = _pageData
+    private val _newsResponseLiveData = MutableLiveData<NewsResponse?>()
+    val newsResponseLiveData: LiveData<NewsResponse?> = _newsResponseLiveData
 
     fun getPageData() {
         launch(
@@ -25,7 +25,7 @@ class NewsViewModel : BaseViewModel() {
                 repository.getPageData()
             },
             onSuccess = {
-                _pageData.postValue(it)
+                _newsResponseLiveData.postValue(it)
             }
         )
     }
