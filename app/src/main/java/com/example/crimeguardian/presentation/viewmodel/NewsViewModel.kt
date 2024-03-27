@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.crimeguardian.core.functional.Resource
 import com.example.crimeguardian.core.functional.onFailure
 import com.example.crimeguardian.core.functional.onSuccess
+import com.example.crimeguardian.data.model.ArticleDto
 import com.example.crimeguardian.data.repository.NewsRepository
 import com.example.crimeguardian.module.NewsApiData
 import com.example.crimeguardian.presentation.model.model.NewsResponse
@@ -15,8 +16,8 @@ import kotlinx.coroutines.launch
 class NewsViewModel : ViewModel() {
     private val repository: NewsRepository = NewsRepository(NewsApiData.getApi())
 
-    private val _newsResponseLiveData = MutableLiveData<Resource<NewsResponse?>>()
-    val newsResponseLiveData: LiveData<Resource<NewsResponse?>> = _newsResponseLiveData
+    private val _newsResponseLiveData = MutableLiveData<Resource<List<ArticleDto>?>>()
+    val newsResponseLiveData: LiveData<Resource<List<ArticleDto>?>> = _newsResponseLiveData
 
     fun getAllData() {
         _newsResponseLiveData.value = Resource.Loading
@@ -26,7 +27,7 @@ class NewsViewModel : ViewModel() {
                     _newsResponseLiveData.value = Resource.Error(throwable)
                 }
                 .onSuccess { newsResponse ->
-                    _newsResponseLiveData.value = Resource.Success(newsResponse)
+                    _newsResponseLiveData.value = Resource.Success(newsResponse.articles)
                 }
         }
     }
