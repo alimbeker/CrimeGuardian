@@ -16,7 +16,6 @@ class NewsFragment : Fragment() {
     private lateinit var adapter: CrimeNewsAdapter
     private lateinit var viewModel: NewsViewModel
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -35,7 +34,7 @@ class NewsFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = CrimeNewsAdapter()
+        adapter = CrimeNewsAdapter(maxItems = 5)
 
         binding.recyclerViewCrimeNews.apply {
             layoutManager = LinearLayoutManager(context)
@@ -47,7 +46,7 @@ class NewsFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.newsResponseLiveData.observe(viewLifecycleOwner) { newsResponse ->
             newsResponse?.let {
-                adapter.submitList(newsResponse.articles)
+                adapter.submitArticles(newsResponse.articles)
             }
         }
     }

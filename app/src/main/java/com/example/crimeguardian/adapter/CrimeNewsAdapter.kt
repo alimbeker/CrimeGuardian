@@ -9,8 +9,18 @@ import com.bumptech.glide.Glide
 import com.example.crimeguardian.data.Article
 import com.example.crimeguardian.databinding.ItemCrimeNewsBinding
 
-class CrimeNewsAdapter :
+class CrimeNewsAdapter(private val maxItems: Int) :
     ListAdapter<Article, CrimeNewsAdapter.ArticleViewHolder>(ArticleDiffCallback()) {
+    private var articles: List<Article> = emptyList()
+
+    fun submitArticles(articles: List<Article>) {
+        this.articles = articles.take(maxItems)
+        submitList(this.articles)
+    }
+
+    override fun getItemCount(): Int {
+        return if (articles.size > maxItems) maxItems else articles.size
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val binding =
@@ -28,7 +38,7 @@ class CrimeNewsAdapter :
 
         fun bind(article: Article) {
             binding.apply {
-                typeOfCrime.text = article.title
+                typeOfCrime.text = article.title.split(" ").take(2).joinToString(" ")
                 description.text = article.description
 
                 Glide.with(binding.root.context)
