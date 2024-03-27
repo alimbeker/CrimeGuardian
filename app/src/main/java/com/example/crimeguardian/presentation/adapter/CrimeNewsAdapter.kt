@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.crimeguardian.data.model.Article
+import com.example.crimeguardian.data.model.ArticleDto
 import com.example.crimeguardian.databinding.ItemCrimeNewsBinding
 
 class CrimeNewsAdapter(private val maxItems: Int) :
-    ListAdapter<Article, CrimeNewsAdapter.ArticleViewHolder>(ArticleDiffCallback()) {
-    private var articles: List<Article> = emptyList()
+    ListAdapter<ArticleDto, CrimeNewsAdapter.ArticleViewHolder>(ArticleDiffCallback()) {
+    private var articles: List<ArticleDto> = emptyList()
 
-    fun submitArticles(articles: List<Article>) {
+    fun submitArticles(articles: List<ArticleDto>) {
         this.articles = articles.take(maxItems)
         submitList(this.articles)
     }
@@ -36,7 +36,7 @@ class CrimeNewsAdapter(private val maxItems: Int) :
     inner class ArticleViewHolder(private val binding: ItemCrimeNewsBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(article: Article) {
+        fun bind(article: ArticleDto) {
             binding.apply {
                 typeOfCrime.text = article.title.split(" ").take(2).joinToString(" ")
                 description.text = article.description
@@ -49,12 +49,12 @@ class CrimeNewsAdapter(private val maxItems: Int) :
     }
 }
 
-class ArticleDiffCallback : DiffUtil.ItemCallback<Article>() {
-    override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
+class ArticleDiffCallback : DiffUtil.ItemCallback<ArticleDto>() {
+    override fun areItemsTheSame(oldItem: ArticleDto, newItem: ArticleDto): Boolean {
         return oldItem.title == newItem.title
     }
 
-    override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
+    override fun areContentsTheSame(oldItem: ArticleDto, newItem: ArticleDto): Boolean {
         return oldItem == newItem
     }
 }

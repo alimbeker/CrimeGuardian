@@ -1,10 +1,10 @@
 package com.example.crimeguardian.data.model
 
 
-data class NewsResponse(
+data class NewsResponseDto(
     val status: String,
     val totalResults: Int,
-    val articles: List<Article>
+    val articles: List<ArticleDto>
 )
 
 

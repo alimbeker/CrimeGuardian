@@ -1,6 +1,6 @@
 package com.example.crimeguardian.data.model
 
-data class Article(
+data class ArticleDto(
     val source: Source,
     val author: String,
     val title: String,

@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.crimeguardian.data.model.NewsResponse
+import com.example.crimeguardian.data.model.NewsResponseDto
 import com.example.crimeguardian.module.NewsApiData
 import com.example.crimeguardian.repository.PageRepository
 import com.example.crimeguardian.repository.PageRepositoryImpl
@@ -16,8 +16,8 @@ import kotlinx.coroutines.launch
 class NewsViewModel : BaseViewModel() {
     private val repository: PageRepository = PageRepositoryImpl(NewsApiData.getApi())
 
-    private val _newsResponseLiveData = MutableLiveData<NewsResponse?>()
-    val newsResponseLiveData: LiveData<NewsResponse?> = _newsResponseLiveData
+    private val _newsResponseLiveData = MutableLiveData<NewsResponseDto?>()
+    val newsResponseLiveData: LiveData<NewsResponseDto?> = _newsResponseLiveData
 
     fun getPageData() {
         launch(
