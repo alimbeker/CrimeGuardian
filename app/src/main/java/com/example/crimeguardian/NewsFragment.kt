@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.crimeguardian.adapter.CrimeNewsAdapter
 import com.example.crimeguardian.databinding.FragmentNewsBinding
 
@@ -15,7 +14,6 @@ import com.example.crimeguardian.databinding.FragmentNewsBinding
 class NewsFragment : Fragment() {
     private lateinit var binding: FragmentNewsBinding
     private lateinit var adapter: CrimeNewsAdapter
-    private lateinit var crimeNewsAdapter: CrimeNewsAdapter
     private lateinit var viewModel: NewsViewModel
 
 
@@ -49,7 +47,7 @@ class NewsFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.newsResponseLiveData.observe(viewLifecycleOwner) { newsResponse ->
             newsResponse?.let {
-                crimeNewsAdapter.submitList(newsResponse.articles)
+                adapter.submitList(newsResponse.articles)
             }
         }
     }
