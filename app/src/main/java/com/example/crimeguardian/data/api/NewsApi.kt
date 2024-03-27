@@ -1,6 +1,6 @@
-package com.example.crimeguardian.api
+package com.example.crimeguardian.data.api
 
-import com.example.crimeguardian.data.NewsResponse
+import com.example.crimeguardian.data.model.NewsResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

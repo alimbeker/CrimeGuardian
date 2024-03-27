@@ -1,10 +1,10 @@
-package com.example.crimeguardian
+package com.example.crimeguardian.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.crimeguardian.data.NewsResponse
+import com.example.crimeguardian.data.model.NewsResponse
 import com.example.crimeguardian.module.NewsApiData
 import com.example.crimeguardian.repository.PageRepository
 import com.example.crimeguardian.repository.PageRepositoryImpl

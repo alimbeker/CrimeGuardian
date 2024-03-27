@@ -1,4 +1,4 @@
-package com.example.crimeguardian.adapter
+package com.example.crimeguardian.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.crimeguardian.data.Article
+import com.example.crimeguardian.data.model.Article
 import com.example.crimeguardian.databinding.ItemCrimeNewsBinding
 
 class CrimeNewsAdapter(private val maxItems: Int) :

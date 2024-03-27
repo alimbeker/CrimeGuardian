@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/issuesFragment"
-        android:name="com.example.crimeguardian.IncidentsFragment"
+        android:name="com.example.crimeguardian.presentation.IncidentsFragment"
         android:label="fragment_issues"
         tools:layout="@layout/fragment_incidents" />
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.example.crimeguardian.NewsFragment"
+        android:name="com.example.crimeguardian.presentation.NewsFragment"
         android:label="fragment_news"
         tools:layout="@layout/fragment_news" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.crimeguardian.ProfileFragment"
+        android:name="com.example.crimeguardian.presentation.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

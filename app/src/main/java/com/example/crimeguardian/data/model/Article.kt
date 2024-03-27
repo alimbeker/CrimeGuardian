@@ -1,4 +1,4 @@
-package com.example.crimeguardian.data
+package com.example.crimeguardian.data.model
 
 data class Article(
     val source: Source,

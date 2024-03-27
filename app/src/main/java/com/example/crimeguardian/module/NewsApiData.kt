@@ -1,6 +1,6 @@
 package com.example.crimeguardian.module
 
-import com.example.crimeguardian.api.NewsApi
+import com.example.crimeguardian.data.api.NewsApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

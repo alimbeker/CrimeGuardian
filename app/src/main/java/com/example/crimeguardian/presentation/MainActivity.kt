@@ -1,11 +1,11 @@
-package com.example.crimeguardian
+package com.example.crimeguardian.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.example.crimeguardian.R
 import com.example.crimeguardian.databinding.ActivityMainBinding
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {

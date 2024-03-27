@@ -1,4 +1,4 @@
-package com.example.crimeguardian
+package com.example.crimeguardian.presentation.adapter
 
 import android.content.res.Resources
 import android.graphics.Rect

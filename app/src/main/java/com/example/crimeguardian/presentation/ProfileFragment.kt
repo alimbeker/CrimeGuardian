@@ -1,4 +1,4 @@
-package com.example.crimeguardian
+package com.example.crimeguardian.presentation
 
 import android.annotation.SuppressLint
 import android.content.Intent

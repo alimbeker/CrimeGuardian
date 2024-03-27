@@ -1,8 +1,8 @@
 package com.example.crimeguardian.repository
 
-import com.example.crimeguardian.api.NewsApi
-import com.example.crimeguardian.data.NewsApiError
-import com.example.crimeguardian.data.NewsResponse
+import com.example.crimeguardian.data.api.NewsApi
+import com.example.crimeguardian.data.model.NewsApiError
+import com.example.crimeguardian.data.model.NewsResponse
 import com.google.gson.Gson
 import okhttp3.ResponseBody
 
