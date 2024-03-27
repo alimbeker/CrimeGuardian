@@ -67,7 +67,7 @@ class NewsFragment : Fragment() {
                     binding.loading.isVisible = false
                     val articles = resource.data?.articles
                     articles?.let {
-                        adapter.submitList(it)
+                        adapter.submitArticles(it)
                     }
                 }
 
