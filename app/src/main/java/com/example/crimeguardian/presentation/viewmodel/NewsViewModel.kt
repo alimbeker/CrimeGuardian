@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.crimeguardian.data.model.NewsResponseDto
 import com.example.crimeguardian.module.NewsApiData
-import com.example.crimeguardian.repository.PageRepository
-import com.example.crimeguardian.repository.PageRepositoryImpl
+import com.example.crimeguardian.data.repository.PageRepository
+import com.example.crimeguardian.data.repository.PageRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

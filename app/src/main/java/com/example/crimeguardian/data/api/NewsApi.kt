@@ -10,6 +10,6 @@ interface NewsApi {
     suspend fun getAllData(
         @Query("apiKey") key: String = "8c16b8cce1784650bcd2706ff4d568c6",
         @Query("q") search: String,
-    ): Response<NewsResponseDto>
+    ): NewsResponseDto
 }
 
