@@ -25,8 +25,8 @@ class NewsViewModel : ViewModel() {
                 .onFailure { throwable ->
                     _newsResponseLiveData.value = Resource.Error(throwable)
                 }
-                .onSuccess { weatherData ->
-                    _newsResponseLiveData.value = Resource.Success(weatherData)
+                .onSuccess { newsResponse ->
+                    _newsResponseLiveData.value = Resource.Success(newsResponse)
                 }
         }
     }

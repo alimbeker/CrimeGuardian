@@ -65,9 +65,9 @@ class NewsFragment : Fragment() {
 
                 is Resource.Success -> {
                     binding.loading.isVisible = false
-                    val articles = resource.data
+                    val articles = resource.data?.articles
                     articles?.let {
-                        adapter.submitList(it.articles)
+                        adapter.submitList(it)
                     }
                 }
 
@@ -82,5 +82,6 @@ class NewsFragment : Fragment() {
             }
         }
     }
+
 
 }
