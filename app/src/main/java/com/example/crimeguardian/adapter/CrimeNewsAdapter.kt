@@ -4,44 +4,56 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ListAdapter
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crimeguardian.R
-import com.example.crimeguardian.api.Page
+import com.example.crimeguardian.data.Article
+import com.example.crimeguardian.data.NewsResponse
 
 
-class CrimeNewsAdapter(private var crimeNewsList: List<Page?>) :
-    RecyclerView.Adapter<CrimeNewsAdapter.CrimeNewsViewHolder>() {
+class CrimeNewsAdapter :
+    ListAdapter<Article, CrimeNewsAdapter.ArticleViewHolder>(ArticleDiffCallback()) {
+    var itemClick: ((Article) -> Unit)? = null
 
-    fun updateData(newCrimeNewsList: List<Page?>) {
-        crimeNewsList = newCrimeNewsList
-        notifyDataSetChanged()
-    }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CrimeNewsViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_crime_news, parent, false)
-        return CrimeNewsViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
+        val binding =
+            .inflate(LayoutInflater.from(parent.context), parent, false)
+        return ArticleViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CrimeNewsViewHolder, position: Int) {
-        val crimeNews = crimeNewsList[position]
+    override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
+        val article = getItem(position)
+        holder.bind(article)
+    }
 
-        // Update with appropriate method based on the type you decide for imageUrl
-        crimeNews?.let {crimeNews ->
-            holder.textCrimeDescription.text = crimeNews.title
-            holder.textCrimeType.setText(R.string.text_crime_1)
-            holder.imageViewCrime.setImageResource(R.drawable.crime_3)
+    inner class ArticleViewHolder(private val binding: ListItemArticleBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(article: Article) {
+            binding.apply {
+                articleTitle.text = article.title
+                articleSource.text = article.source.name
+                Glide.with(binding.root.context)
+                    .load(article.urlToImage)
+                    .into(articleImage)
+            }
+
+            itemView.setOnClickListener {
+                itemClick?.invoke(article)
+            }
         }
-
-    }
-
-    override fun getItemCount(): Int {
-        return crimeNewsList.size
-    }
-
-    class CrimeNewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageViewCrime: ImageView = itemView.findViewById(R.id.crime_news_image)
-        val textCrimeType: TextView = itemView.findViewById(R.id.type_of_crime)
-        val textCrimeDescription: TextView = itemView.findViewById(R.id.description)
     }
 }
+
+class ArticleDiffCallback : DiffUtil.ItemCallback<Article>() {
+    override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
+        return oldItem.title == newItem.title
+    }
+
+    override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
+        return oldItem == newItem
+    }
+}
+

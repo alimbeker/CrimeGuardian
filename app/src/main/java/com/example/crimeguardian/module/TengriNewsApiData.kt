@@ -7,7 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object TengriNewsApiData {
-    private const val baseUrl = "https://tengrinews.kz/"
+    private const val baseUrl = "https://newsapi.org/v2/"
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)

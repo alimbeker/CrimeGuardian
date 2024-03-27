@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.crimeguardian.api.Page
+import com.example.crimeguardian.data.NewsResponse
 import com.example.crimeguardian.module.TengriNewsApiData
 import com.example.crimeguardian.repository.PageRepository
 import com.example.crimeguardian.repository.PageRepositoryImpl
@@ -16,8 +16,8 @@ import kotlinx.coroutines.launch
 class NewsViewModel : BaseViewModel() {
     private val repository: PageRepository = PageRepositoryImpl(TengriNewsApiData.getApi())
 
-    private val _pageData = MutableLiveData<Page?>()
-    val pageData: LiveData<Page?> = _pageData
+    private val _pageData = MutableLiveData<List<NewsResponse>?>()
+    val pageData: LiveData<List<NewsResponse>?> = _pageData
 
     fun getPageData() {
         launch(
