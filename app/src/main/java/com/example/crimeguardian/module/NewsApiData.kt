@@ -1,5 +1,6 @@
 package com.example.crimeguardian.module
 
+import com.example.crimeguardian.BuildConfig
 import com.example.crimeguardian.data.api.NewsApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -7,11 +8,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object NewsApiData {
-    private const val baseUrl = "https://newsapi.org/v2/"
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
             .client(client)
-            .baseUrl(baseUrl)
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

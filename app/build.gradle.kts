@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -7,6 +9,11 @@ android {
     namespace = "com.example.crimeguardian"
     compileSdk = 34
 
+    val apikeyPropertiesFile = rootProject.file("apikey.properties")
+    val apikeyProperties = Properties().apply {
+        load(apikeyPropertiesFile.inputStream())
+    }
+
     defaultConfig {
         applicationId = "com.example.crimeguardian"
         minSdk = 27
@@ -15,6 +22,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "NEWS_API_KEY", apikeyProperties["NEWS_API_KEY"] as String)
+
     }
 
     buildTypes {
@@ -25,7 +35,16 @@ android {
                 "proguard-rules.pro"
             )
         }
+
+        debug {
+            buildConfigField("String", "BASE_URL", "\"https://newsapi.org/v2/\"")
+        }
+
+        release {
+            buildConfigField("String", "BASE_URL", "\"https://newsapi.org/v2/\"")
+        }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -36,6 +55,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -50,15 +70,15 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.google.android.material:material:1.5.0")
     //Navigation Component
-    implementation ("androidx.navigation:navigation-fragment-ktx:2.3.5")
-    implementation ("androidx.navigation:navigation-ui-ktx:2.3.5")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
 
 
     //Google Cloud and Map
-    implementation ("com.google.android.gms:play-services-maps:18.1.0")
+    implementation("com.google.android.gms:play-services-maps:18.1.0")
 
     //API
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
