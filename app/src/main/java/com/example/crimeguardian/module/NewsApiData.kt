@@ -10,6 +10,7 @@ object NewsApiData {
     private const val baseUrl = "https://newsapi.org/v2/"
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
+            .client(client)
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
