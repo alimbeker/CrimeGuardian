@@ -4,8 +4,8 @@ import com.example.crimeguardian.data.model.ArticleDto
 import com.example.crimeguardian.presentation.model.model.Article
 
 internal fun ArticleDto.toArticle() = Article(
-    title = title,
-    description = description,
-    url = url,
-    urlToImage = urlToImage,
+    title = title ?: "",
+    description = description ?: "",
+    url = url ?: "",
+    urlToImage = urlToImage ?: "",
 )
