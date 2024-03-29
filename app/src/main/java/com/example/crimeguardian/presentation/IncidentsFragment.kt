@@ -35,13 +35,6 @@ class IncidentsFragment : Fragment(), OnMapReadyCallback {
         // Inflate the layout for this fragment
         binding = FragmentIncidentsBinding.inflate(inflater, container, false)
 
-        return binding.root
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         // Initialize the SearchView
         searchView = binding.searchView
 
@@ -54,14 +47,9 @@ class IncidentsFragment : Fragment(), OnMapReadyCallback {
         // Set up search functionality
         addSearchView()
 
-        // Set up current location button
-        val currentLocationButton = binding.currentLoc
-        currentLocationButton.setOnClickListener {
-            fetchCurrentLocation()
-        }
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
+        return binding.root
     }
 
     private fun addSearchView() {
@@ -89,6 +77,40 @@ class IncidentsFragment : Fragment(), OnMapReadyCallback {
 
         // Move the camera to Almaty
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(almatyLatLng, 12f))
+
+        // Enable the My Location layer
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Request location permissions
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                REQUEST_LOCATION_PERMISSION
+            )
+            return
+        }
+        map.isMyLocationEnabled = true
+
+        // Fetch the user's current location
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location: Location? ->
+                location?.let {
+                    val currentLatLng = LatLng(location.latitude, location.longitude)
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
+                } ?: run {
+                    Toast.makeText(
+                        requireContext(),
+                        "Failed to retrieve current location",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
     }
 
     override fun onResume() {
@@ -111,42 +133,8 @@ class IncidentsFragment : Fragment(), OnMapReadyCallback {
         mapView.onLowMemory()
     }
 
-    private fun fetchCurrentLocation() {
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // Request location permissions
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                REQUEST_LOCATION_PERMISSION
-            )
-            return
-        }
-
-        // Fetch the last known location
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location: Location? ->
-                location?.let {
-                    // Move the camera to the current location
-                    val currentLatLng = LatLng(location.latitude, location.longitude)
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
-                } ?: run {
-                    Toast.makeText(
-                        requireContext(),
-                        "Failed to retrieve current location",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-    }
-
     companion object {
         private const val REQUEST_LOCATION_PERMISSION = 1
     }
 }
+
