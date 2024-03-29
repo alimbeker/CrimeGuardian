@@ -1,13 +1,19 @@
 package com.example.crimeguardian.presentation
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import com.example.crimeguardian.databinding.FragmentIncidentsBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -15,12 +21,14 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-
 class IncidentsFragment : Fragment(), OnMapReadyCallback {
+
     private lateinit var binding: FragmentIncidentsBinding
     private lateinit var searchView: SearchView
     private lateinit var mapView: MapView
     private lateinit var map: GoogleMap
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -39,6 +47,13 @@ class IncidentsFragment : Fragment(), OnMapReadyCallback {
         // Set up search functionality
         addSearchView()
 
+        // Set up current location button
+        val currentLocationButton = binding.currentLoc
+        currentLocationButton.setOnClickListener {
+            fetchCurrentLocation()
+        }
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         return binding.root
     }
@@ -70,7 +85,6 @@ class IncidentsFragment : Fragment(), OnMapReadyCallback {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(almatyLatLng, 12f))
     }
 
-
     override fun onResume() {
         super.onResume()
         mapView.onResume()
@@ -91,4 +105,42 @@ class IncidentsFragment : Fragment(), OnMapReadyCallback {
         mapView.onLowMemory()
     }
 
+    private fun fetchCurrentLocation() {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Request location permissions
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                REQUEST_LOCATION_PERMISSION
+            )
+            return
+        }
+
+        // Fetch the last known location
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location: Location? ->
+                location?.let {
+                    // Move the camera to the current location
+                    val currentLatLng = LatLng(location.latitude, location.longitude)
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
+                } ?: run {
+                    Toast.makeText(
+                        requireContext(),
+                        "Failed to retrieve current location",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+    }
+
+    companion object {
+        private const val REQUEST_LOCATION_PERMISSION = 1
+    }
 }
