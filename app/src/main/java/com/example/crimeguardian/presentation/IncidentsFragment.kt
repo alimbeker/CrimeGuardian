@@ -35,6 +35,13 @@ class IncidentsFragment : Fragment(), OnMapReadyCallback {
         // Inflate the layout for this fragment
         binding = FragmentIncidentsBinding.inflate(inflater, container, false)
 
+        return binding.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         // Initialize the SearchView
         searchView = binding.searchView
 
@@ -55,7 +62,6 @@ class IncidentsFragment : Fragment(), OnMapReadyCallback {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
-        return binding.root
     }
 
     private fun addSearchView() {

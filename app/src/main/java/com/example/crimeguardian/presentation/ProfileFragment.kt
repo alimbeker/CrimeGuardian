@@ -36,6 +36,11 @@ class ProfileFragment : Fragment() {
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         //handle click, to pick contact
         binding.rectangleView.setOnClickListener {
             //check permission allowed or not
@@ -56,8 +61,6 @@ class ProfileFragment : Fragment() {
                 requestContactPermission(PermissionCode.REQUEST_PHONE_CALL.ordinal)
             }
         }
-
-        return binding.root
     }
 
     private fun checkContactPermission(): Boolean {
