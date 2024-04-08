@@ -15,13 +15,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.databinding.FragmentProfileBinding
 
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
 
     //view binding
-    private lateinit var binding: FragmentProfileBinding
     private lateinit var _contactNumber: String
 
     private var contactNumber: String
@@ -29,15 +29,6 @@ class ProfileFragment : Fragment() {
         set(value) {
             _contactNumber = value
         }
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentProfileBinding.inflate(inflater, container, false)
-
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

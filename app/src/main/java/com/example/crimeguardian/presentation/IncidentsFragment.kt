@@ -11,6 +11,7 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.databinding.FragmentIncidentsBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -21,21 +22,17 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class IncidentsFragment : Fragment(), OnMapReadyCallback {
+class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentIncidentsBinding::inflate), OnMapReadyCallback {
 
-    private lateinit var binding: FragmentIncidentsBinding
     private lateinit var searchView: SearchView
     private lateinit var mapView: MapView
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentIncidentsBinding.inflate(inflater, container, false)
 
-        // Initialize the SearchView
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         searchView = binding.searchView
 
         // Initialize the MapView
@@ -48,8 +45,6 @@ class IncidentsFragment : Fragment(), OnMapReadyCallback {
         addSearchView()
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-
-        return binding.root
     }
 
     private fun addSearchView() {

@@ -9,31 +9,25 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.core.functional.Resource
+import com.example.crimeguardian.databinding.FragmentIncidentsBinding
 import com.example.crimeguardian.presentation.adapter.OffsetDecoration
 import com.example.crimeguardian.presentation.adapter.CrimeNewsAdapter
 import com.example.crimeguardian.databinding.FragmentNewsBinding
 import com.example.crimeguardian.presentation.viewmodel.NewsViewModel
 
 
-class NewsFragment : Fragment() {
-    private lateinit var binding: FragmentNewsBinding
+class NewsFragment : BaseFragment<FragmentNewsBinding>(FragmentNewsBinding::inflate) {
+
     private lateinit var adapter: CrimeNewsAdapter
     private lateinit var viewModel: NewsViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-
-        binding = FragmentNewsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
 
+        viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
 
         setupRecyclerView()
 
