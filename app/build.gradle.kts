@@ -79,6 +79,7 @@ dependencies {
     //Google Cloud and Map
     implementation(libs.play.services.maps)
     implementation (libs.play.services.location)
+    implementation (libs.android.maps.utils)
     //API
     implementation(libs.converter.gson)
     implementation(libs.retrofit)
