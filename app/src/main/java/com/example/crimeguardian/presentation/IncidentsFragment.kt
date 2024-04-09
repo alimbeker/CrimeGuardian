@@ -13,19 +13,22 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.clustering.ClusterItem
 import com.google.maps.android.clustering.ClusterManager
+import com.google.maps.android.clustering.view.ClusterRenderer
 import org.json.JSONObject
 
 class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentIncidentsBinding::inflate), OnMapReadyCallback {
+
     private lateinit var searchView: SearchView
     private lateinit var mapView: MapView
     private lateinit var mMap: GoogleMap
     private lateinit var clusterManager: ClusterManager<MyItem>
+    private lateinit var clusterRenderer: ClusterRenderer<MyItem>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         // Initialize the SearchView
         searchView = binding.searchView
 
@@ -42,11 +45,13 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         mMap = googleMap
 
         // Initialize the ClusterManager
-        clusterManager = ClusterManager(this.requireContext(), mMap)
+        clusterManager = ClusterManager(requireContext(), mMap)
+        clusterRenderer = ClusterRenderer(requireContext(), mMap, clusterManager)
+        clusterManager.renderer = clusterRenderer
         mMap.setOnCameraIdleListener(clusterManager)
 
         // Read GeoJSON data from assets
-        val geoJsonString = readGeoJsonFromAssets(requireContext(),"response.geojson")
+        val geoJsonString = readGeoJsonFromAssets(requireContext(), "response.geojson")
         parseGeoJson(geoJsonString)
 
         // Zoom to a default location
@@ -70,14 +75,13 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
             val latLng = LatLng(coordinates.getDouble(1), coordinates.getDouble(0))
             val properties = feature.getJSONObject("properties")
 
-            // Add marker to the map
-            val markerOptions = MarkerOptions().position(latLng)
-            mMap.addMarker(markerOptions)
-
-            // Add marker to cluster manager
+            // Add item to the cluster manager
             val myItem = MyItem(latLng, properties.getString("crime_code"))
             clusterManager.addItem(myItem)
         }
+
+        // Update clusters
+        clusterManager.cluster()
     }
 
     private fun addSearchView() {
@@ -113,6 +117,7 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         mapView.onLowMemory()
     }
 }
+
 
 
 
