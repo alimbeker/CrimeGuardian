@@ -8,4 +8,5 @@ internal fun ArticleDto.toArticle() = Article(
     description = description ?: "",
     url = url ?: "",
     urlToImage = urlToImage ?: "",
+    sourceName = source?.name ?: "",
 )

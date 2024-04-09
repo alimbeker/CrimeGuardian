@@ -38,8 +38,8 @@ class CrimeNewsAdapter(private val maxItems: Int) :
 
         fun bind(article: Article) {
             binding.apply {
-                typeOfCrime.text = article.title.split(" ").take(2).joinToString(" ")
-                description.text = article.description
+                source.text = article.sourceName
+                description.text = article.title
 
                 Glide.with(binding.root.context)
                     .load(article.urlToImage)
