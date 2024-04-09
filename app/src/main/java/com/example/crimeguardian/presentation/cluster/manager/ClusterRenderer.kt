@@ -1,8 +1,9 @@
-package com.example.crimeguardian.presentation
+package com.example.crimeguardian.presentation.cluster.manager
 
 import android.content.Context
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.clustering.Cluster
 import com.google.maps.android.clustering.ClusterItem
@@ -22,5 +23,21 @@ class ClusterRenderer<T : ClusterItem>(
     override fun shouldRenderAsCluster(cluster: Cluster<T>): Boolean {
         // Show items as clusters only when zoomed out
         return cluster.size > 1
+    }
+}
+
+
+class MyClusterItem(private val position: LatLng, private val title: String) : ClusterItem {
+
+    override fun getPosition(): LatLng {
+        return position
+    }
+
+    override fun getTitle(): String {
+        return title
+    }
+
+    override fun getSnippet(): String? {
+        return null
     }
 }

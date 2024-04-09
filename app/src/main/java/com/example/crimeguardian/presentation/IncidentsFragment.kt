@@ -8,6 +8,7 @@ import android.widget.SearchView
 import android.widget.Toast
 import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.databinding.FragmentIncidentsBinding
+import com.example.crimeguardian.presentation.cluster.manager.MyClusterItem
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -23,8 +24,8 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
     private lateinit var searchView: SearchView
     private lateinit var mapView: MapView
     private lateinit var mMap: GoogleMap
-    private lateinit var clusterManager: ClusterManager<MyItem>
-    private lateinit var clusterRenderer: ClusterRenderer<MyItem>
+    private lateinit var clusterManager: ClusterManager<ClusterItem>
+    private lateinit var clusterRenderer: ClusterRenderer<ClusterItem>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,7 +47,11 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
 
         // Initialize the ClusterManager
         clusterManager = ClusterManager(requireContext(), mMap)
-        clusterRenderer = ClusterRenderer(requireContext(), mMap, clusterManager)
+        clusterRenderer = com.example.crimeguardian.presentation.cluster.manager.ClusterRenderer(
+            requireContext(),
+            mMap,
+            clusterManager
+        )
         clusterManager.renderer = clusterRenderer
         mMap.setOnCameraIdleListener(clusterManager)
 
@@ -55,7 +60,7 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         parseGeoJson(geoJsonString)
 
         // Zoom to a default location
-        val defaultLocation = LatLng(43.255734974, 76.84143903)
+        val defaultLocation = LatLng(43.2551, 76.9126)
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 10f))
     }
 
@@ -76,7 +81,10 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
             val properties = feature.getJSONObject("properties")
 
             // Add item to the cluster manager
-            val myItem = MyItem(latLng, properties.getString("crime_code"))
+            val myItem = MyClusterItem(
+                latLng,
+                properties.getString("crime_code")
+            )
             clusterManager.addItem(myItem)
         }
 
@@ -121,17 +129,4 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
 
 
 
-class MyItem(private val position: LatLng, private val title: String) : ClusterItem {
 
-    override fun getPosition(): LatLng {
-        return position
-    }
-
-    override fun getTitle(): String {
-        return title
-    }
-
-    override fun getSnippet(): String? {
-        return null
-    }
-}
