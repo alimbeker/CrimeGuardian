@@ -10,13 +10,11 @@ import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.databinding.FragmentIncidentsBinding
 import com.example.crimeguardian.presentation.cluster.manager.ClusterRenderer
 import com.example.crimeguardian.presentation.cluster.manager.MyClusterItem
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapView
-import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterItem
 import com.google.maps.android.clustering.ClusterManager
+import kotlinx.coroutines.*
 import org.json.JSONObject
 
 class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentIncidentsBinding::inflate), OnMapReadyCallback {
@@ -47,21 +45,21 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
 
         // Initialize the ClusterManager
         clusterManager = ClusterManager(requireContext(), mMap)
-        clusterRenderer = com.example.crimeguardian.presentation.cluster.manager.ClusterRenderer(
-            requireContext(),
-            mMap,
-            clusterManager
-        )
+        clusterRenderer = ClusterRenderer(requireContext(), mMap, clusterManager)
         clusterManager.renderer = clusterRenderer
         mMap.setOnCameraIdleListener(clusterManager)
 
-        // Read GeoJSON data from assets
-        val geoJsonString = readGeoJsonFromAssets(requireContext(), "response.geoJson")
-        parseGeoJson(geoJsonString)
+        // Launch a coroutine to read and parse GeoJSON data
+        CoroutineManager.launchCoroutine {
+            val geoJsonString = withContext(Dispatchers.IO) {
+                readGeoJsonFromAssets(requireContext(), "response.geoJson")
+            }
+            parseGeoJson(geoJsonString)
 
-        // Zoom to a default location
-        val defaultLocation = LatLng(43.2551, 76.9126)
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 10f))
+            // Zoom to a default location
+            val defaultLocation = LatLng(43.2551, 76.9126)
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 10f))
+        }
     }
 
     private fun readGeoJsonFromAssets(context: Context, fileName: String): String {
@@ -69,27 +67,29 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         return assetManager.open(fileName).bufferedReader().use { it.readText() }
     }
 
-    private fun parseGeoJson(geoJsonString: String) {
-        val featureCollection = JSONObject(geoJsonString)
-        val features = featureCollection.getJSONArray("features")
+    private suspend fun parseGeoJson(geoJsonString: String) {
+        withContext(Dispatchers.Default) {
+            val featureCollection = JSONObject(geoJsonString)
+            val features = featureCollection.getJSONArray("features")
 
-        for (i in 0 until features.length()) {
-            val feature = features.getJSONObject(i)
-            val geometry = feature.getJSONObject("geometry")
-            val coordinates = geometry.getJSONArray("coordinates")
-            val latLng = LatLng(coordinates.getDouble(1), coordinates.getDouble(0))
-            val properties = feature.getJSONObject("properties")
+            for (i in 0 until features.length()) {
+                val feature = features.getJSONObject(i)
+                val geometry = feature.getJSONObject("geometry")
+                val coordinates = geometry.getJSONArray("coordinates")
+                val latLng = LatLng(coordinates.getDouble(1), coordinates.getDouble(0))
+                val properties = feature.getJSONObject("properties")
 
-            // Add item to the cluster manager
-            val myItem = MyClusterItem(
-                latLng,
-                properties.getString("crime_code")
-            )
-            clusterManager.addItem(myItem)
+                // Add item to the cluster manager
+                val myItem = MyClusterItem(
+                    latLng,
+                    properties.getString("crime_code")
+                )
+                clusterManager.addItem(myItem)
+            }
+
+            // Update clusters
+            clusterManager.cluster()
         }
-
-        // Update clusters
-        clusterManager.cluster()
     }
 
     private fun addSearchView() {
@@ -118,6 +118,7 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
     override fun onDestroy() {
         super.onDestroy()
         mapView.onDestroy()
+        CoroutineManager.cancelCoroutines()
     }
 
     override fun onLowMemory() {
@@ -125,8 +126,3 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         mapView.onLowMemory()
     }
 }
-
-
-
-
-
