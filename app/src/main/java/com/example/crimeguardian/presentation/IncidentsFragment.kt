@@ -8,6 +8,7 @@ import android.widget.SearchView
 import android.widget.Toast
 import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.databinding.FragmentIncidentsBinding
+import com.example.crimeguardian.presentation.cluster.manager.ClusterRenderer
 import com.example.crimeguardian.presentation.cluster.manager.MyClusterItem
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -16,7 +17,6 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterItem
 import com.google.maps.android.clustering.ClusterManager
-import com.google.maps.android.clustering.view.ClusterRenderer
 import org.json.JSONObject
 
 class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentIncidentsBinding::inflate), OnMapReadyCallback {
@@ -56,7 +56,7 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         mMap.setOnCameraIdleListener(clusterManager)
 
         // Read GeoJSON data from assets
-        val geoJsonString = readGeoJsonFromAssets(requireContext(), "response.geojson")
+        val geoJsonString = readGeoJsonFromAssets(requireContext(), "response.geoJson")
         parseGeoJson(geoJsonString)
 
         // Zoom to a default location
