@@ -64,13 +64,14 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 10f))
     }
 
-    private fun readGeoJsonFromAssets(context: Context, fileName: String): String {
-        val assetManager: AssetManager = context.assets
-        return assetManager.open(fileName).bufferedReader().use { it.readText() }
+    private suspend fun readGeoJsonFromAssets(context: Context, fileName: String): String {
+        return withContext(Dispatchers.IO) {
+            context.assets.open(fileName).bufferedReader().use { it.readText() }
+        }
     }
 
     private suspend fun parseGeoJson(geoJsonString: String) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.Main) {
             val featureCollection = JSONObject(geoJsonString)
             val features = featureCollection.getJSONArray("features")
 
