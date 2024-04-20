@@ -17,6 +17,7 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterItem
 import com.google.maps.android.clustering.ClusterManager
+import com.google.maps.android.clustering.algo.NonHierarchicalViewBasedAlgorithm
 import kotlinx.coroutines.*
 import org.json.JSONObject
 
@@ -68,6 +69,12 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         clusterRenderer = ClusterRenderer(requireContext(), mMap, clusterManager)
         clusterManager.renderer = clusterRenderer
         mMap.setOnCameraIdleListener(clusterManager)
+
+        //Use NonHierarchicalViewBasedAlgorithm
+        val displayMetrics = requireContext().resources.displayMetrics
+        val screenWidth = displayMetrics.widthPixels
+        val screenHeight = displayMetrics.heightPixels
+        clusterManager.algorithm = NonHierarchicalViewBasedAlgorithm(screenWidth, screenHeight)
 
         // Zoom to a default location
         val defaultLocation = LatLng(43.2551, 76.9126)
