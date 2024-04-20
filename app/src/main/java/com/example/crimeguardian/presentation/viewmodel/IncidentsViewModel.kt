@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.crimeguardian.presentation.cluster.manager.MyClusterItem
 import com.google.android.gms.maps.model.LatLng
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -41,24 +42,65 @@ class IncidentsViewModel : ViewModel() {
     private suspend fun parseGeoJson(geoJsonString: String): List<MyClusterItem> {
         return withContext(Dispatchers.IO) {
             val items = mutableListOf<MyClusterItem>()
-            val featureCollection = JSONObject(geoJsonString)
-            val features = featureCollection.getJSONArray("features")
+            val geoJsonData = Gson().fromJson(geoJsonString, GeoJsonData::class.java)
 
-            for (i in 0 until features.length()) {
-                val feature = features.getJSONObject(i)
-                val geometry = feature.getJSONObject("geometry")
-                val coordinates = geometry.getJSONArray("coordinates")
-                val latLng = LatLng(coordinates.getDouble(1), coordinates.getDouble(0))
-                val properties = feature.getJSONObject("properties")
+            geoJsonData.features.forEach { feature ->
+                val geometry = feature.geometry
+                val coordinates = geometry.coordinates
+                val latLng = LatLng(coordinates[1], coordinates[0])
+                val properties = feature.properties
 
-                val myItem = MyClusterItem(
-                    latLng,
-                    properties.getString("crime_code")
-                )
-
-                items.add(myItem)
+                val crimeCode = properties.crime_code
+                if (crimeCode != null) {
+                    val myItem = MyClusterItem(
+                        latLng,
+                        crimeCode
+                    )
+                    items.add(myItem)
+                } else {
+                    // Handle null crimeCode, if needed
+                }
             }
             items
         }
     }
 }
+
+data class GeoJsonData(
+    val type: String,
+    val features: List<Feature>
+)
+
+data class Feature(
+    val type: String,
+    val geometry: Geometry,
+    val properties: Properties
+)
+
+data class Geometry(
+    val type: String,
+    val coordinates: List<Double>
+)
+
+data class Properties(
+    val dat_sover: String?,
+    val street: String?,
+    val stat: String?,
+    val time_period: String?,
+    val organ: String?,
+    val crime_code: String?,
+    val hard_code: String?,
+    val month: String?,
+    val year: String?,
+    val city_code: String?,
+    val ud: String?,
+    val longitude: String?,
+    val latitude: String?,
+    val objectid: String?,
+    val home_number: String?,
+    val reg_code: String?
+)
+
+
+
+
