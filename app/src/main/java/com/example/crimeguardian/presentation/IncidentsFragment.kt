@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.databinding.FragmentIncidentsBinding
 import com.example.crimeguardian.presentation.cluster.manager.ClusterRenderer
@@ -50,16 +51,16 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         mMap.setOnCameraIdleListener(clusterManager)
 
         // Launch a coroutine to read and parse GeoJSON data
-        CoroutineManager.launchCoroutine {
+        viewLifecycleOwner.lifecycleScope.launch {
             val geoJsonString = withContext(Dispatchers.IO) {
                 readGeoJsonFromAssets(requireContext(), "response.geoJson")
             }
             parseGeoJson(geoJsonString)
-
-            // Zoom to a default location
-            val defaultLocation = LatLng(43.2551, 76.9126)
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 10f))
         }
+
+        // Zoom to a default location
+        val defaultLocation = LatLng(43.2551, 76.9126)
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 10f))
     }
 
     private fun readGeoJsonFromAssets(context: Context, fileName: String): String {
