@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.databinding.FragmentIncidentsBinding
 import com.example.crimeguardian.presentation.cluster.manager.ClusterRenderer
 import com.example.crimeguardian.presentation.cluster.manager.MyClusterItem
+import com.example.crimeguardian.presentation.viewmodel.IncidentsViewModel
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterItem
@@ -24,8 +26,9 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
     private lateinit var searchView: SearchView
     private lateinit var mapView: MapView
     private lateinit var mMap: GoogleMap
-    private lateinit var clusterManager: ClusterManager<ClusterItem>
-    private lateinit var clusterRenderer: ClusterRenderer<ClusterItem>
+    private lateinit var clusterManager: ClusterManager<MyClusterItem>
+    private lateinit var clusterRenderer: ClusterRenderer<MyClusterItem>
+    private lateinit var viewModel: IncidentsViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,8 +41,23 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
+        // Initialize ViewModel
+        viewModel = ViewModelProvider(this).get(IncidentsViewModel::class.java)
+
         // Set up search functionality
         addSearchView()
+
+        // Observe ViewModel LiveData
+        viewModel.geoJsonData.observe(viewLifecycleOwner) { items ->
+            // Update map with loaded and parsed data
+            items?.let {
+                clusterManager.addItems(it)
+                clusterManager.cluster()
+            }
+        }
+
+        // Load and parse GeoJSON data
+        viewModel.loadAndParseGeoJson(requireContext(), "response.geoJson")
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -51,48 +69,9 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         clusterManager.renderer = clusterRenderer
         mMap.setOnCameraIdleListener(clusterManager)
 
-        // Launch a coroutine to read and parse GeoJSON data
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
-            val geoJsonString = withContext(Dispatchers.IO) {
-                readGeoJsonFromAssets(requireContext(), "response.geoJson")
-            }
-            parseGeoJson(geoJsonString)
-        }
-
         // Zoom to a default location
         val defaultLocation = LatLng(43.2551, 76.9126)
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 10f))
-    }
-
-    private suspend fun readGeoJsonFromAssets(context: Context, fileName: String): String {
-        return withContext(Dispatchers.IO) {
-            context.assets.open(fileName).bufferedReader().use { it.readText() }
-        }
-    }
-
-    private suspend fun parseGeoJson(geoJsonString: String) {
-        withContext(Dispatchers.Main) {
-            val featureCollection = JSONObject(geoJsonString)
-            val features = featureCollection.getJSONArray("features")
-
-            for (i in 0 until features.length()) {
-                val feature = features.getJSONObject(i)
-                val geometry = feature.getJSONObject("geometry")
-                val coordinates = geometry.getJSONArray("coordinates")
-                val latLng = LatLng(coordinates.getDouble(1), coordinates.getDouble(0))
-                val properties = feature.getJSONObject("properties")
-
-                // Add item to the cluster manager
-                val myItem = MyClusterItem(
-                    latLng,
-                    properties.getString("crime_code")
-                )
-                clusterManager.addItem(myItem)
-            }
-
-            // Update clusters
-            clusterManager.cluster()
-        }
     }
 
     private fun addSearchView() {
@@ -121,7 +100,6 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
     override fun onDestroy() {
         super.onDestroy()
         mapView.onDestroy()
-        CoroutineManager.cancelCoroutines()
     }
 
     override fun onLowMemory() {
@@ -129,3 +107,4 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         mapView.onLowMemory()
     }
 }
+
