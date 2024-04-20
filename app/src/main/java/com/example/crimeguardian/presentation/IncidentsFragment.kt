@@ -18,7 +18,8 @@ import com.google.maps.android.clustering.ClusterManager
 import kotlinx.coroutines.*
 import org.json.JSONObject
 
-class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentIncidentsBinding::inflate), OnMapReadyCallback {
+class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentIncidentsBinding::inflate),
+    OnMapReadyCallback {
 
     private lateinit var searchView: SearchView
     private lateinit var mapView: MapView
@@ -51,7 +52,7 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         mMap.setOnCameraIdleListener(clusterManager)
 
         // Launch a coroutine to read and parse GeoJSON data
-        viewLifecycleOwner.lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
             val geoJsonString = withContext(Dispatchers.IO) {
                 readGeoJsonFromAssets(requireContext(), "response.geoJson")
             }
