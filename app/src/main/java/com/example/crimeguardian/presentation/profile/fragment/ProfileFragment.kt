@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.View
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.databinding.FragmentProfileBinding
 import com.example.crimeguardian.presentation.model.model.ContactDetails
@@ -71,20 +70,16 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                 )
             }
         } else {
-            Toast.makeText(context, "Problem with call", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Number is not initialized", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun updateUI(contactDetails: ContactDetails) {
-        val shortName = getShortenedName(contactDetails.contactName)
+        val shortName = ContactNameFormatter.getShortenedName(contactDetails.contactName)
         binding.contactName.text = contactDetails.contactName
         binding.shortName.text = shortName
         binding.phoneNumber.text = contactDetails.contactNumber
         binding.phoneNumber1.text = contactDetails.contactNumber
     }
 
-    private fun getShortenedName(contactName: String): String {
-        return contactName.replace(Regex("[^\\p{L} ]"), "").split(" ")
-            .filter { it.isNotEmpty() }.joinToString("") { it[0].uppercase() }
-    }
 }
