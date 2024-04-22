@@ -1,13 +1,10 @@
 package com.example.crimeguardian.presentation
 
-import android.content.Context
-import android.content.res.AssetManager
 import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.databinding.FragmentIncidentsBinding
 import com.example.crimeguardian.presentation.cluster.manager.ClusterRenderer
@@ -15,11 +12,9 @@ import com.example.crimeguardian.presentation.cluster.manager.MyClusterItem
 import com.example.crimeguardian.presentation.viewmodel.IncidentsViewModel
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
-import com.google.maps.android.clustering.ClusterItem
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.algo.NonHierarchicalViewBasedAlgorithm
-import kotlinx.coroutines.*
-import org.json.JSONObject
+
 
 class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentIncidentsBinding::inflate),
     OnMapReadyCallback {
@@ -43,7 +38,7 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         mapView.getMapAsync(this)
 
         // Initialize ViewModel
-        viewModel = ViewModelProvider(this).get(IncidentsViewModel::class.java)
+        viewModel = ViewModelProvider(this)[IncidentsViewModel::class.java]
 
         // Set up search functionality
         addSearchView()
