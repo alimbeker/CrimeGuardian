@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.databinding.FragmentProfileBinding
+import com.example.crimeguardian.presentation.model.model.ContactDetails
 
 
 @Suppress("DEPRECATION")
@@ -192,6 +193,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         binding.contactName.text = contactDetails.contactName
         binding.shortName.text = shortName
         binding.phoneNumber.text = contactDetails.contactNumber
+        _contactNumber = contactDetails.contactNumber.toString()
         binding.phoneNumber1.text = contactDetails.contactNumber
     }
 
@@ -200,11 +202,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             .filter { it.isNotEmpty() }.joinToString("") { it[0].uppercase() }
     }
 
-    data class ContactDetails(
-        val contactId: String,
-        val contactName: String,
-        val contactNumber: String?
-    )
 
 
 }

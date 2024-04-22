@@ -13,7 +13,7 @@ class NewsRepository(private val api: NewsApi) : BaseRepository() {
 
     suspend fun getAllData(): State<Throwable, NewsResponse> = apiCall {
         withContext(Dispatchers.IO) {
-            api.getAllData(search = "crime").toNewsResponse()
+            api.getAllData(search = "assault").toNewsResponse()
         }
     }
 }
