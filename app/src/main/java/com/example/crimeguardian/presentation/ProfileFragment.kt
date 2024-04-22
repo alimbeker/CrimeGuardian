@@ -16,6 +16,7 @@ import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.databinding.FragmentProfileBinding
 
 
+@Suppress("DEPRECATION")
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
 
     //view binding
@@ -92,28 +93,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         startActivityForResult(intent, PermissionCode.CONTACT_PICK.ordinal)
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        when (requestCode) {
-            PermissionCode.REQUEST_PHONE_CALL.ordinal -> {
-                makeCall()
-            }
-
-            PermissionCode.CONTACT_PERMISSION.ordinal -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Permission granted, can pick contact
-                    pickContact()
-                } else {
-                    // Permission denied, can't pick contact, just show message
-                    Toast.makeText(this.context, "Permission denied...", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
-
+    @Deprecated("Deprecated in Java")
     @SuppressLint("Range")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
