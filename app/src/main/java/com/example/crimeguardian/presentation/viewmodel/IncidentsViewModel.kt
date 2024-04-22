@@ -40,28 +40,47 @@ class IncidentsViewModel : ViewModel() {
 
     private suspend fun parseGeoJson(geoJsonString: String): List<MyClusterItem> {
         return withContext(Dispatchers.IO) {
-            val items = mutableListOf<MyClusterItem>()
-            val geoJsonData = Gson().fromJson(geoJsonString, GeoJsonData::class.java)
+            // Step 1: Input Parsing
+            val geoJsonData = parseGeoJsonData(geoJsonString)
 
-            geoJsonData.features.forEach { feature ->
-                val geometry = feature.geometry
-                val coordinates = geometry.coordinates
-                val latLng = LatLng(coordinates[1], coordinates[0])
-                val properties = feature.properties
+            // Step 2: Data Processing
+            val items = processGeoJsonData(geoJsonData)
 
-                val crimeCode = properties.crime_code
-                if (crimeCode != null) {
-                    val myItem = MyClusterItem(
-                        latLng,
-                        crimeCode
-                    )
-                    items.add(myItem)
-                } else {
-                    // Handle null crimeCode, if needed
-                }
-            }
-            items
+            // Step 3: Item Creation
+            val clusterItems = createClusterItems(items)
+
+            clusterItems
         }
     }
+
+    private fun parseGeoJsonData(geoJsonString: String): GeoJsonData {
+        return Gson().fromJson(geoJsonString, GeoJsonData::class.java)
+    }
+
+    private fun processGeoJsonData(geoJsonData: GeoJsonData): List<Pair<LatLng, String>> {
+        val items = mutableListOf<Pair<LatLng, String>>()
+
+        geoJsonData.features.forEach { feature ->
+            val geometry = feature.geometry
+            val coordinates = geometry.coordinates
+            val latLng = LatLng(coordinates[1], coordinates[0])
+            val properties = feature.properties
+
+            val crimeCode = properties.crime_code
+
+            if (crimeCode != null) {
+                items.add(Pair(latLng, crimeCode))
+            }
+        }
+
+        return items
+    }
+
+    private fun createClusterItems(items: List<Pair<LatLng, String>>): List<MyClusterItem> {
+        return items.map { (latLng, crimeCode) ->
+            MyClusterItem(latLng, crimeCode)
+        }
+    }
+
 }
 
