@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.example.crimeguardian.R
 import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.databinding.FragmentIncidentsBinding
 import com.example.crimeguardian.presentation.cluster.manager.ClusterRenderer
@@ -53,7 +54,7 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         }
 
         // Load and parse GeoJSON data
-        viewModel.loadAndParseGeoJson(requireContext(), "response.geoJson")
+        viewModel.loadAndParseGeoJson(requireContext(), getString(R.string.response_geojson))
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
