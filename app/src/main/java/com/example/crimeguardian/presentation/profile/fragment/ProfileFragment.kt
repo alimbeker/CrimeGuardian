@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.databinding.FragmentProfileBinding
 import com.example.crimeguardian.presentation.model.model.ContactDetails
@@ -21,7 +22,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         super.onViewCreated(view, savedInstanceState)
 
         binding.rectangleView.setOnClickListener {
-            contactManager.handleContactSelection(this)
+            pickContact()
         }
 
         binding.extraCall.setOnClickListener {
@@ -44,9 +45,16 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show()
     }
 
-    fun pickContact() {
-        val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
-        startActivityForResult(intent, PermissionCode.CONTACT_PICK.ordinal)
+    private fun pickContact() {
+        if (PermissionManager.checkContactPermission(requireContext())) {
+            val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
+            startActivityForResult(intent, PermissionCode.CONTACT_PICK.ordinal)
+        } else {
+            PermissionManager.requestContactPermission(
+                this,
+                PermissionCode.CONTACT_PERMISSION.ordinal
+            )
+        }
     }
 
     private fun makeCall() {
@@ -63,7 +71,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                 )
             }
         } else {
-            // Handle case when contact number is not initialized
+            Toast.makeText(context, "Problem with call", Toast.LENGTH_SHORT).show()
         }
     }
 

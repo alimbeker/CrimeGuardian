@@ -13,16 +13,6 @@ interface ContactSelectionListener {
 
 class ContactManager(private val listener: ContactSelectionListener) {
 
-    fun handleContactSelection(fragment: Fragment) {
-        if (PermissionManager.checkContactPermission(fragment.requireContext())) {
-            fragment
-        } else {
-            PermissionManager.requestContactPermission(
-                fragment,
-                PermissionCode.CONTACT_PERMISSION.ordinal
-            )
-        }
-    }
 
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == AppCompatActivity.RESULT_OK) {
