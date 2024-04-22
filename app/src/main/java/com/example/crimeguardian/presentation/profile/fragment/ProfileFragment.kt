@@ -11,19 +11,21 @@ import com.example.crimeguardian.databinding.FragmentProfileBinding
 import com.example.crimeguardian.presentation.model.model.ContactDetails
 
 
-class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
+class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate),
+    ContactSelectionListener {
 
     private val contactManager = ContactManager(this)
+    private lateinit var contactNumber: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.rectangleView.setOnClickListener {
-            contactManager.handleContactSelection()
+            contactManager.handleContactSelection(this)
         }
 
         binding.extraCall.setOnClickListener {
-            contactManager.makeCall()
+            makeCall()
         }
     }
 
@@ -32,30 +34,40 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         contactManager.onActivityResult(requestCode, resultCode, data)
     }
 
+    override fun onContactSelected(uri: Uri) {
+        val contactDetails = ContactDetailsManager.getContactDetails(requireContext(), uri)
+        updateUI(contactDetails)
+        contactNumber = contactDetails.contactNumber.toString()
+    }
+
+    override fun onContactSelectionCancelled() {
+        Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show()
+    }
+
     fun pickContact() {
         val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
         startActivityForResult(intent, PermissionCode.CONTACT_PICK.ordinal)
     }
 
-    fun makeCall(contactNumber: String) {
-        val intent = Intent(Intent.ACTION_CALL)
-        intent.data = Uri.parse("tel:$contactNumber")
+    private fun makeCall() {
+        if (::contactNumber.isInitialized) {
+            val intent = Intent(Intent.ACTION_CALL)
+            intent.data = Uri.parse("tel:$contactNumber")
 
-        if (PermissionManager.checkPhoneCallPermission(requireContext())) {
-            startActivity(intent)
+            if (PermissionManager.checkPhoneCallPermission(requireContext())) {
+                startActivity(intent)
+            } else {
+                PermissionManager.requestPhoneCallPermission(
+                    this,
+                    PermissionCode.REQUEST_PHONE_CALL.ordinal
+                )
+            }
         } else {
-            PermissionManager.requestPhoneCallPermission(
-                this,
-                PermissionCode.REQUEST_PHONE_CALL.ordinal
-            )
+            // Handle case when contact number is not initialized
         }
     }
 
-    fun handleContactPickCancelled() {
-        Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show()
-    }
-
-    fun updateUI(contactDetails: ContactDetails) {
+    private fun updateUI(contactDetails: ContactDetails) {
         val shortName = getShortenedName(contactDetails.contactName)
         binding.contactName.text = contactDetails.contactName
         binding.shortName.text = shortName
