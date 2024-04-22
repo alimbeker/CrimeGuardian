@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_news" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.crimeguardian.presentation.ProfileFragment"
+        android:name="com.example.crimeguardian.presentation.profile.fragment.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>
