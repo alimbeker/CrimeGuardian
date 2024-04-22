@@ -93,76 +93,120 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         startActivityForResult(intent, PermissionCode.CONTACT_PICK.ordinal)
     }
 
-    @Deprecated("Deprecated in Java")
     @SuppressLint("Range")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        //handle intent results || calls when user from Intent (Contact Pick) picks or cancels pick contact
         if (resultCode == AppCompatActivity.RESULT_OK) {
-            //calls when user click a contact from contacts (intent) list
             if (requestCode == PermissionCode.CONTACT_PICK.ordinal) {
-
-                val cursor1: Cursor?
-                val cursor2: Cursor?
-
-                //get data from intent
-                val uri = data?.data
-                cursor1 = uri?.let {
-                    requireContext().contentResolver.query(
-                        it, null, null, null, null
-                    )
-                } ?: throw IllegalStateException("Uri in Cursor1 is null")
-
-                if (cursor1.moveToFirst()) {
-                    //get contact details
-                    val contactId =
-                        cursor1.getString(cursor1.getColumnIndex(ContactsContract.Contacts._ID))
-                    val contactName =
-                        cursor1.getString(cursor1.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                    val idResults =
-                        cursor1.getString(cursor1.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
-                    val idResultHold = idResults.toInt()
-                    //set details: contact id, contact name, image
-                    val shortName = contactName.replace(Regex("[^\\p{L} ]"), "").split(" ")
-                        .filter { it.isNotEmpty() }.joinToString("") { it[0].uppercase() }
-
-                    binding.contactName.text = contactName
-                    binding.shortName.text = shortName
-
-
-                    //check if contact has a phone number or not
-                    if (idResultHold == 1) {
-                        cursor2 = requireContext().contentResolver.query(
-                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                            null,
-                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId,
-                            null,
-                            null
-                        ) ?: throw IllegalStateException("Cursor2 is null")
-                        //a contact may have multiple phone numbers
-                            while (cursor2.moveToNext()) {
-                                //get phone number
-                                contactNumber =
-                                    cursor2.getString(cursor2.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-
-                            }
-
-                        //set phone number
-                        binding.phoneNumber.text = contactNumber
-                        binding.phoneNumber1.text = contactNumber
-
-                        cursor2.close()
-                    }
-                    cursor1.close()
+                data?.data?.let { uri ->
+                    handleContactPick(uri)
+                } ?: run {
+                    throw IllegalStateException("Uri in Cursor1 is null")
                 }
             }
-
         } else {
-            //cancelled picking contact
-            Toast.makeText(this.context, "Cancelled", Toast.LENGTH_SHORT).show()
+            handleContactPickCancelled()
         }
     }
+
+    private fun handleContactPick(uri: Uri) {
+        val contactDetails = getContactDetails(uri)
+        updateUI(contactDetails)
+    }
+
+    private fun handleContactPickCancelled() {
+        Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun getContactDetails(uri: Uri): ContactDetails {
+        val contactId = getContactId(uri)
+        val contactName = getContactName(contactId)
+        val contactNumber = getContactPhoneNumber(contactId)
+
+        return ContactDetails(contactId, contactName, contactNumber)
+    }
+
+    private fun getContactId(uri: Uri): String {
+        val cursor = requireContext().contentResolver.query(
+            uri,
+            null,
+            null,
+            null,
+            null
+        )
+        cursor?.use { cursor ->
+            if (cursor.moveToFirst()) {
+                val contactIdIndex = cursor.getColumnIndex(ContactsContract.Contacts._ID)
+                if (contactIdIndex != -1) {
+                    return cursor.getString(contactIdIndex)
+                }
+            }
+        }
+        throw IllegalStateException("Failed to retrieve contact ID")
+    }
+
+
+    private fun getContactName(contactId: String): String {
+        val projection = arrayOf(ContactsContract.Contacts.DISPLAY_NAME)
+        val cursor = requireContext().contentResolver.query(
+            ContactsContract.Contacts.CONTENT_URI,
+            projection,
+            "${ContactsContract.Contacts._ID} = ?",
+            arrayOf(contactId),
+            null
+        )
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val nameIndex = it.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
+                if (nameIndex != -1) {
+                    return it.getString(nameIndex)
+                }
+            }
+        }
+        throw IllegalStateException("Failed to retrieve contact name")
+    }
+
+    private fun getContactPhoneNumber(contactId: String): String? {
+        val cursor = requireContext().contentResolver.query(
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            null,
+            "${ContactsContract.CommonDataKinds.Phone.CONTACT_ID} = ?",
+            arrayOf(contactId),
+            null
+        )
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val phoneNumberIndex = it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+                if (phoneNumberIndex != -1) {
+                    return it.getString(phoneNumberIndex)
+                }
+            }
+        }
+        return null
+    }
+
+
+    private fun updateUI(contactDetails: ContactDetails) {
+        val shortName = getShortenedName(contactDetails.contactName)
+        binding.contactName.text = contactDetails.contactName
+        binding.shortName.text = shortName
+        binding.phoneNumber.text = contactDetails.contactNumber
+        binding.phoneNumber1.text = contactDetails.contactNumber
+    }
+
+    private fun getShortenedName(contactName: String): String {
+        return contactName.replace(Regex("[^\\p{L} ]"), "").split(" ")
+            .filter { it.isNotEmpty() }.joinToString("") { it[0].uppercase() }
+    }
+
+    data class ContactDetails(
+        val contactId: String,
+        val contactName: String,
+        val contactNumber: String?
+    )
+
+
 }
 
 enum class PermissionCode {
