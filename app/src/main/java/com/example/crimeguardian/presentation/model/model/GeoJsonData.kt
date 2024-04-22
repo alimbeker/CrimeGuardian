@@ -1,4 +1,4 @@
-package com.example.crimeguardian.presentation.cluster.manager
+package com.example.crimeguardian.presentation.model.model
 
 data class GeoJsonData(
     val type: String,
