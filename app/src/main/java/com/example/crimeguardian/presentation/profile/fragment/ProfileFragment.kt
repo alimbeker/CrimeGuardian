@@ -35,7 +35,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     }
 
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         contactManager.onActivityResult(requestCode, resultCode, data)
@@ -52,7 +51,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     }
 
     private fun pickContact() {
-        if (PermissionManager.checkPermission(requireContext(), Manifest.permission.READ_CONTACTS)) {
+        if (PermissionManager.checkPermission(
+                requireContext(),
+                Manifest.permission.READ_CONTACTS
+            )
+        ) {
             val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
             startActivityForResult(intent, PermissionCode.CONTACT_PICK.ordinal)
         } else {
@@ -69,7 +72,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             val intent = Intent(Intent.ACTION_CALL)
             intent.data = Uri.parse("tel:$contactNumber")
 
-            if (PermissionManager.checkPermission(requireContext(), Manifest.permission.CALL_PHONE)) {
+            if (PermissionManager.checkPermission(
+                    requireContext(),
+                    Manifest.permission.CALL_PHONE
+                )
+            ) {
                 startActivity(intent)
             } else {
                 PermissionManager.requestPermission(
