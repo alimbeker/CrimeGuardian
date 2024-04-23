@@ -52,12 +52,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     }
 
     private fun pickContact() {
-        if (PermissionManager.checkPermission(requireContext(), Manifest.permission.CO)) {
+        if (PermissionManager.checkPermission(requireContext(), Manifest.permission.READ_CONTACTS)) {
             val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
             startActivityForResult(intent, PermissionCode.CONTACT_PICK.ordinal)
         } else {
-            PermissionManager.requestContactPermission(
+            PermissionManager.requestPermission(
                 this,
+                Manifest.permission.CALL_PHONE,
                 PermissionCode.CONTACT_PERMISSION.ordinal
             )
         }
