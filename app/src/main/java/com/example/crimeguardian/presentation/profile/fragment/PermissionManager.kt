@@ -8,33 +8,19 @@ import androidx.fragment.app.Fragment
 
 object PermissionManager {
 
-    fun checkContactPermission(context: Context): Boolean {
+    fun checkPermission(context: Context, permission: String): Boolean {
         return ContextCompat.checkSelfPermission(
-            context, android.Manifest.permission.READ_CONTACTS
+            context, permission
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    fun requestContactPermission(fragment: Fragment, permissionCode: Int) {
-        val permission = arrayOf(android.Manifest.permission.READ_CONTACTS)
-        ActivityCompat.requestPermissions(fragment.requireActivity(), permission, permissionCode)
-    }
-
-    fun checkPhoneCallPermission(context: Context): Boolean {
-        return ContextCompat.checkSelfPermission(
-            context, android.Manifest.permission.CALL_PHONE
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    fun requestPhoneCallPermission(fragment: Fragment, permissionCode: Int) {
-        ActivityCompat.requestPermissions(
-            fragment.requireActivity(),
-            arrayOf(android.Manifest.permission.CALL_PHONE),
-            permissionCode
-        )
+    fun requestPermission(fragment: Fragment, permission: String, permissionCode: Int) {
+        ActivityCompat.requestPermissions(fragment.requireActivity(), arrayOf(permission), permissionCode)
     }
 }
 
-
 enum class PermissionCode {
-    CONTACT_PERMISSION, CONTACT_PICK, REQUEST_PHONE_CALL
+    CONTACT_PERMISSION,
+    CONTACT_PICK,
+    PHONE_CALL_PERMISSION
 }
