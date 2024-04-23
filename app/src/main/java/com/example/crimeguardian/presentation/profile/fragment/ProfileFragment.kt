@@ -1,5 +1,6 @@
 package com.example.crimeguardian.presentation.profile.fragment
 
+import android.Manifest
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -51,7 +52,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     }
 
     private fun pickContact() {
-        if (PermissionManager.checkContactPermission(requireContext())) {
+        if (PermissionManager.checkPermission(requireContext(), Manifest.permission.CO)) {
             val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
             startActivityForResult(intent, PermissionCode.CONTACT_PICK.ordinal)
         } else {
