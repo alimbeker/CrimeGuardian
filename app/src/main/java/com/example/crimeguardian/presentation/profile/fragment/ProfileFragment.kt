@@ -58,7 +58,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         } else {
             PermissionManager.requestPermission(
                 this,
-                Manifest.permission.CALL_PHONE,
+                Manifest.permission.READ_CONTACTS,
                 PermissionCode.CONTACT_PERMISSION.ordinal
             )
         }
@@ -69,12 +69,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             val intent = Intent(Intent.ACTION_CALL)
             intent.data = Uri.parse("tel:$contactNumber")
 
-            if (PermissionManager.checkPhoneCallPermission(requireContext())) {
+            if (PermissionManager.checkPermission(requireContext(), Manifest.permission.CALL_PHONE)) {
                 startActivity(intent)
             } else {
-                PermissionManager.requestPhoneCallPermission(
+                PermissionManager.requestPermission(
                     this,
-                    PermissionCode.REQUEST_PHONE_CALL.ordinal
+                    Manifest.permission.CALL_PHONE,
+                    PermissionCode.PHONE_CALL_PERMISSION.ordinal
                 )
             }
         } else {
