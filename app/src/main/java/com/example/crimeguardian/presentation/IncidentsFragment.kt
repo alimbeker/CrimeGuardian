@@ -29,7 +29,14 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initializeViews(savedInstanceState)
+        initializeViewModel()
+        setupSearchFunctionality()
+        observeViewModel()
+        loadAndParseGeoJsonData()
+    }
 
+    private fun initializeViews(savedInstanceState: Bundle?) {
         // Initialize the SearchView
         searchView = binding.searchView
 
@@ -37,47 +44,15 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         mapView = binding.mapView
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
+    }
 
+    private fun initializeViewModel() {
         // Initialize ViewModel
         viewModel = ViewModelProvider(this)[IncidentsViewModel::class.java]
+    }
 
+    private fun setupSearchFunctionality() {
         // Set up search functionality
-        addSearchView()
-
-        // Observe ViewModel LiveData
-        viewModel.geoJsonData.observe(viewLifecycleOwner) { items ->
-            // Update map with loaded and parsed data
-            items?.let {
-                clusterManager.addItems(it)
-                clusterManager.cluster()
-            }
-        }
-
-        // Load and parse GeoJSON data
-        viewModel.loadAndParseGeoJson(requireContext(), getString(R.string.response_geojson))
-    }
-
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-
-        // Initialize the ClusterManager
-        clusterManager = ClusterManager(requireContext(), mMap)
-        clusterRenderer = ClusterRenderer(requireContext(), mMap, clusterManager)
-        clusterManager.renderer = clusterRenderer
-        mMap.setOnCameraIdleListener(clusterManager)
-
-        //Use NonHierarchicalViewBasedAlgorithm
-        val displayMetrics = requireContext().resources.displayMetrics
-        val screenWidth = displayMetrics.widthPixels
-        val screenHeight = displayMetrics.heightPixels
-        clusterManager.algorithm = NonHierarchicalViewBasedAlgorithm(screenWidth, screenHeight)
-
-        // Zoom to a default location
-        val defaultLocation = LatLng(43.2551, 76.9126)
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 10f))
-    }
-
-    private fun addSearchView() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 Toast.makeText(requireContext(), "Search: $query", Toast.LENGTH_SHORT).show()
@@ -88,6 +63,56 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
                 return true
             }
         })
+    }
+
+    private fun observeViewModel() {
+        // Observe ViewModel LiveData
+        viewModel.geoJsonData.observe(viewLifecycleOwner) { items ->
+            // Update map with loaded and parsed data
+            items?.let {
+                clusterManager.addItems(it)
+                clusterManager.cluster()
+            }
+        }
+    }
+
+    private fun loadAndParseGeoJsonData() {
+        // Load and parse GeoJSON data
+        viewModel.loadAndParseGeoJson(requireContext(), getString(R.string.response_geojson))
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+        initializeClusterManager()
+        setupMapSettings()
+        zoomToDefaultLocation()
+    }
+
+    private fun initializeClusterManager() {
+        // Initialize the ClusterManager
+        clusterManager = ClusterManager(requireContext(), mMap)
+        clusterRenderer = ClusterRenderer(requireContext(), mMap, clusterManager)
+        clusterManager.renderer = clusterRenderer
+        mMap.setOnCameraIdleListener(clusterManager)
+
+        // Use NonHierarchicalViewBasedAlgorithm
+        val displayMetrics = requireContext().resources.displayMetrics
+        val screenWidth = displayMetrics.widthPixels
+        val screenHeight = displayMetrics.heightPixels
+        clusterManager.algorithm = NonHierarchicalViewBasedAlgorithm(screenWidth, screenHeight)
+    }
+
+    private fun setupMapSettings() {
+        // Additional map settings can be applied here
+        // For example:
+        // mMap.uiSettings.isZoomControlsEnabled = true
+        // mMap.uiSettings.isMyLocationButtonEnabled = true
+    }
+
+    private fun zoomToDefaultLocation() {
+        // Zoom to a default location
+        val defaultLocation = LatLng(43.2551, 76.9126)
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 10f))
     }
 
     override fun onResume() {
@@ -110,4 +135,3 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         mapView.onLowMemory()
     }
 }
-
