@@ -14,9 +14,9 @@ object PermissionManager {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    fun requestContactPermission(fragment: Fragment, PERMISSION_CODE: Int) {
+    fun requestContactPermission(fragment: Fragment, permissionCode: Int) {
         val permission = arrayOf(android.Manifest.permission.READ_CONTACTS)
-        ActivityCompat.requestPermissions(fragment.requireActivity(), permission, PERMISSION_CODE)
+        ActivityCompat.requestPermissions(fragment.requireActivity(), permission, permissionCode)
     }
 
     fun checkPhoneCallPermission(context: Context): Boolean {
@@ -25,11 +25,11 @@ object PermissionManager {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    fun requestPhoneCallPermission(fragment: Fragment, PERMISSION_CODE: Int) {
+    fun requestPhoneCallPermission(fragment: Fragment, permissionCode: Int) {
         ActivityCompat.requestPermissions(
             fragment.requireActivity(),
             arrayOf(android.Manifest.permission.CALL_PHONE),
-            PERMISSION_CODE
+            permissionCode
         )
     }
 }
