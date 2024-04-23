@@ -36,6 +36,13 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         loadAndParseGeoJsonData()
     }
 
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+        initializeClusterManager()
+        setupMapSettings()
+        zoomToDefaultLocation()
+    }
+
     private fun initializeViews(savedInstanceState: Bundle?) {
         // Initialize the SearchView
         searchView = binding.searchView
@@ -81,12 +88,6 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         viewModel.loadAndParseGeoJson(requireContext(), getString(R.string.response_geojson))
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-        initializeClusterManager()
-        setupMapSettings()
-        zoomToDefaultLocation()
-    }
 
     private fun initializeClusterManager() {
         // Initialize the ClusterManager
