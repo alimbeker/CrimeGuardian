@@ -91,11 +91,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     }
 
     private fun updateUI(contactDetails: ContactDetails) {
-        val shortName = ContactNameFormatter.getShortenedName(contactDetails.contactName)
-        binding.contactName.text = contactDetails.contactName
-        binding.shortName.text = shortName
-        binding.phoneNumber.text = contactDetails.contactNumber
-        binding.phoneNumber1.text = contactDetails.contactNumber
+        val shortedName = ContactNameFormatter.getShortenedName(contactDetails.contactName)
+
+        with(binding) {
+            contactName.text = contactDetails.contactName
+            shortName.text = shortedName
+            phoneNumber.text = contactDetails.contactNumber
+            phoneNumber1.text = contactDetails.contactNumber
+        }
+
     }
 
 }
