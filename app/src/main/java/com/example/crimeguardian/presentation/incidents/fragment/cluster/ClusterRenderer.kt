@@ -1,4 +1,4 @@
-package com.example.crimeguardian.presentation.cluster.manager
+package com.example.crimeguardian.presentation.incidents.fragment.cluster
 
 import android.content.Context
 import com.google.android.gms.maps.GoogleMap

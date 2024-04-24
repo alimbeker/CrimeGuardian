@@ -1,4 +1,4 @@
-package com.example.crimeguardian.presentation
+package com.example.crimeguardian.presentation.news.fragment
 
 import android.os.Bundle
 import android.view.View

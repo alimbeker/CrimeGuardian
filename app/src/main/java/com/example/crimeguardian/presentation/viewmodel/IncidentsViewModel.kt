@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.crimeguardian.presentation.model.model.GeoJsonData
-import com.example.crimeguardian.presentation.cluster.manager.MyClusterItem
+import com.example.crimeguardian.presentation.incidents.fragment.cluster.MyClusterItem
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers

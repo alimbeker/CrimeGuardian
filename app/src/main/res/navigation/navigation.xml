@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/issuesFragment"
-        android:name="com.example.crimeguardian.presentation.IncidentsFragment"
+        android:name="com.example.crimeguardian.presentation.incidents.fragment.IncidentsFragment"
         android:label="fragment_issues"
         tools:layout="@layout/fragment_incidents" />
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.example.crimeguardian.presentation.NewsFragment"
+        android:name="com.example.crimeguardian.presentation.news.fragment.NewsFragment"
         android:label="fragment_news"
         tools:layout="@layout/fragment_news" />
     <fragment

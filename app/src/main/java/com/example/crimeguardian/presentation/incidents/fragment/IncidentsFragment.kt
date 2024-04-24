@@ -1,4 +1,4 @@
-package com.example.crimeguardian.presentation
+package com.example.crimeguardian.presentation.incidents.fragment
 
 import android.os.Bundle
 import android.view.View
@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.crimeguardian.R
 import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.databinding.FragmentIncidentsBinding
-import com.example.crimeguardian.presentation.cluster.manager.ClusterRenderer
-import com.example.crimeguardian.presentation.cluster.manager.MyClusterItem
+import com.example.crimeguardian.presentation.incidents.fragment.cluster.ClusterRenderer
+import com.example.crimeguardian.presentation.incidents.fragment.cluster.MyClusterItem
 import com.example.crimeguardian.presentation.viewmodel.IncidentsViewModel
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
