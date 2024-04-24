@@ -11,7 +11,7 @@ import com.example.crimeguardian.core.functional.Resource
 import com.example.crimeguardian.presentation.adapter.OffsetDecoration
 import com.example.crimeguardian.presentation.adapter.CrimeNewsAdapter
 import com.example.crimeguardian.databinding.FragmentNewsBinding
-import com.example.crimeguardian.presentation.viewmodel.NewsViewModel
+import com.example.crimeguardian.presentation.news.fragment.viewmodel.NewsViewModel
 
 
 class NewsFragment : BaseFragment<FragmentNewsBinding>(FragmentNewsBinding::inflate) {

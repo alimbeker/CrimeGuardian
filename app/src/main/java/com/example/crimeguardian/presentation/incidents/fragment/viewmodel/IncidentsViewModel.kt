@@ -1,4 +1,4 @@
-package com.example.crimeguardian.presentation.viewmodel
+package com.example.crimeguardian.presentation.incidents.fragment.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.LiveData

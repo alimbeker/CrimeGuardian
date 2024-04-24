@@ -10,7 +10,7 @@ import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.databinding.FragmentIncidentsBinding
 import com.example.crimeguardian.presentation.incidents.fragment.cluster.ClusterRenderer
 import com.example.crimeguardian.presentation.incidents.fragment.cluster.MyClusterItem
-import com.example.crimeguardian.presentation.viewmodel.IncidentsViewModel
+import com.example.crimeguardian.presentation.incidents.fragment.viewmodel.IncidentsViewModel
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterManager
