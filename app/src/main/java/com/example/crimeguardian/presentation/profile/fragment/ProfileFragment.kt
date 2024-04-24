@@ -38,16 +38,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         contactManager.onActivityResult(requestCode, resultCode, data)
     }
 
-    override fun onContactSelected(uri: Uri) {
-        val contactDetails = ContactDetailsManager.getContactDetails(requireContext(), uri)
-        updateUI(contactDetails)
-        selectedContactNumber = contactDetails.contactNumber.toString()
-    }
-
-    override fun onContactSelectionCancelled() {
-        showToast("Cancelled")
-    }
-
     private fun pickContact() {
         if (PermissionManager.checkPermission(
                 requireContext(),
@@ -77,6 +67,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             PermissionManager.requestCallPermission(this)
         }
     }
+    override fun onContactSelected(uri: Uri) {
+        val contactDetails = ContactDetailsManager.getContactDetails(requireContext(), uri)
+        updateUI(contactDetails)
+        selectedContactNumber = contactDetails.contactNumber.toString()
+    }
 
     private fun updateUI(contactDetails: ContactDetails) {
         val shortenedName = ContactNameFormatter.getShortenedName(contactDetails.contactName)
@@ -87,8 +82,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             phoneNumber1.text = contactDetails.contactNumber
         }
     }
-
-
+    override fun onContactSelectionCancelled() {
+        showToast("Cancelled")
+    }
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
