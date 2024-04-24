@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.crimeguardian.databinding.ItemCrimeNewsBinding
-import com.example.crimeguardian.presentation.model.model.Article
+import com.example.crimeguardian.presentation.model.model.news.Article
 
 class CrimeNewsAdapter(private val maxItems: Int) :
     ListAdapter<Article, CrimeNewsAdapter.ArticleViewHolder>(ArticleDiffCallback()) {

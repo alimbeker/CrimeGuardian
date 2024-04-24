@@ -1,4 +1,4 @@
-package com.example.crimeguardian.presentation.model.model
+package com.example.crimeguardian.presentation.model.model.news
 
 import com.example.crimeguardian.data.model.Source
 

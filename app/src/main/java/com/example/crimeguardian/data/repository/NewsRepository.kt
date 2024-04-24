@@ -4,7 +4,7 @@ import com.example.crimeguardian.core.BaseRepository
 import com.example.crimeguardian.core.functional.State
 import com.example.crimeguardian.data.api.NewsApi
 import com.example.crimeguardian.data.mapper.toNewsResponse
-import com.example.crimeguardian.presentation.model.model.NewsResponse
+import com.example.crimeguardian.presentation.model.model.news.NewsResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

@@ -1,7 +1,7 @@
 package com.example.crimeguardian.data.mapper
 
 import com.example.crimeguardian.data.model.ArticleDto
-import com.example.crimeguardian.presentation.model.model.Article
+import com.example.crimeguardian.presentation.model.model.news.Article
 
 internal fun ArticleDto.toArticle() = Article(
     title = title ?: "",

@@ -1,4 +1,4 @@
-package com.example.crimeguardian.presentation.model.model
+package com.example.crimeguardian.presentation.model.model.incidents
 
 data class GeoJsonData(
     val type: String,

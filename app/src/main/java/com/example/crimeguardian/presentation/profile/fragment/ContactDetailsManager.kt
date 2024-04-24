@@ -3,7 +3,7 @@ package com.example.crimeguardian.presentation.profile.fragment
 import android.content.Context
 import android.net.Uri
 import android.provider.ContactsContract
-import com.example.crimeguardian.presentation.model.model.ContactDetails
+import com.example.crimeguardian.presentation.model.model.profile.ContactDetails
 
 object ContactDetailsManager {
 

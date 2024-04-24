@@ -9,7 +9,7 @@ import com.example.crimeguardian.core.functional.onFailure
 import com.example.crimeguardian.core.functional.onSuccess
 import com.example.crimeguardian.data.repository.NewsRepository
 import com.example.crimeguardian.module.NewsApiData
-import com.example.crimeguardian.presentation.model.model.Article
+import com.example.crimeguardian.presentation.model.model.news.Article
 import kotlinx.coroutines.launch
 
 class NewsViewModel : ViewModel() {

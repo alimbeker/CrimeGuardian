@@ -9,7 +9,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.databinding.FragmentProfileBinding
-import com.example.crimeguardian.presentation.model.model.ContactDetails
+import com.example.crimeguardian.presentation.model.model.profile.ContactDetails
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate),
     ContactSelectionListener {
