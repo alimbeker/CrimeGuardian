@@ -15,11 +15,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     ContactSelectionListener {
 
     private val contactManager = ContactManager(this)
-    private lateinit var contactNumber: String
+    private var selectedContactNumber: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupUI()
     }
 
@@ -29,13 +28,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         }
 
         binding.extraCall.setOnClickListener {
-            makeCall()
+            selectedContactNumber?.let { makeCall(it) }
+                ?: showToast("Number is not initialized")
         }
     }
 
-
-    @Suppress("DEPRECATION")
-    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         contactManager.onActivityResult(requestCode, resultCode, data)
@@ -44,64 +41,56 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     override fun onContactSelected(uri: Uri) {
         val contactDetails = ContactDetailsManager.getContactDetails(requireContext(), uri)
         updateUI(contactDetails)
-        contactNumber = contactDetails.contactNumber.toString()
+        selectedContactNumber = contactDetails.contactNumber.toString()
     }
 
     override fun onContactSelectionCancelled() {
-        Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show()
+        showToast("Cancelled")
     }
 
-    @Suppress("DEPRECATION")
     private fun pickContact() {
         if (PermissionManager.checkPermission(
                 requireContext(),
                 Manifest.permission.READ_CONTACTS
             )
         ) {
-            val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
-            startActivityForResult(intent, PermissionCode.CONTACT_PICK.ordinal)
-        } else {
-            PermissionManager.requestPermission(
-                this,
-                Manifest.permission.READ_CONTACTS,
-                PermissionCode.CONTACT_PERMISSION.ordinal
+            startActivityForResult(
+                Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI),
+                PermissionCode.CONTACT_PICK.ordinal
             )
+        } else {
+            PermissionManager.requestContactPermission(this)
         }
     }
 
-    private fun makeCall() {
-        if (::contactNumber.isInitialized) {
-            val intent = Intent(Intent.ACTION_CALL)
-            intent.data = Uri.parse("tel:$contactNumber")
+    private fun makeCall(phoneNumber: String) {
+        val intent = Intent(Intent.ACTION_CALL)
+        intent.data = Uri.parse("tel:$phoneNumber")
 
-            if (PermissionManager.checkPermission(
-                    requireContext(),
-                    Manifest.permission.CALL_PHONE
-                )
-            ) {
-                startActivity(intent)
-            } else {
-                PermissionManager.requestPermission(
-                    this,
-                    Manifest.permission.CALL_PHONE,
-                    PermissionCode.PHONE_CALL_PERMISSION.ordinal
-                )
-            }
+        if (PermissionManager.checkPermission(
+                requireContext(),
+                Manifest.permission.CALL_PHONE
+            )
+        ) {
+            startActivity(intent)
         } else {
-            Toast.makeText(context, "Number is not initialized", Toast.LENGTH_SHORT).show()
+            PermissionManager.requestCallPermission(this)
         }
     }
 
     private fun updateUI(contactDetails: ContactDetails) {
-        val shortedName = ContactNameFormatter.getShortenedName(contactDetails.contactName)
-
+        val shortenedName = ContactNameFormatter.getShortenedName(contactDetails.contactName)
         with(binding) {
             contactName.text = contactDetails.contactName
-            shortName.text = shortedName
+            shortName.text = shortenedName
             phoneNumber.text = contactDetails.contactNumber
             phoneNumber1.text = contactDetails.contactNumber
         }
-
     }
 
+
+    private fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
 }
+
