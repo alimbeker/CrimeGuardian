@@ -11,7 +11,6 @@ import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.databinding.FragmentProfileBinding
 import com.example.crimeguardian.presentation.model.model.ContactDetails
 
-
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate),
     ContactSelectionListener {
 
@@ -35,6 +34,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     }
 
 
+    @Suppress("DEPRECATION")
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         contactManager.onActivityResult(requestCode, resultCode, data)
@@ -50,6 +51,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show()
     }
 
+    @Suppress("DEPRECATION")
     private fun pickContact() {
         if (PermissionManager.checkPermission(
                 requireContext(),

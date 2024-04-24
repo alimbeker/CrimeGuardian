@@ -7,10 +7,6 @@ import androidx.fragment.app.Fragment
 import com.example.crimeguardian.presentation.model.model.ContactDetails
 
 
-interface ContactSelectionListener {
-    fun onContactSelected(uri: Uri)
-    fun onContactSelectionCancelled()
-}
 
 class ContactManager(private val listener: ContactSelectionListener) {
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
