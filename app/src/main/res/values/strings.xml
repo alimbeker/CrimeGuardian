@@ -16,5 +16,5 @@
     <string name="text_crime_3">A man wanted for murder shot and killed a man in Almaty</string>
     <string name="text_crime_4">\nAlmaty police found a stolen SUV</string>
     <string name="search_for_an_address">Search for an address</string>
-    <string name="response_geojson">response.geoJson</string>
+    <string name="response_geojson">response.geojson</string>
 </resources>
