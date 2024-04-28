@@ -7,9 +7,10 @@ import com.example.crimeguardian.data.mapper.toNewsResponse
 import com.example.crimeguardian.presentation.model.model.news.NewsResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 
-class NewsRepository(private val api: NewsApi) : BaseRepository() {
+class NewsRepository @Inject constructor(private val api: NewsApi) : BaseRepository() {
 
     suspend fun getAllData(): State<Throwable, NewsResponse> = apiCall {
         withContext(Dispatchers.IO) {
