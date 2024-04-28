@@ -8,9 +8,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.core.functional.Resource
-import com.example.crimeguardian.presentation.adapter.OffsetDecoration
-import com.example.crimeguardian.presentation.adapter.CrimeNewsAdapter
 import com.example.crimeguardian.databinding.FragmentNewsBinding
+import com.example.crimeguardian.presentation.adapter.CrimeNewsAdapter
+import com.example.crimeguardian.presentation.adapter.OffsetDecoration
 import com.example.crimeguardian.presentation.news.fragment.viewmodel.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,8 +30,12 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>(FragmentNewsBinding::infl
 
         observeViewModel()
 
-        viewModel.getAllData()
+        getAllData()
 
+    }
+
+    private fun getAllData() {
+        viewModel.getAllData()
     }
 
     private fun setupRecyclerView() {
