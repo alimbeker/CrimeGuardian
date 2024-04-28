@@ -10,7 +10,9 @@ import android.widget.Toast
 import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.databinding.FragmentProfileBinding
 import com.example.crimeguardian.presentation.model.model.profile.ContactDetails
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate),
     ContactSelectionListener {
 

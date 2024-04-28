@@ -12,8 +12,9 @@ import com.example.crimeguardian.presentation.adapter.OffsetDecoration
 import com.example.crimeguardian.presentation.adapter.CrimeNewsAdapter
 import com.example.crimeguardian.databinding.FragmentNewsBinding
 import com.example.crimeguardian.presentation.news.fragment.viewmodel.NewsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class NewsFragment : BaseFragment<FragmentNewsBinding>(FragmentNewsBinding::inflate) {
 
     private lateinit var adapter: CrimeNewsAdapter

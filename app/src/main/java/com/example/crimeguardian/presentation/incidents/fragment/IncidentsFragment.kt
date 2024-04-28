@@ -15,8 +15,9 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.algo.NonHierarchicalViewBasedAlgorithm
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentIncidentsBinding::inflate),
     OnMapReadyCallback {
 
