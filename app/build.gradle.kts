@@ -96,4 +96,8 @@ dependencies {
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.compiler)
 
+    //LiveData
+    implementation (libs.lifecycle.livedata.ktx)
+
+
 }
