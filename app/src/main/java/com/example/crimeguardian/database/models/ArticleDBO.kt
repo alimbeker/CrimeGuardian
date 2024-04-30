@@ -22,7 +22,7 @@ data class ArticleDBO(
     @ColumnInfo("urlToImage")
     val urlToImage: String?,
     @ColumnInfo("publishedAt")
-    val publishedAt: Date,
+    val publishedAt: String,
     @ColumnInfo("content")
     val content: String,
     @PrimaryKey(autoGenerate = true)
