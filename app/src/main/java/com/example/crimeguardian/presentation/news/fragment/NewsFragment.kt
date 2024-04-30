@@ -24,7 +24,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>(FragmentNewsBinding::infl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
+        initializeViewModel()
 
         setupRecyclerView()
 
@@ -32,6 +32,10 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>(FragmentNewsBinding::infl
 
         getAllData()
 
+    }
+
+    private fun initializeViewModel() {
+        viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
     }
 
     private fun getAllData() {
