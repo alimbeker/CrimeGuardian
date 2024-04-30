@@ -1,17 +1,13 @@
 package com.example.crimeguardian.data.repository
 
 import android.util.Log
-import com.example.crimeguardian.core.BaseRepository
 import com.example.crimeguardian.core.NetworkChecker
 import com.example.crimeguardian.core.functional.State
 import com.example.crimeguardian.data.api.NewsApi
 import com.example.crimeguardian.data.mapper.toArticle
 import com.example.crimeguardian.data.mapper.toArticleDbo
-import com.example.crimeguardian.data.mapper.toNewsResponse
 import com.example.crimeguardian.database.dao.ArticleDao
-import com.example.crimeguardian.database.models.ArticleDBO
 import com.example.crimeguardian.presentation.model.model.news.Article
-import com.example.crimeguardian.presentation.model.model.news.NewsResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
