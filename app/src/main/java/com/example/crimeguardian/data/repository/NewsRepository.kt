@@ -6,9 +6,11 @@ import com.example.crimeguardian.core.NetworkChecker
 import com.example.crimeguardian.core.functional.State
 import com.example.crimeguardian.data.api.NewsApi
 import com.example.crimeguardian.data.mapper.toArticle
+import com.example.crimeguardian.data.mapper.toArticleDbo
 import com.example.crimeguardian.data.mapper.toNewsResponse
 import com.example.crimeguardian.database.dao.ArticleDao
 import com.example.crimeguardian.database.models.ArticleDBO
+import com.example.crimeguardian.presentation.model.model.news.Article
 import com.example.crimeguardian.presentation.model.model.news.NewsResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +20,7 @@ import javax.inject.Inject
 
 interface NewsRepository {
 
-    val observeNewsStateFlow: Flow<State<List<ArticleDBO>>>
+    val observeNewsStateFlow: Flow<State<List<Article>>>
 
     suspend fun getAllData()
 }
@@ -29,8 +31,8 @@ class NewsRepositoryImpl @Inject constructor(
     private val networkChecker: NetworkChecker
 ) : NewsRepository {
 
-    private val _newsDataFlow = MutableStateFlow<State<List<ArticleDBO>>>(State.Initial)
-    override val observeNewsStateFlow: Flow<State<List<ArticleDBO>>>
+    private val _newsDataFlow = MutableStateFlow<State<List<Article>>>(State.Initial)
+    override val observeNewsStateFlow: Flow<State<List<Article>>>
         get() = _newsDataFlow
 
     override suspend fun getAllData() =
@@ -41,13 +43,13 @@ class NewsRepositoryImpl @Inject constructor(
                     _newsDataFlow.emit(State.Loading)
                 } else {
                     Log.d("PopMovie Repo", "Cache Film")
-                    _newsDataFlow.emit(State.Data(cachedMovies.map { it }))
+                    _newsDataFlow.emit(State.Data(cachedMovies.map { it.toArticle() }))
                 }
                 if (networkChecker.isConnected) {
                     Log.d("PopMovie Repo", "Internet is connected")
-                    val articles = newsApi.getAllData().articles
-//                    _newsDataFlow.emit(State.Data(articles.map { it}))
-//                    articleDao.clearAndInsert(articles.map { it.toEntity() })
+                    val articles = newsApi.getAllData(search = "assault").articles
+                    _newsDataFlow.emit(State.Data(articles.map { it.toArticle()}))
+                    articleDao.clearAndInsert(articles.map { it.toArticleDbo() })
                 } else if (cachedMovies.isEmpty()) {
                     _newsDataFlow.emit(State.Failure(Exception("No Internet and no cache")))
                 }
