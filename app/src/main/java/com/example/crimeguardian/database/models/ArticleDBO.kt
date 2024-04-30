@@ -4,9 +4,10 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.crimeguardian.database.TABLE_NAME_MOVIE
 import java.util.Date
 
-@Entity(tableName = "articles")
+@Entity(tableName = TABLE_NAME_MOVIE)
 data class ArticleDBO(
     @Embedded(prefix = "source")
     val source: Source,
