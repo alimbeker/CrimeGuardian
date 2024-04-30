@@ -6,6 +6,7 @@ import androidx.room.Room
 import com.example.crimeguardian.core.NetworkChecker
 import com.example.crimeguardian.data.api.NewsApi
 import com.example.crimeguardian.data.repository.NewsRepository
+import com.example.crimeguardian.data.repository.NewsRepositoryImpl
 import com.example.crimeguardian.database.DATABASE_NAME_MOVIES
 import com.example.crimeguardian.database.NewsDatabase
 import com.example.crimeguardian.database.dao.ArticleDao
