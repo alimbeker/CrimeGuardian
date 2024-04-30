@@ -52,7 +52,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>(FragmentNewsBinding::infl
     }
 
     private fun observeViewModel() {
-        viewModel.newsResponseLiveData.observe(viewLifecycleOwner) { resource ->
+        viewModel.newsLiveData.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {
                     binding.loading.isVisible = true

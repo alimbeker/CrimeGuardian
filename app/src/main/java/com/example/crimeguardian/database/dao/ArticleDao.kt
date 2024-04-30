@@ -7,7 +7,6 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.example.crimeguardian.database.TABLE_NAME_MOVIE
 import com.example.crimeguardian.database.models.ArticleDBO
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ArticleDao {
