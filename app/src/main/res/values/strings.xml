@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CrimeGuardian</string>
     <string name="assault">assault</string>
-    <string name="text_crime_1">There was a brutal murder near the intersection of Raiymbek and Rozybakiyev streets</string>
+    <string name="text_crime_1">There was a brutal murder</string>
 
     <string name="text_crime_2">Almaty police reported a 34% drop in crime rates</string>
 
@@ -17,4 +17,6 @@
     <string name="text_crime_4">\nAlmaty police found a stolen SUV</string>
     <string name="search_for_an_address">Search for an address</string>
     <string name="response_geojson">response.geojson</string>
+    <string name="source">source</string>
+    <string name="author">author</string>
 </resources>
