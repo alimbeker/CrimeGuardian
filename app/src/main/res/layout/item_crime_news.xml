@@ -24,7 +24,7 @@
     <TextView
         android:id="@+id/description"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="145dp"
         android:layout_marginTop="22dp"
         android:layout_marginEnd="5dp"
@@ -32,18 +32,6 @@
         android:fontFamily="@font/plusjakartasans_regular"
         android:textSize="17sp"
         android:textStyle="bold" />
-
-
-    <TextView
-        android:id="@+id/author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="145dp"
-        android:layout_marginTop="90dp"
-        android:textColor="@color/item_author_name"
-        android:text="@string/author"
-        android:textAllCaps="true"
-        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/source"

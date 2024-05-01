@@ -13,6 +13,7 @@ import com.example.crimeguardian.presentation.incidents.fragment.cluster.MyClust
 import com.example.crimeguardian.presentation.incidents.fragment.viewmodel.IncidentsViewModel
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.algo.NonHierarchicalViewBasedAlgorithm
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,6 +40,10 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        //style
+        val style = MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_style)
+        mMap.setMapStyle(style)
+
         initializeClusterManager()
         setupMapSettings()
         zoomToDefaultLocation()
