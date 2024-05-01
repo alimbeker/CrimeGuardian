@@ -33,7 +33,6 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         super.onViewCreated(view, savedInstanceState)
         initializeViews(savedInstanceState)
         initializeViewModel()
-        setupSearchFunctionality()
         observeViewModel()
         loadAndParseGeoJsonData()
     }
@@ -64,19 +63,6 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         viewModel = ViewModelProvider(this)[IncidentsViewModel::class.java]
     }
 
-    private fun setupSearchFunctionality() {
-        // Set up search functionality
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                Toast.makeText(requireContext(), "Search: $query", Toast.LENGTH_SHORT).show()
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return true
-            }
-        })
-    }
 
     private fun observeViewModel() {
         // Observe ViewModel LiveData

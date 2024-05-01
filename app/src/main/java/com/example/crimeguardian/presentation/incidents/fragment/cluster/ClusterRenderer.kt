@@ -17,7 +17,7 @@ class ClusterRenderer<T : ClusterItem>(
 ) : DefaultClusterRenderer<T>(context, map, clusterManager) {
 
     override fun onBeforeClusterItemRendered(item: T, markerOptions: MarkerOptions) {
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
     }
 
     override fun shouldRenderAsCluster(cluster: Cluster<T>): Boolean {

@@ -12,11 +12,4 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
 
-    <SearchView
-        android:id="@+id/searchView"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:queryHint="@string/search_for_an_address" />
-
 </FrameLayout>
