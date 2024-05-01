@@ -49,9 +49,6 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
     }
 
     private fun initializeViews(savedInstanceState: Bundle?) {
-        // Initialize the SearchView
-        searchView = binding.searchView
-
         // Initialize the MapView
         mapView = binding.mapView
         mapView.onCreate(savedInstanceState)
