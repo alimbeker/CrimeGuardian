@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.crimeguardian.presentation.model.model.incidents.GeoJsonData
 import com.example.crimeguardian.presentation.incidents.fragment.cluster.MyClusterItem
+import com.example.crimeguardian.presentation.incidents.fragment.haversine.Geo
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
@@ -81,6 +82,32 @@ class IncidentsViewModel : ViewModel() {
             MyClusterItem(latLng, crimeCode)
         }
     }
+
+    private fun countMarkersWithinCircle(center: LatLng): Int {
+        val centerGeo = Geo(center.latitude, center.longitude)
+        val items = _geoJsonData.value ?: return 0 // Return 0 if data is null
+
+        var count = 0
+        for (item in items) {
+            val itemGeo = Geo(item.position.latitude, item.position.longitude)
+            val distance = centerGeo.haversine(itemGeo)
+            if (distance <= 1.0) { // radius of 1 kilometer
+                count++
+            }
+        }
+        return count
+    }
+
+    fun calculateDangerLevel(center: LatLng): Int {
+        val count = countMarkersWithinCircle(center)
+        return when {
+            count > 400 -> 3 //danger level
+            count > 300 -> 2
+            else -> 1
+        }
+    }
+
+
 
 }
 
