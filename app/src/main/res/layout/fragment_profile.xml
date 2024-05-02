@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/news_fragment_background"
     tools:context=".presentation.profile.fragment.ProfileFragment">
 
     <View
@@ -75,6 +76,7 @@
         android:layout_marginTop="28dp"
         android:fontFamily="@font/plusjakartasans_regular"
         android:text="@string/text_call"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,6 +88,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/plusjakartasans_regular"
         android:text="@string/phone_number"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"

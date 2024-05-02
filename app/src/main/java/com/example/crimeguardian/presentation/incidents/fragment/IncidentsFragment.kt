@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.crimeguardian.R
 import com.example.crimeguardian.core.BaseFragment
@@ -21,18 +22,14 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentIncidentsBinding::inflate),
     OnMapReadyCallback {
-
-    private lateinit var searchView: SearchView
+    private val viewModel: IncidentsViewModel by viewModels()
     private lateinit var mapView: MapView
     private lateinit var mMap: GoogleMap
     private lateinit var clusterManager: ClusterManager<MyClusterItem>
     private lateinit var clusterRenderer: ClusterRenderer<MyClusterItem>
-    private lateinit var viewModel: IncidentsViewModel
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeViews(savedInstanceState)
-        initializeViewModel()
         observeViewModel()
         loadAndParseGeoJsonData()
     }
@@ -53,11 +50,6 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         mapView = binding.mapView
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
-    }
-
-    private fun initializeViewModel() {
-        // Initialize ViewModel
-        viewModel = ViewModelProvider(this)[IncidentsViewModel::class.java]
     }
 
 

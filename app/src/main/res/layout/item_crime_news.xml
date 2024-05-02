@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="150dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:background="@color/news_fragment_background"
     app:cardCornerRadius="30dp">
 
     <androidx.cardview.widget.CardView
@@ -28,7 +30,8 @@
         android:layout_marginStart="145dp"
         android:layout_marginTop="22dp"
         android:layout_marginEnd="5dp"
-        android:text="@string/text_crime_1"
+        tools:text="@string/text_crime_1"
+        android:textColor="@color/white"
         android:fontFamily="@font/plusjakartasans_regular"
         android:textSize="17sp"
         android:textStyle="bold" />
@@ -41,7 +44,7 @@
         android:layout_marginTop="125dp"
         android:textColor="@color/item_source"
         android:fontFamily="@font/plusjakartasans_regular"
-        android:text="@string/source"
+        tools:text="@string/source"
         android:textAllCaps="true"
         android:textSize="15sp" />
 
