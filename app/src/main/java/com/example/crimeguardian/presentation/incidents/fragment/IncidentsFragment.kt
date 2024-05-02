@@ -1,17 +1,17 @@
 package com.example.crimeguardian.presentation.incidents.fragment
 
+import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.SearchView
-import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.example.crimeguardian.R
 import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.databinding.FragmentIncidentsBinding
 import com.example.crimeguardian.presentation.incidents.fragment.cluster.ClusterRenderer
 import com.example.crimeguardian.presentation.incidents.fragment.cluster.MyClusterItem
 import com.example.crimeguardian.presentation.incidents.fragment.viewmodel.IncidentsViewModel
+import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
@@ -27,10 +27,12 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
     private lateinit var mMap: GoogleMap
     private lateinit var clusterManager: ClusterManager<MyClusterItem>
     private lateinit var clusterRenderer: ClusterRenderer<MyClusterItem>
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeViews(savedInstanceState)
         observeViewModel()
+        observeLocation()
         loadAndParseGeoJsonData()
     }
 
@@ -62,6 +64,14 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
                 clusterManager.cluster()
             }
         }
+    }
+
+    private fun observeLocation() {
+
+        val dangerLevel = viewModel.calculateDangerLevel(
+            LatLng(43.268277,76.937377)
+        )
+        Log.d("DangerLevel", "Danger Level: $dangerLevel")
     }
 
     private fun loadAndParseGeoJsonData() {
