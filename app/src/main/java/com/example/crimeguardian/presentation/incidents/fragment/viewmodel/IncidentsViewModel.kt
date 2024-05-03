@@ -20,6 +20,9 @@ class IncidentsViewModel : ViewModel() {
     private val _geoJsonData = MutableLiveData<List<MyClusterItem>>()
     val geoJsonData: LiveData<List<MyClusterItem>> = _geoJsonData
 
+    private val _resultLiveData = MutableLiveData<Int>()
+    val resultLiveData: LiveData<Int> = _resultLiveData
+
     fun loadAndParseGeoJson(context: Context, fileName: String) {
         viewModelScope.launch {
             try {
@@ -83,28 +86,22 @@ class IncidentsViewModel : ViewModel() {
         }
     }
 
-    private fun countMarkersWithinCircle(center: LatLng): Int {
-        val centerGeo = Geo(center.latitude, center.longitude)
-        val items = _geoJsonData.value ?: return 0 // Return 0 if data is null
+    fun countMarkersWithinCircle(center: LatLng) {
+        geoJsonData.observeForever { items ->
+            val centerGeo = Geo(center.latitude, center.longitude)
 
-        var count = 0
-        for (item in items) {
-            val itemGeo = Geo(item.position.latitude, item.position.longitude)
-            val distance = centerGeo.haversine(itemGeo)
-            if (distance <= 1.0) { // radius of 1 kilometer
-                count++
+            var count = 0
+            items?.forEach { item ->
+                val itemGeo = Geo(item.position.latitude, item.position.longitude)
+                val distance = centerGeo.haversine(itemGeo)
+                if (distance <= 1.0) { // radius of 1 kilometer
+                    count++
+                }
             }
-        }
-        return count
-    }
 
-    fun calculateDangerLevel(center: LatLng): Int {
-        val count = countMarkersWithinCircle(center)
-        return when {
-            count > 400 -> 3 //danger level
-            count > 300 -> 2
-            else -> 1
+            _resultLiveData.value = count
         }
+
     }
 
 

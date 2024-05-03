@@ -1,9 +1,11 @@
 package com.example.crimeguardian.presentation.incidents.fragment
 
+import android.app.AlertDialog
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import androidx.fragment.app.viewModels
 import com.example.crimeguardian.R
 import com.example.crimeguardian.core.BaseFragment
@@ -35,6 +37,7 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         observeLocation()
         loadAndParseGeoJsonData()
     }
+
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
@@ -68,10 +71,30 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
 
     private fun observeLocation() {
 
-        val dangerLevel = viewModel.calculateDangerLevel(
-            LatLng(43.268277,76.937377)
+       viewModel.countMarkersWithinCircle(
+            LatLng(43.069835, 76.731822)
         )
-        Log.d("DangerLevel", "Danger Level: $dangerLevel")
+        viewModel.resultLiveData.observe(viewLifecycleOwner) {
+            count ->
+            if (count > 400) {
+                showDangerAlert()
+            }
+            Log.d("DangerLevel", "Count: $count")
+        }
+
+    }
+
+    private fun showDangerAlert() {
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.apply {
+            setTitle("Danger Alert")
+            setMessage("You are in dangerous area. Leave it!")
+            setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+        }
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
     }
 
     private fun loadAndParseGeoJsonData() {
