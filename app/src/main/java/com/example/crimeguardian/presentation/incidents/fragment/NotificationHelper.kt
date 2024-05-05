@@ -7,6 +7,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -15,58 +16,55 @@ import androidx.core.content.ContextCompat
 import com.example.crimeguardian.R
 import com.example.crimeguardian.presentation.MainActivity
 
-class NotificationHelper(val context: Context) {
+
+
+class NotificationHelper(val context : Context) {
     private val CHANNEL_ID = "todo_channel_id"
     private val NOTIFICATION_ID = 1
 
-    fun createNotification(title: String, message: String) {
+    fun createNotification(title:String, message: String) {
         createNotificationChannel()
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
 
-        val pendingIntent = PendingIntent.getActivity(
-            context,
-            0,
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT // Use FLAG_UPDATE_CURRENT instead of FLAG_IMMUTABLE
-        )
-
+        val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val icon = BitmapFactory.decodeResource(context.resources, R.drawable.baseline_notifications_active_24)
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.baseline_notifications_active_24)
+            .setLargeIcon(icon)
             .setContentTitle(title)
             .setContentText(message)
             .setContentIntent(pendingIntent)
-            .setPriority(NotificationCompat.PRIORITY_HIGH) // Set notification priority to high
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .build()
-
-        // Replace permission check with the correct one
-        if (ContextCompat.checkSelfPermission(
-                context,
-                Manifest.permission.ACCESS_NOTIFICATION_POLICY
+        if (ActivityCompat.checkSelfPermission(
+                this.context,
+                Manifest.permission.POST_NOTIFICATIONS
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // Request permission
-            // Handle permission request callback
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
             return
         }
         NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notification)
     }
-
     private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                CHANNEL_ID,
-                CHANNEL_ID,
-                NotificationManager.IMPORTANCE_HIGH // Set channel importance to high
-            ).apply {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_ID,
+                NotificationManager.IMPORTANCE_DEFAULT).apply {
                 description = "Todo channel description"
             }
 
-            val notificationManager =
-                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
             notificationManager.createNotificationChannel(channel)
+
         }
     }
 }

@@ -2,12 +2,14 @@ package com.example.crimeguardian.presentation.incidents.fragment
 
 import android.Manifest
 import android.app.AlertDialog
-import android.app.PendingIntent
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.workDataOf
+
 import com.example.crimeguardian.R
 import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.databinding.FragmentIncidentsBinding
@@ -24,6 +26,7 @@ import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.algo.NonHierarchicalViewBasedAlgorithm
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentIncidentsBinding::inflate),
@@ -33,7 +36,7 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
     private lateinit var mMap: GoogleMap
     private lateinit var clusterManager: ClusterManager<MyClusterItem>
     private lateinit var clusterRenderer: ClusterRenderer<MyClusterItem>
-    private lateinit var alarmIntent: PendingIntent
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -85,14 +88,22 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         )
         viewModel.resultLiveData.observe(viewLifecycleOwner) { count ->
             if (count > 100) {
-                alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
-                    intent.putExtra("Notification", "Be careful! You are in dangerous zone")
-                    PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_IMMUTABLE)
-                }
-
+                setSingleAlarm()
             }
             Log.d("DangerLevel", "Count: $count")
         }
+    }
+
+    private fun setSingleAlarm() {
+        val myWorkRequest = OneTimeWorkRequestBuilder<TodoWorker>()
+            .setInitialDelay(3, TimeUnit.SECONDS)
+            .setInputData(
+                workDataOf(
+                    "title" to "Todo Created",
+                    "message" to "A new todo has been created!")
+            )
+            .build()
+        WorkManager.getInstance(requireContext()).enqueue(myWorkRequest)
     }
 
     private fun showDangerAlert() {
