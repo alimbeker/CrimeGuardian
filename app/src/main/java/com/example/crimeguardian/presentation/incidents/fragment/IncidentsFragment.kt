@@ -55,7 +55,6 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         mMap.setMapStyle(style)
 
         initializeClusterManager()
-        setupMapSettings()
         zoomToDefaultLocation()
     }
 
@@ -138,12 +137,6 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         clusterManager.algorithm = NonHierarchicalViewBasedAlgorithm(screenWidth, screenHeight)
     }
 
-    private fun setupMapSettings() {
-        // Additional map settings can be applied here
-        // For example:
-        // mMap.uiSettings.isZoomControlsEnabled = true
-        // mMap.uiSettings.isMyLocationButtonEnabled = true
-    }
 
     private fun zoomToDefaultLocation() {
         // Zoom to a default location
