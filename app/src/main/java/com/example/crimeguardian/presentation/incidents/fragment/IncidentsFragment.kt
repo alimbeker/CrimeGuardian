@@ -2,6 +2,8 @@ package com.example.crimeguardian.presentation.incidents.fragment
 
 import android.Manifest
 import android.app.AlertDialog
+import android.app.PendingIntent
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -31,6 +33,7 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
     private lateinit var mMap: GoogleMap
     private lateinit var clusterManager: ClusterManager<MyClusterItem>
     private lateinit var clusterRenderer: ClusterRenderer<MyClusterItem>
+    private lateinit var alarmIntent: PendingIntent
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -81,8 +84,12 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
             lifecycleOwner = viewLifecycleOwner, center = LatLng(43.237156, 76.930097)
         )
         viewModel.resultLiveData.observe(viewLifecycleOwner) { count ->
-            if (count > 400) {
-                showDangerAlert()
+            if (count > 100) {
+                alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
+                    intent.putExtra("Notification", "Be careful! You are in dangerous zone")
+                    PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_IMMUTABLE)
+                }
+
             }
             Log.d("DangerLevel", "Count: $count")
         }
