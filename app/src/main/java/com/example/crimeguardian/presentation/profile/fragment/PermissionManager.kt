@@ -15,7 +15,7 @@ object PermissionManager {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun requestPermission(fragment: Fragment, permission: String, permissionCode: Int) {
+    fun requestPermission(fragment: Fragment, permission: String, permissionCode: Int) {
         ActivityCompat.requestPermissions(fragment.requireActivity(), arrayOf(permission), permissionCode)
     }
 

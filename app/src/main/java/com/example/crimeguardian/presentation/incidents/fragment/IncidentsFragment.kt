@@ -72,21 +72,22 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
     }
 
     private fun observeLocation() {
-        if (PermissionManager.checkPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)) {
-            viewModel.countMarkersWithinCircle(
-                lifecycleOwner = viewLifecycleOwner, center = LatLng(43.069835, 76.731822)
-            )
-            viewModel.resultLiveData.observe(viewLifecycleOwner) { count ->
-                if (count > 400) {
-                    showDangerAlert()
-                }
-                Log.d("DangerLevel", "Count: $count")
-            }
-        } else {
-            // Request location permission
+        if (!PermissionManager.checkPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+        ) {
             PermissionManager.requestLocationPermission(this)
         }
+
+        viewModel.countMarkersWithinCircle(
+            lifecycleOwner = viewLifecycleOwner, center = LatLng(43.237156, 76.930097)
+        )
+        viewModel.resultLiveData.observe(viewLifecycleOwner) { count ->
+            if (count > 400) {
+                showDangerAlert()
+            }
+            Log.d("DangerLevel", "Count: $count")
+        }
     }
+
     private fun showDangerAlert() {
         val alertDialogBuilder = AlertDialog.Builder(requireContext())
         alertDialogBuilder.apply {
