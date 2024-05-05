@@ -1,6 +1,7 @@
 package com.example.crimeguardian.presentation.incidents.fragment.viewmodel
 
 import android.content.Context
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -86,8 +87,8 @@ class IncidentsViewModel : ViewModel() {
         }
     }
 
-    fun countMarkersWithinCircle(center: LatLng) {
-        geoJsonData.observeForever { items ->
+    fun countMarkersWithinCircle(center: LatLng, lifecycleOwner: LifecycleOwner) {
+        geoJsonData.observe(lifecycleOwner) { items ->
             val centerGeo = Geo(center.latitude, center.longitude)
 
             var count = 0

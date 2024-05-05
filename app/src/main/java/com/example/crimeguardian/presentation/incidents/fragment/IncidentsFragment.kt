@@ -1,11 +1,9 @@
 package com.example.crimeguardian.presentation.incidents.fragment
 
 import android.app.AlertDialog
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import androidx.fragment.app.viewModels
 import com.example.crimeguardian.R
 import com.example.crimeguardian.core.BaseFragment
@@ -13,8 +11,10 @@ import com.example.crimeguardian.databinding.FragmentIncidentsBinding
 import com.example.crimeguardian.presentation.incidents.fragment.cluster.ClusterRenderer
 import com.example.crimeguardian.presentation.incidents.fragment.cluster.MyClusterItem
 import com.example.crimeguardian.presentation.incidents.fragment.viewmodel.IncidentsViewModel
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.maps.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.maps.android.clustering.ClusterManager
@@ -70,12 +70,10 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
     }
 
     private fun observeLocation() {
-
-       viewModel.countMarkersWithinCircle(
-            LatLng(43.069835, 76.731822)
+        viewModel.countMarkersWithinCircle(
+            lifecycleOwner = viewLifecycleOwner, center = LatLng(43.069835, 76.731822)
         )
-        viewModel.resultLiveData.observe(viewLifecycleOwner) {
-            count ->
+        viewModel.resultLiveData.observe(viewLifecycleOwner) { count ->
             if (count > 400) {
                 showDangerAlert()
             }
