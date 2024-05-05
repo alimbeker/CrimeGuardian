@@ -1,5 +1,6 @@
 package com.example.crimeguardian.presentation.incidents.fragment
 
+import android.Manifest
 import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import com.example.crimeguardian.databinding.FragmentIncidentsBinding
 import com.example.crimeguardian.presentation.incidents.fragment.cluster.ClusterRenderer
 import com.example.crimeguardian.presentation.incidents.fragment.cluster.MyClusterItem
 import com.example.crimeguardian.presentation.incidents.fragment.viewmodel.IncidentsViewModel
+import com.example.crimeguardian.presentation.profile.fragment.PermissionManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -70,18 +72,21 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
     }
 
     private fun observeLocation() {
-        viewModel.countMarkersWithinCircle(
-            lifecycleOwner = viewLifecycleOwner, center = LatLng(43.069835, 76.731822)
-        )
-        viewModel.resultLiveData.observe(viewLifecycleOwner) { count ->
-            if (count > 400) {
-                showDangerAlert()
+        if (PermissionManager.checkPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+            viewModel.countMarkersWithinCircle(
+                lifecycleOwner = viewLifecycleOwner, center = LatLng(43.069835, 76.731822)
+            )
+            viewModel.resultLiveData.observe(viewLifecycleOwner) { count ->
+                if (count > 400) {
+                    showDangerAlert()
+                }
+                Log.d("DangerLevel", "Count: $count")
             }
-            Log.d("DangerLevel", "Count: $count")
+        } else {
+            // Request location permission
+            PermissionManager.requestLocationPermission(this)
         }
-
     }
-
     private fun showDangerAlert() {
         val alertDialogBuilder = AlertDialog.Builder(requireContext())
         alertDialogBuilder.apply {

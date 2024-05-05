@@ -34,11 +34,21 @@ object PermissionManager {
             PermissionCode.PHONE_CALL_PERMISSION.ordinal
         )
     }
+
+    fun requestLocationPermission(fragment: Fragment) {
+        requestPermission(
+            fragment,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            PermissionCode.LOCATION_PERMISSION.ordinal
+        )
+    }
 }
+
 
 
 enum class PermissionCode {
     CONTACT_PERMISSION,
     CONTACT_PICK,
-    PHONE_CALL_PERMISSION
+    PHONE_CALL_PERMISSION,
+    LOCATION_PERMISSION
 }
