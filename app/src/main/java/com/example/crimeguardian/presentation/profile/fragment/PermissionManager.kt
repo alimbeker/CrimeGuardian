@@ -15,7 +15,7 @@ object PermissionManager {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    fun requestPermission(fragment: Fragment, permission: String, permissionCode: Int) {
+    private fun requestPermission(fragment: Fragment, permission: String, permissionCode: Int) {
         ActivityCompat.requestPermissions(fragment.requireActivity(), arrayOf(permission), permissionCode)
     }
 
@@ -24,6 +24,14 @@ object PermissionManager {
             fragment,
             Manifest.permission.READ_CONTACTS,
             PermissionCode.CONTACT_PERMISSION.ordinal
+        )
+    }
+
+    fun requestNotificationPermission(fragment: Fragment) {
+        requestPermission(
+            fragment,
+            Manifest.permission.POST_NOTIFICATIONS,
+            PermissionCode.POST_NOTIFICATIONS.ordinal
         )
     }
 
@@ -50,5 +58,6 @@ enum class PermissionCode {
     CONTACT_PERMISSION,
     CONTACT_PICK,
     PHONE_CALL_PERMISSION,
-    LOCATION_PERMISSION
+    LOCATION_PERMISSION,
+    POST_NOTIFICATIONS
 }

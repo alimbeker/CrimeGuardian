@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.viewModels
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
@@ -78,7 +79,10 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
     }
 
     private fun observeLocation() {
-        if (!PermissionManager.checkPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+        if (!PermissionManager.checkPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
         ) {
             PermissionManager.requestLocationPermission(this)
         }
@@ -87,37 +91,32 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
             lifecycleOwner = viewLifecycleOwner, center = LatLng(43.237156, 76.930097)
         )
         viewModel.resultLiveData.observe(viewLifecycleOwner) { count ->
-            if (count > 100) {
-                setSingleAlarm()
+            if (count > 400) {
+                callNotification()
             }
             Log.d("DangerLevel", "Count: $count")
         }
+
+
     }
 
-    private fun setSingleAlarm() {
-        val myWorkRequest = OneTimeWorkRequestBuilder<TodoWorker>()
-            .setInitialDelay(3, TimeUnit.SECONDS)
-            .setInputData(
-                workDataOf(
-                    "title" to "Todo Created",
-                    "message" to "A new todo has been created!")
-            )
-            .build()
-        WorkManager.getInstance(requireContext()).enqueue(myWorkRequest)
-    }
-
-    private fun showDangerAlert() {
-        val alertDialogBuilder = AlertDialog.Builder(requireContext())
-        alertDialogBuilder.apply {
-            setTitle("Danger Alert")
-            setMessage("You are in dangerous area. Leave it!")
-            setPositiveButton("OK") { dialog, _ ->
-                dialog.dismiss()
-            }
+    private fun callNotification() {
+        if (PermissionManager.checkPermission(requireContext(),Manifest.permission.POST_NOTIFICATIONS)) {
+            val myWorkRequest = OneTimeWorkRequestBuilder<TodoWorker>()
+                .setInitialDelay(3, TimeUnit.SECONDS)
+                .setInputData(
+                    workDataOf(
+                        "title" to "Notification",
+                        "message" to "Be careful! You are in dangerous area"
+                    )
+                )
+                .build()
+            WorkManager.getInstance(requireContext()).enqueue(myWorkRequest)
+        } else {
+            PermissionManager.requestNotificationPermission(this)
         }
-        val alertDialog = alertDialogBuilder.create()
-        alertDialog.show()
     }
+
 
     private fun loadAndParseGeoJsonData() {
         // Load and parse GeoJSON data
@@ -171,4 +170,7 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         super.onLowMemory()
         mapView.onLowMemory()
     }
+
 }
+
+
