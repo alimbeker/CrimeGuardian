@@ -106,25 +106,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <include layout="@layout/rv_item_shrimmer" />
+                <include layout="@layout/top_headlines" />
 
-                <include layout="@layout/rv_item_shrimmer" />
+                <include layout="@layout/top_headlines" />
 
-                <include layout="@layout/rv_item_shrimmer" />
+                <include layout="@layout/top_headlines" />
 
-                <include layout="@layout/rv_item_shrimmer" />
-
-                <include layout="@layout/rv_item_shrimmer" />
-
-                <include layout="@layout/rv_item_shrimmer" />
-
-                <include layout="@layout/rv_item_shrimmer" />
-
-                <include layout="@layout/rv_item_shrimmer" />
-
-                <include layout="@layout/rv_item_shrimmer" />
-
-                <include layout="@layout/rv_item_shrimmer" />
+                <include layout="@layout/top_headlines" />
             </LinearLayout>
         </ScrollView>
     </com.facebook.shimmer.ShimmerFrameLayout>

@@ -107,5 +107,8 @@ dependencies {
     //LiveData
     implementation (libs.lifecycle.livedata.ktx)
 
+    //Shimmer effect
+    implementation ("com.facebook.shimmer:shimmer:0.5.0")
+
 
 }
