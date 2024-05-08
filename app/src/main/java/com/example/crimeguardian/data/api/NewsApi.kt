@@ -10,8 +10,7 @@ interface NewsApi {
     @GET("top-headlines")
     suspend fun getTopHeadlines(
         @Query("apiKey") key: String = BuildConfig.NEWS_API_KEY,
-        @Query("country") country: String,
-        @Query("category") category: String,
+        @Query("q") search: String,
     ) : NewsResponseDto
     @GET("everything")
     suspend fun getAllData(
