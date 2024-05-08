@@ -25,9 +25,17 @@ class NewsViewModel @Inject constructor(
     val newsLiveData: LiveData<Resource<List<Article>>>
         get() = _newsLiveData
 
+
+
     fun getAllData() {
         viewModelScope.launch {
             repository.getAllData()
+        }
+    }
+
+    fun getTopHeadlines() {
+        viewModelScope.launch {
+            repository.getTopHeadlines()
         }
     }
 

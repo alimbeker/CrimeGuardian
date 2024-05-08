@@ -18,7 +18,12 @@ interface NewsRepository {
 
     val observeNewsStateFlow: Flow<State<List<Article>>>
 
+    val observeHeadlinesStateFlow: Flow<State<List<Article>>>
+
+
     suspend fun getAllData()
+
+    suspend fun getTopHeadlines()
 }
 
 class NewsRepositoryImpl @Inject constructor(
@@ -31,6 +36,11 @@ class NewsRepositoryImpl @Inject constructor(
     override val observeNewsStateFlow: Flow<State<List<Article>>>
         get() = _newsDataFlow
 
+
+    private val _headlinesDataFlow = MutableStateFlow<State<List<Article>>>(State.Initial)
+    override val observeHeadlinesStateFlow: Flow<State<List<Article>>>
+        get() = _headlinesDataFlow
+
     override suspend fun getAllData() =
         withContext(Dispatchers.IO) {
             try {
@@ -38,13 +48,13 @@ class NewsRepositoryImpl @Inject constructor(
                 if (cachedMovies.isEmpty()) {
                     _newsDataFlow.emit(State.Loading)
                 } else {
-                    Log.d("PopMovie Repo", "Cache Film")
+                    Log.d("News Repo", "Cache news")
                     _newsDataFlow.emit(State.Data(cachedMovies.map { it.toArticle() }))
                 }
                 if (networkChecker.isConnected) {
                     Log.d("PopMovie Repo", "Internet is connected")
                     val articles = newsApi.getAllData(search = "assault").articles
-                    _newsDataFlow.emit(State.Data(articles.map { it.toArticle()}))
+                    _newsDataFlow.emit(State.Data(articles.map { it.toArticle() }))
                     articleDao.clearAndInsert(articles.map { it.toArticleDbo() })
                 } else if (cachedMovies.isEmpty()) {
                     _newsDataFlow.emit(State.Failure(Exception("No Internet and no cache")))
@@ -53,7 +63,32 @@ class NewsRepositoryImpl @Inject constructor(
                 _newsDataFlow.emit(State.Failure(throwable))
             }
         }
+
+
+    override suspend fun getTopHeadlines() =
+        withContext(Dispatchers.IO) {
+            try {
+                val cachedMovies = articleDao.getAll()
+                if (cachedMovies.isEmpty()) {
+                    _headlinesDataFlow.emit(State.Loading)
+                } else {
+                    Log.d("News headlines Repo", "Cache headlines")
+                    _headlinesDataFlow.emit(State.Data(cachedMovies.map { it.toArticle() }))
+                }
+                if (networkChecker.isConnected) {
+                    Log.d("News headlines Repo", "Internet is connected")
+                    val articles = newsApi.getTopHeadlines(search = "crime").articles
+                    _headlinesDataFlow.emit(State.Data(articles.map { it.toArticle() }))
+                    articleDao.clearAndInsert(articles.map { it.toArticleDbo() })
+                } else if (cachedMovies.isEmpty()) {
+                    _headlinesDataFlow.emit(State.Failure(Exception("No Internet and no cache")))
+                }
+            } catch (throwable: Throwable) {
+                _headlinesDataFlow.emit(State.Failure(throwable))
+            }
+        }
 }
+
 
 
 
