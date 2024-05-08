@@ -32,6 +32,12 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>(FragmentNewsBinding::infl
 
         getAllData()
 
+        getTopHeadlines()
+
+    }
+
+    private fun getTopHeadlines() {
+        viewModel.getTopHeadlines()
     }
 
     private fun setupViewPager() {

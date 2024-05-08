@@ -30,7 +30,7 @@ class ViewPagerAdapter(private val newsList: List<Article>) : RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.tvSource.text = newsList[position].source
+        holder.tvSource.text = newsList[position].sourceName
         holder.tvHeading.text = newsList[position].title
         Glide.with(view).load(newsList[position].urlToImage).centerCrop().placeholder(R.drawable.no_image_avaliable).into(holder.ivBackground)
 
