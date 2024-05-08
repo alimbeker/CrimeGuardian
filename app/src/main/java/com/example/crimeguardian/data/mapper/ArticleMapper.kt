@@ -10,7 +10,7 @@ internal fun ArticleDto.toArticle() = Article(
     description = description ?: "",
     url = url ?: "",
     urlToImage = urlToImage ?: "",
-    sourceName = source?.name ?: "",
+    source = source?.name ?: "",
 )
 
 internal fun ArticleDBO.toArticle(): Article {
@@ -19,7 +19,7 @@ internal fun ArticleDBO.toArticle(): Article {
         description = description ?: "",
         url = url ?: "",
         urlToImage = urlToImage ?: "",
-        sourceName = source?.name ?: "",
+        source = source?.name ?: "",
     )
 }
 

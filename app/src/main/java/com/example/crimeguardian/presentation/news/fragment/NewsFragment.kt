@@ -11,6 +11,8 @@ import com.example.crimeguardian.core.functional.Resource
 import com.example.crimeguardian.databinding.FragmentNewsBinding
 import com.example.crimeguardian.presentation.adapter.CrimeNewsAdapter
 import com.example.crimeguardian.presentation.adapter.OffsetDecoration
+import com.example.crimeguardian.presentation.adapter.ViewPagerAdapter
+import com.example.crimeguardian.presentation.adapter.ViewPagerTransition
 import com.example.crimeguardian.presentation.news.fragment.viewmodel.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,10 +26,43 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>(FragmentNewsBinding::infl
 
         setupRecyclerView()
 
+        setupViewPager()
+
         observeViewModel()
 
         getAllData()
 
+    }
+
+    private fun setupViewPager() {
+        //top-headlines
+        ViewPagerTransition.transitions(binding.viewPager)
+
+        viewModel.headlinesLiveData.observe(viewLifecycleOwner) {
+            resource ->
+
+            when(resource) {
+                is Resource.Loading -> {
+                    binding.loading.isVisible = true
+                }
+
+                is Resource.Success -> {
+                    binding.loading.isVisible = false
+                    binding.shimmerViewContainerViewPager.stopShimmer()
+                    binding.shimmerViewContainerViewPager.visibility = View.GONE
+                    binding.viewPager.adapter = ViewPagerAdapter(resource.data)
+                }
+
+                is Resource.Error -> {
+                    binding.loading.isVisible = false
+
+                    Toast.makeText(this.context, resource.exception.toString(), Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+                else -> Unit
+            }
+        }
     }
 
     private fun getAllData() {
