@@ -5,14 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/breaking_news"
+        android:textColor="@color/item_source"
+        android:textSize="@dimen/_18ssp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tv_breaking_news"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:text="Breaking news"
-        android:textColor="@color/black"
+        android:layout_marginTop="68dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/breaking_news"
+        android:textColor="@color/item_source"
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,25 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         app:layout_constraintTop_toBottomOf="@+id/tv_breaking_news"
-        tools:ignore="MissingClass,MissingConstraints">
+        >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <include layout="@layout/top_headlines" />
-
-            <include layout="@layout/top_headlines" />
-
-            <include layout="@layout/top_headlines" />
-
-            <include layout="@layout/top_headlines" />
-
-            <include layout="@layout/top_headlines" />
-
-            <include layout="@layout/top_headlines" />
-        </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
 
     <androidx.viewpager2.widget.ViewPager2
@@ -68,26 +67,15 @@
         android:id="@+id/tv_recommendation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:text="Latest news"
-        android:textColor="@color/black"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="112dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/latest_news"
+        android:textColor="@color/item_source"
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
-
-    <TextView
-        android:id="@+id/tv_view_all"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:text="view all"
-        android:textSize="@dimen/_15ssp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_recommendation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_recommendation" />
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_view_container"
@@ -104,16 +92,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <include layout="@layout/top_headlines" />
-
-                <include layout="@layout/top_headlines" />
-
-                <include layout="@layout/top_headlines" />
-
-                <include layout="@layout/top_headlines" />
-            </LinearLayout>
+                android:orientation="vertical"/>
         </ScrollView>
     </com.facebook.shimmer.ShimmerFrameLayout>
 
@@ -121,10 +100,30 @@
         android:id="@+id/recyclerViewCrimeNews"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_recommendation" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteY="114dp">
+
+        <include layout="@layout/top_headlines" />
+
+        <include layout="@layout/top_headlines" />
+
+        <include layout="@layout/top_headlines" />
+
+        <include layout="@layout/top_headlines" />
+
+        <include layout="@layout/top_headlines" />
+
+        <include layout="@layout/top_headlines" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -19,4 +19,6 @@
     <string name="response_geojson">response.geojson</string>
     <string name="source">source</string>
     <string name="author">author</string>
+    <string name="breaking_news">Breaking news</string>
+    <string name="latest_news">Latest news</string>
 </resources>
