@@ -14,6 +14,7 @@
         android:fontFamily="@font/inter_extrabold"
         android:text="@string/news"
         android:textAllCaps="true"
+        android:letterSpacing="0.2"
         android:textColor="@color/news"
         android:textSize="@dimen/_20ssp"
         android:textStyle="bold"
@@ -26,7 +27,7 @@
         android:id="@+id/tv_breaking_news"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="75dp"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/roboto_bold"
         android:text="@string/breaking_news"
@@ -48,7 +49,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
-
             <include layout="@layout/top_headlines" />
             <include layout="@layout/top_headlines" />
             <include layout="@layout/top_headlines" />
@@ -81,9 +81,8 @@
         android:id="@+id/shimmer_view_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5sdp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_recommendation"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="425dp">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -92,33 +91,38 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"/>
+                android:orientation="vertical" />
         </ScrollView>
     </com.facebook.shimmer.ShimmerFrameLayout>
 
-    <TextView
-        android:id="@+id/tv_recommendation"
-        android:layout_width="wrap_content"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="112dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="@string/latest_news"
-        android:textColor="@color/item_source"
-        android:textSize="@dimen/_18ssp"
-        android:textStyle="bold"
+        android:layout_marginVertical="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/shimmer_view_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintVertical_bias="0.7"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp"
+        app:tabMinWidth="@dimen/_1sdp"
+        app:tabMode="scrollable"
+        app:tabRippleColor="@null" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCrimeNews"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_recommendation" />
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
