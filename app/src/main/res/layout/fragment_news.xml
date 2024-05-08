@@ -1,22 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/news_fragment_background"
-    tools:context=".presentation.news.fragment.NewsFragment">
+    android:layout_height="match_parent">
 
-    <ProgressBar
-        android:id="@+id/loading"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:visibility="gone" />
+    <TextView
+        android:id="@+id/tv_breaking_news"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="Breaking news"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_18ssp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- TODO: Update blank fragment layout -->
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_breaking_news"
+        tools:ignore="MissingClass,MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <include layout="@layout/top_headlines" />
+
+            <include layout="@layout/top_headlines" />
+
+            <include layout="@layout/top_headlines" />
+
+            <include layout="@layout/top_headlines" />
+
+            <include layout="@layout/top_headlines" />
+
+            <include layout="@layout/top_headlines" />
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:paddingHorizontal="@dimen/_20sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_breaking_news" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/_190sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_breaking_news" />
+
+    <TextView
+        android:id="@+id/tv_recommendation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="Latest news"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_18ssp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/tv_view_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:text="view all"
+        android:textSize="@dimen/_15ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_recommendation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_recommendation" />
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_recommendation"
+        tools:ignore="MissingConstraints">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/rv_item_shrimmer" />
+
+                <include layout="@layout/rv_item_shrimmer" />
+
+                <include layout="@layout/rv_item_shrimmer" />
+
+                <include layout="@layout/rv_item_shrimmer" />
+
+                <include layout="@layout/rv_item_shrimmer" />
+
+                <include layout="@layout/rv_item_shrimmer" />
+
+                <include layout="@layout/rv_item_shrimmer" />
+
+                <include layout="@layout/rv_item_shrimmer" />
+
+                <include layout="@layout/rv_item_shrimmer" />
+
+                <include layout="@layout/rv_item_shrimmer" />
+            </LinearLayout>
+        </ScrollView>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCrimeNews"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_recommendation" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
