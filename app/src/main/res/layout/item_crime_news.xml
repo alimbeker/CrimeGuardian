@@ -31,7 +31,7 @@
         android:layout_marginEnd="5dp"
         tools:text="@string/text_crime_1"
         android:textColor="@color/black"
-        android:fontFamily="@font/plusjakartasans_regular"
+        android:fontFamily="@font/roboto_bold"
         android:textSize="17sp"
         android:textStyle="bold" />
 
