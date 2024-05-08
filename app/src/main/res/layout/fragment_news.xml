@@ -11,10 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="@string/breaking_news"
-        android:textColor="@color/item_source"
-        android:textSize="@dimen/_18ssp"
+        android:fontFamily="@font/inter_extrabold"
+        android:text="@string/news"
+        android:textAllCaps="true"
+        android:textColor="@color/news"
+        android:textSize="@dimen/_20ssp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -26,6 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
+        android:layout_marginStart="16dp"
         android:fontFamily="@font/roboto_bold"
         android:text="@string/breaking_news"
         android:textColor="@color/item_source"
@@ -40,9 +42,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         app:layout_constraintTop_toBottomOf="@+id/tv_breaking_news"
-        >
+        tools:ignore="MissingConstraints">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <include layout="@layout/top_headlines" />
+            <include layout="@layout/top_headlines" />
+            <include layout="@layout/top_headlines" />
+            <include layout="@layout/top_headlines" />
+        </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
+
+
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
@@ -105,25 +119,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_recommendation" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteY="114dp">
-
-        <include layout="@layout/top_headlines" />
-
-        <include layout="@layout/top_headlines" />
-
-        <include layout="@layout/top_headlines" />
-
-        <include layout="@layout/top_headlines" />
-
-        <include layout="@layout/top_headlines" />
-
-        <include layout="@layout/top_headlines" />
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
