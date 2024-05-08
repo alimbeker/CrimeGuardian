@@ -5,14 +5,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.core.functional.Resource
 import com.example.crimeguardian.databinding.FragmentNewsBinding
 import com.example.crimeguardian.presentation.adapter.CrimeNewsAdapter
 import com.example.crimeguardian.presentation.adapter.OffsetDecoration
-import com.example.crimeguardian.presentation.incidents.fragment.viewmodel.IncidentsViewModel
 import com.example.crimeguardian.presentation.news.fragment.viewmodel.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
