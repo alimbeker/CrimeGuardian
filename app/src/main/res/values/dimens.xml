@@ -664,4 +664,6 @@
     <dimen name="_15ssp">15.00dp</dimen>
     <dimen name="_20ssp">20.00sp</dimen>
     <dimen name="_22ssp">22.00sp</dimen>
+    <dimen name="_8ssp">8.00sp</dimen>
+    <dimen name="_12ssp">12.00sp</dimen>
 </resources>

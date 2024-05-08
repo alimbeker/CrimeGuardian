@@ -26,6 +26,13 @@ class NewsViewModel @Inject constructor(
         get() = _newsLiveData
 
 
+    private val _headlinesLiveData = repository.observeHeadlinesStateFlow
+        .map(::mapToUiState)
+        .asLiveData()
+
+    val headlinesLiveData: LiveData<Resource<List<Article>>>
+        get() = _headlinesLiveData
+
 
     fun getAllData() {
         viewModelScope.launch {

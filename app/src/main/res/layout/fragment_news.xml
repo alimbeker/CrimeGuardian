@@ -70,10 +70,10 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <include layout="@layout/top_headlines" />
-            <include layout="@layout/top_headlines" />
-            <include layout="@layout/top_headlines" />
-            <include layout="@layout/top_headlines" />
+            <include layout="@layout/top_headlines_shimmer" />
+            <include layout="@layout/top_headlines_shimmer" />
+            <include layout="@layout/top_headlines_shimmer" />
+            <include layout="@layout/top_headlines_shimmer" />
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
 
