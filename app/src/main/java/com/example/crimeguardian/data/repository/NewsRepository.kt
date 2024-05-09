@@ -41,7 +41,7 @@ class NewsRepositoryImpl @Inject constructor(
     override val observeHeadlinesStateFlow: Flow<State<List<Article>>>
         get() = _headlinesDataFlow
 
-    override suspend fun getAllData() =
+    override suspend fun getAllData() {
         withContext(Dispatchers.IO) {
             try {
                 val cachedMovies = articleDao.getAll()
@@ -52,8 +52,8 @@ class NewsRepositoryImpl @Inject constructor(
                     _newsDataFlow.emit(State.Data(cachedMovies.map { it.toArticle() }))
                 }
                 if (networkChecker.isConnected) {
-                    Log.d("PopMovie Repo", "Internet is connected")
-                    val articles = newsApi.getAllData(search = "assault").articles
+                    Log.d("News Repo", "Internet is connected")
+                    val articles = newsApi.getAllData(search = "robbery").articles
                     _newsDataFlow.emit(State.Data(articles.map { it.toArticle() }))
                     articleDao.clearAndInsert(articles.map { it.toArticleDbo() })
                 } else if (cachedMovies.isEmpty()) {
@@ -63,9 +63,10 @@ class NewsRepositoryImpl @Inject constructor(
                 _newsDataFlow.emit(State.Failure(throwable))
             }
         }
+    }
 
 
-    override suspend fun getTopHeadlines() =
+    override suspend fun getTopHeadlines() {
         withContext(Dispatchers.IO) {
             try {
                 val cachedMovies = articleDao.getAll()
@@ -77,7 +78,7 @@ class NewsRepositoryImpl @Inject constructor(
                 }
                 if (networkChecker.isConnected) {
                     Log.d("News headlines Repo", "Internet is connected")
-                    val articles = newsApi.getTopHeadlines(search = "crime").articles
+                    val articles = newsApi.getTopHeadlines(search = "murder").articles
                     _headlinesDataFlow.emit(State.Data(articles.map { it.toArticle() }))
                     articleDao.clearAndInsert(articles.map { it.toArticleDbo() })
                 } else if (cachedMovies.isEmpty()) {
@@ -87,6 +88,7 @@ class NewsRepositoryImpl @Inject constructor(
                 _headlinesDataFlow.emit(State.Failure(throwable))
             }
         }
+    }
 }
 
 

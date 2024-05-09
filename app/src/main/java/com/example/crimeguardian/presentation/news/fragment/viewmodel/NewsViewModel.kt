@@ -47,7 +47,7 @@ class NewsViewModel @Inject constructor(
     }
 
     private fun mapToUiState(newsState: State<List<Article>>) =
-        when (newsState) {
+        when(newsState) {
             State.Initial -> Resource.Empty
             State.Loading -> Resource.Loading
             is State.Failure -> Resource.Error(newsState.exception)
