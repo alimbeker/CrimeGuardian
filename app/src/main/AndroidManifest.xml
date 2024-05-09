@@ -33,10 +33,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CrimeGuardian"
         tools:targetApi="31">
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCV21rnQ5WbhN19kR2Uiu5M6nGSfh9GUW8"
-            />
         <activity
             android:name=".presentation.splash.screen.SplashActivity"
             android:exported="true"
@@ -48,6 +44,18 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+
+
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCV21rnQ5WbhN19kR2Uiu5M6nGSfh9GUW8" />
+
+        <activity
+            android:name=".presentation.MainActivity"
+            android:exported="false">
 
         </activity>
     </application>
