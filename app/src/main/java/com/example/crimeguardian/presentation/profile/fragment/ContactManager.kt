@@ -2,6 +2,7 @@ package com.example.crimeguardian.presentation.profile.fragment
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import com.example.crimeguardian.core.PermissionCode
 
 class ContactManager(private val listener: ContactSelectionListener) {
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -8,6 +8,8 @@ import android.provider.ContactsContract
 import android.view.View
 import android.widget.Toast
 import com.example.crimeguardian.core.BaseFragment
+import com.example.crimeguardian.core.PermissionCode
+import com.example.crimeguardian.core.PermissionManager
 import com.example.crimeguardian.databinding.FragmentProfileBinding
 import com.example.crimeguardian.presentation.model.model.profile.ContactDetails
 import dagger.hilt.android.AndroidEntryPoint

@@ -1,6 +1,5 @@
 package com.example.crimeguardian.presentation.incidents.fragment
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -13,8 +12,6 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.crimeguardian.R
 import com.example.crimeguardian.presentation.MainActivity
-import com.example.crimeguardian.presentation.profile.fragment.PermissionManager
-import java.util.concurrent.TimeUnit
 
 
 class NotificationHelper(val context : Context) {

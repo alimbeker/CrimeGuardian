@@ -1,4 +1,4 @@
-package com.example.crimeguardian.presentation.profile.fragment
+package com.example.crimeguardian.core
 
 import android.Manifest
 import android.content.Context

@@ -1,11 +1,9 @@
 package com.example.crimeguardian.presentation.incidents.fragment
 
 import android.Manifest
-import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.viewModels
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
@@ -17,7 +15,7 @@ import com.example.crimeguardian.databinding.FragmentIncidentsBinding
 import com.example.crimeguardian.presentation.incidents.fragment.cluster.ClusterRenderer
 import com.example.crimeguardian.presentation.incidents.fragment.cluster.MyClusterItem
 import com.example.crimeguardian.presentation.incidents.fragment.viewmodel.IncidentsViewModel
-import com.example.crimeguardian.presentation.profile.fragment.PermissionManager
+import com.example.crimeguardian.core.PermissionManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
