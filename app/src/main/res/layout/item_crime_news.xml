@@ -8,7 +8,7 @@
     android:layout_marginTop="@dimen/_5sdp"
     android:elevation="@dimen/_5sdp"
     app:cardMaxElevation="@dimen/_6sdp"
-    android:backgroundTint="#1C2128"
+    android:backgroundTint="@color/news_fragment_background"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">

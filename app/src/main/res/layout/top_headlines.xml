@@ -10,7 +10,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_220sdp"
+        android:layout_height="@dimen/_230sdp"
         app:cardCornerRadius="@dimen/_12sdp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,19 +53,19 @@
             android:textColor="@color/white" />
     </androidx.cardview.widget.CardView>
 
+
     <TextView
         android:id="@+id/tvHeading"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         tools:text="@string/text_crime_1"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_15sdp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:fontFamily="@font/roboto_bold"
-        android:textSize="@dimen/_12ssp"
+        android:background="@drawable/headlines_text_shape"
+        android:textSize="@dimen/_15ssp"
         android:ellipsize="end"
         android:maxLines="3"
-        android:layout_marginEnd="@dimen/_10sdp"
+        android:padding="@dimen/_5sdp"
         app:layout_constraintBottom_toBottomOf="@+id/card_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
