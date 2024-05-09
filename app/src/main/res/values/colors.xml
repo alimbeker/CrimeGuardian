@@ -11,5 +11,8 @@
     <color name="news">#FF0000</color>
     <color name="blue">#8252EF</color>
     <color name="light_black">#B2000000</color>
+    <color name="orange">#FF5722</color>
+    <color name="blue1">#1228A1</color>
+    <color name="gray">#B8B6B6</color>
 
 </resources>

@@ -1,0 +1,77 @@
+package com.example.crimeguardian.main.fragment
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.example.crimeguardian.databinding.FragmentMainBinding
+
+
+class MainFragment : Fragment() {
+        private lateinit var binding: FragmentMainBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View{
+        binding = FragmentMainBinding.inflate(inflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        issuePage()
+        newsPage()
+        extraCallPage()
+        webViewPage()
+        userPageScreen()
+    }
+
+
+    private fun issuePage(){
+        binding.apply {
+            imageMap.setOnClickListener {
+                val action = MainFragmentDirections.actionMainFragmentToIssuesFragment()
+                findNavController().navigate(action)
+            }
+
+        }
+    }
+
+    private fun newsPage(){
+        binding.apply {
+            imageNews.setOnClickListener {
+                val action = MainFragmentDirections.actionMainFragmentToNewsFragment()
+                findNavController().navigate(action)
+            }
+        }
+    }
+
+    private fun extraCallPage(){
+        binding.apply {
+            sosCall.setOnClickListener {
+                val action = MainFragmentDirections.actionMainFragmentToProfileFragment()
+                findNavController().navigate(action)
+            }
+        }
+    }
+    private fun webViewPage(){
+        binding.apply {
+            articleImage.setOnClickListener {
+                val action = MainFragmentDirections.actionMainFragmentToArticleFragment()
+                findNavController().navigate(action)
+            }
+        }
+    }
+    private fun userPageScreen(){
+        binding.apply {
+            profileUser.setOnClickListener {
+                val action = MainFragmentDirections.actionMainFragmentToUserProfileFragment()
+                findNavController().navigate(action)
+            }
+        }
+    }
+
+}
