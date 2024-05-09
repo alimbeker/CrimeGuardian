@@ -26,20 +26,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.mainContainer) as NavHostFragment
         navController = navHostFragment.navController
 
-        setupBottomNavigation()
-
     }
 
-    private fun setupBottomNavigation() {
-        val bottomNavView: BottomNavigationView = findViewById(R.id.bottomMenu)
 
-        bottomNavView.setOnItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.incidentsFragment -> navController.navigate(R.id.issuesFragment)
-                R.id.newsFragment -> navController.navigate(R.id.newsFragment)
-                R.id.profileFragment -> navController.navigate(R.id.profileFragment)
-            }
-            true
-        }
-    }
 }
