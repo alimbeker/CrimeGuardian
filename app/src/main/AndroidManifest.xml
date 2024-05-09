@@ -38,13 +38,17 @@
             android:value="AIzaSyCV21rnQ5WbhN19kR2Uiu5M6nGSfh9GUW8"
             />
         <activity
-            android:name=".presentation.MainActivity"
-            android:exported="true">
+            android:name=".presentation.splash.screen.SplashActivity"
+            android:exported="true"
+            android:noHistory="true"
+            >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 
