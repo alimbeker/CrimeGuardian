@@ -22,7 +22,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_amir_alimbayev"
+        android:text="@string/hello_amir_alimbekerov"
         android:textColor="@color/white"
         android:textSize="23sp"
         android:fontFamily="@font/plusjakartasans_regular"
