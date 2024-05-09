@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green_light"
+    android:background="@drawable/round_corners"
+    android:backgroundTint="@color/green_light"
     tools:context=".presentation.main.fragment.MainFragment">
 
 
@@ -48,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="32dp"
-        android:backgroundTint="@color/gray"
+        android:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +67,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/gray"
+                android:background="@color/white"
                 android:gravity="center">
 
                 <LinearLayout
@@ -203,7 +204,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/gray"
+                android:background="@color/white"
                 android:gravity="center">
 
                 <LinearLayout

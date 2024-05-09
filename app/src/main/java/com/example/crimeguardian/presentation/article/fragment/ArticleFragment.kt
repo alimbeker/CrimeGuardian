@@ -1,4 +1,4 @@
-package com.example.crimeguardian.article.fragment
+package com.example.crimeguardian.presentation.article.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
