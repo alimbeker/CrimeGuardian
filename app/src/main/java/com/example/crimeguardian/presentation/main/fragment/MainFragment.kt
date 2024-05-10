@@ -24,6 +24,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         issuePage()
         newsPage()
+        webViewPage()
         extraCallPage()
     }
 
@@ -47,6 +48,14 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun webViewPage(){
+        binding.apply {
+            articleImage.setOnClickListener {
+                val action = MainFragmentDirections.actionMainFragmentToArticleFragment()
+                findNavController().navigate(action)
+            }
+        }
+    }
     private fun extraCallPage(){
         binding.apply {
             sosCall.setOnClickListener {
