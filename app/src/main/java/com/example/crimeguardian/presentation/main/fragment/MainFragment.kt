@@ -25,7 +25,6 @@ class MainFragment : Fragment() {
         issuePage()
         newsPage()
         extraCallPage()
-        userPageScreen()
     }
 
 
@@ -57,13 +56,5 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun userPageScreen(){
-        binding.apply {
-            profileUser.setOnClickListener {
-                val action = MainFragmentDirections.actionMainFragmentToUserProfileFragment()
-                findNavController().navigate(action)
-            }
-        }
-    }
 
 }
