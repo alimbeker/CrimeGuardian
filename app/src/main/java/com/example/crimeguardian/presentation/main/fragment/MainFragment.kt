@@ -25,7 +25,6 @@ class MainFragment : Fragment() {
         issuePage()
         newsPage()
         extraCallPage()
-        webViewPage()
         userPageScreen()
     }
 
@@ -57,14 +56,7 @@ class MainFragment : Fragment() {
             }
         }
     }
-    private fun webViewPage(){
-        binding.apply {
-            articleImage.setOnClickListener {
-                val action = MainFragmentDirections.actionMainFragmentToArticleFragment()
-                findNavController().navigate(action)
-            }
-        }
-    }
+
     private fun userPageScreen(){
         binding.apply {
             profileUser.setOnClickListener {
