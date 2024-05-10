@@ -14,5 +14,4 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/plusjakartasans_regular</item>
     </style>
-
 </resources>
