@@ -5,15 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/round_corners"
-    android:backgroundTint="@color/green_light"
+
+    android:backgroundTint="@color/black"
     tools:context=".presentation.main.fragment.MainFragment">
 
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/profile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/main_profile"
         android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,8 +26,8 @@
         android:layout_height="wrap_content"
         android:text="@string/hello_amir_alimbekerov"
         android:textColor="@color/white"
-        android:textSize="23sp"
-        android:fontFamily="@font/plusjakartasans_regular"
+        android:textSize="20sp"
+        android:fontFamily="@font/roboto_bold"
         android:layout_marginTop="12dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
@@ -60,6 +61,7 @@
             android:id="@+id/tableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -79,7 +81,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/white_btn_background">
+                        android:background="@drawable/white_btn_background"
+                        android:backgroundTint="@color/black">
 
                         <ImageView
                             android:id="@+id/imageView2"
@@ -114,48 +117,6 @@
                         android:textSize="17sp" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:orientation="vertical">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/white_btn_background">
-
-                        <ImageView
-                            android:id="@+id/imageView23"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:src="@drawable/circle_green"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/article_image"
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
-                            android:src="@drawable/article"
-                            app:layout_constraintBottom_toBottomOf="@id/imageView23"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView23"
-                            app:layout_constraintStart_toStartOf="@id/imageView23"
-                            app:layout_constraintTop_toTopOf="@id/imageView23" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <TextView
-                        android:id="@+id/text_view_article"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Article"
-                        android:textAlignment="center"
-                        android:textColor="@color/back_blue"
-                        android:textSize="17sp" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -166,7 +127,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/white_btn_background">
+                        android:background="@drawable/white_btn_background"
+                        android:backgroundTint="@color/black">
 
                         <ImageView
                             android:id="@+id/imageView22"
@@ -216,7 +178,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/white_btn_background">
+                        android:background="@drawable/white_btn_background"
+                        android:backgroundTint="@color/black">
 
                         <ImageView
                             android:id="@+id/imageView24"
@@ -259,7 +222,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/white_btn_background">
+                        android:background="@drawable/white_btn_background"
+                        android:backgroundTint="@color/black">
 
                         <ImageView
                             android:id="@+id/imageView26"
@@ -293,48 +257,7 @@
                         android:textSize="17sp" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:orientation="vertical">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/white_btn_background">
-
-                        <ImageView
-                            android:id="@+id/imageView25"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:src="@drawable/circle_green"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/ai_img_view"
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
-                            android:src="@drawable/artificial_intelligence"
-                            app:layout_constraintBottom_toBottomOf="@id/imageView25"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView25"
-                            app:layout_constraintStart_toStartOf="@id/imageView25"
-                            app:layout_constraintTop_toTopOf="@id/imageView25" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <TextView
-                        android:id="@+id/text_view_ai"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="AI"
-                        android:textAlignment="center"
-                        android:textColor="@color/back_blue"
-                        android:textSize="17sp" />
-                </LinearLayout>
             </TableRow>
 
         </TableLayout>
@@ -345,6 +268,7 @@
             android:layout_height="170dp"
             android:layout_margin="24dp"
             android:background="@drawable/green_banner_background"
+            android:backgroundTint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
