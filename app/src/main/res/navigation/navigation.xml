@@ -14,7 +14,11 @@
         android:id="@+id/newsFragment"
         android:name="com.example.crimeguardian.presentation.news.fragment.NewsFragment"
         android:label="fragment_news"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_newsFragment_to_detailedFragment"
+            app:destination="@id/detailedFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.crimeguardian.presentation.profile.fragment.ProfileFragment"
@@ -40,9 +44,6 @@
         <action
             android:id="@+id/action_mainFragment_to_userProfileFragment"
             app:destination="@id/userProfileFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_detailedFragment"
-            app:destination="@id/detailedFragment" />
     </fragment>
     <fragment
         android:id="@+id/articleFragment"

@@ -119,7 +119,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>(FragmentNewsBinding::infl
     }
 
     override fun onNewsItemClickListener(article: Article) {
-        val action = MainFragmentDirections.actionMainFragmentToDetailedFragment(
+        val action = NewsFragmentDirections.actionNewsFragmentToDetailedFragment(
             title = article.title,
             sourceName = article.sourceName,
             description = article.description,
