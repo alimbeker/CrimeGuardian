@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.crimeguardian.databinding.FragmentDetailedBinding
 import com.example.crimeguardian.databinding.TopHeadlinesBinding
 
@@ -28,5 +29,8 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
         binding.TvAuthor.text = args.sourceName
         binding.TvHeading.text = args.title
         binding.TvDescription.text = args.description
+        Glide.with(requireContext())
+            .load(args.urlToImage)
+            .into(binding.IvBackground)
     }
 }
