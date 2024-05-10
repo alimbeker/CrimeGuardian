@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.crimeguardian.databinding.ItemCrimeNewsBinding
 import com.example.crimeguardian.presentation.model.model.news.Article
+import com.example.crimeguardian.presentation.news.fragment.OnNewsClickListener
 
-class CrimeNewsAdapter(private val maxItems: Int) :
+class CrimeNewsAdapter(private val maxItems: Int, private val onNewsClickListener: OnNewsClickListener) :
     ListAdapter<Article, CrimeNewsAdapter.ArticleViewHolder>(ArticleDiffCallback()) {
     private var articles: List<Article> = emptyList()
 
@@ -44,6 +45,10 @@ class CrimeNewsAdapter(private val maxItems: Int) :
                 Glide.with(binding.root.context)
                     .load(article.urlToImage)
                     .into(crimeNewsImage)
+            }
+
+            itemView.setOnClickListener {
+                onNewsClickListener.onNewsItemClickListener(article)
             }
         }
     }

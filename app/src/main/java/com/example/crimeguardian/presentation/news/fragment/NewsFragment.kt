@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.crimeguardian.core.BaseFragment
 import com.example.crimeguardian.core.functional.Resource
@@ -13,11 +14,13 @@ import com.example.crimeguardian.presentation.adapter.CrimeNewsAdapter
 import com.example.crimeguardian.presentation.adapter.OffsetDecoration
 import com.example.crimeguardian.presentation.adapter.ViewPagerAdapter
 import com.example.crimeguardian.presentation.adapter.ViewPagerTransition
+import com.example.crimeguardian.presentation.main.fragment.MainFragmentDirections
+import com.example.crimeguardian.presentation.model.model.news.Article
 import com.example.crimeguardian.presentation.news.fragment.viewmodel.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NewsFragment : BaseFragment<FragmentNewsBinding>(FragmentNewsBinding::inflate) {
+class NewsFragment : BaseFragment<FragmentNewsBinding>(FragmentNewsBinding::inflate), OnNewsClickListener {
     private val viewModel: NewsViewModel by viewModels()
     private lateinit var adapter: CrimeNewsAdapter
 
@@ -56,7 +59,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>(FragmentNewsBinding::infl
                     binding.loading.isVisible = false
                     binding.shimmerViewContainerViewPager.stopShimmer()
                     binding.shimmerViewContainerViewPager.visibility = View.GONE
-                    binding.viewPager.adapter = ViewPagerAdapter(resource.data)
+                    binding.viewPager.adapter = ViewPagerAdapter(resource.data, this)
                 }
 
                 is Resource.Error -> {
@@ -76,7 +79,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>(FragmentNewsBinding::infl
     }
 
     private fun setupRecyclerView() {
-        adapter = CrimeNewsAdapter(maxItems = 5)
+        adapter = CrimeNewsAdapter(maxItems = 5, this)
 
         binding.recyclerViewCrimeNews.apply {
             layoutManager = LinearLayoutManager(context)
@@ -113,6 +116,17 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>(FragmentNewsBinding::infl
                 else -> Unit
             }
         }
+    }
+
+    override fun onNewsItemClickListener(article: Article) {
+        val action = MainFragmentDirections.actionMainFragmentToDetailedFragment(
+            title = article.title,
+            sourceName = article.sourceName,
+            description = article.description,
+            url = article.url,
+            urlToImage = article.urlToImage
+        )
+        findNavController().navigate(action)
     }
 
 
