@@ -115,7 +115,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         app:cardCornerRadius="24dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toEndOf="parent"
@@ -301,15 +301,18 @@
         android:layout_height="48dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="32dp"
+        android:layout_marginStart="25dp"
         app:cardBackgroundColor="#80FFFFFF"
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/search_view"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="#FFFFFF">
+
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="22dp"
+            android:layout_height="21dp"
             android:layout_gravity="center"
             android:src="@drawable/notification" />
     </com.google.android.material.card.MaterialCardView>
@@ -359,11 +362,11 @@
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintTop_toBottomOf="@+id/navigation_for_fragments"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.1"/>
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
