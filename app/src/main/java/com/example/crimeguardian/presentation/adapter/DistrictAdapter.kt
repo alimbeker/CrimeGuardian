@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.crimeguardian.databinding.ItemDistrictBinding
 import com.example.crimeguardian.presentation.model.model.main.District
 
-class DistrictAdapter(private val districts: List<District>) :
+class DistrictAdapter(private var districts: MutableList<District>) :
     RecyclerView.Adapter<DistrictAdapter.DistrictViewHolder>() {
 
     inner class DistrictViewHolder(private val binding: ItemDistrictBinding) :
@@ -32,5 +32,11 @@ class DistrictAdapter(private val districts: List<District>) :
 
     override fun getItemCount(): Int {
         return districts.size
+    }
+
+    fun updateDistricts(newDistricts: List<District>) {
+        districts.clear()
+        districts.addAll(newDistricts)
+        notifyDataSetChanged()
     }
 }

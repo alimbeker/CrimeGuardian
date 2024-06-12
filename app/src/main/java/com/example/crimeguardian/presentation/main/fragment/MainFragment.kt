@@ -1,12 +1,13 @@
 package com.example.crimeguardian.presentation.main.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.appcompat.widget.SearchView
+import androidx.navigation.fragment.findNavController
 import com.example.crimeguardian.R
 import com.example.crimeguardian.databinding.FragmentMainBinding
 import com.example.crimeguardian.presentation.adapter.DistrictAdapter
@@ -22,10 +23,11 @@ class MainFragment : Fragment() {
         District(R.string.almaly_district, R.drawable.almaly_district),
         District(R.string.alatau_district, R.drawable.alatau_district),
         District(R.string.auezov_district, R.drawable.auezov_district),
-        District(R.string.auezov_district, R.drawable.bostandyk_district),
-        District(R.string.auezov_district, R.drawable.auezov_district),
+        District(R.string.bostandyk_district, R.drawable.bostandyk_district),
         District(R.string.turksib_district, R.drawable.turksib_district),
     )
+
+    private lateinit var adapter: DistrictAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,10 +42,11 @@ class MainFragment : Fragment() {
 
         setupDistrictAdapter()
         setupNavigation()
+        setupSearchView()
     }
 
     private fun setupDistrictAdapter() {
-        val adapter = DistrictAdapter(districts)
+        adapter = DistrictAdapter(districts.toMutableList())
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(
             requireContext(),
@@ -53,6 +56,27 @@ class MainFragment : Fragment() {
 
         val offsetDecoration = OffsetDecoration(start = 6, top = 10, end = 6, bottom = 10)
         binding.recyclerView.addItemDecoration(offsetDecoration)
+    }
+
+    private fun setupSearchView() {
+        val searchView = binding.searchView // Ensure you are using the correct reference
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                val filteredDistricts = if (newText.isNullOrBlank()) {
+                    districts
+                } else {
+                    districts.filter {
+                        getString(it.name).contains(newText, ignoreCase = true)
+                    }
+                }
+                adapter.updateDistricts(filteredDistricts)
+                return true
+            }
+        })
     }
 
     private fun setupNavigation() {
@@ -81,11 +105,10 @@ class MainFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        binding.ai.setOnClickListener{
+        binding.ai.setOnClickListener {
             val action = MainFragmentDirections.actionMainFragmentToAIFragment()
             findNavController().navigate(action)
         }
-
     }
 
     override fun onDestroyView() {
