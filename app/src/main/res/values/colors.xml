@@ -20,4 +20,6 @@
     <color name="green_light">#1DB7AE</color>
     <color name="back_profile">#ececec</color>
     <color name="user_back_profile">#373EBF</color>
+    <color name="hint_color">#C0C0C0</color>
+    <color name="layout_head_text">#999999</color>
 </resources>
