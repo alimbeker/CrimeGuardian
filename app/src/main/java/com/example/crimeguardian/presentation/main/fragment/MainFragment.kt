@@ -1,5 +1,6 @@
 package com.example.crimeguardian.presentation.main.fragment
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,7 +44,26 @@ class MainFragment : Fragment() {
         setupDistrictAdapter()
         setupNavigation()
         setupSearchView()
+        setupKeyboardListener()
+
     }
+
+    private fun setupKeyboardListener() {
+        val rootView = binding.root
+        rootView.viewTreeObserver.addOnGlobalLayoutListener {
+            val rect = Rect()
+            rootView.getWindowVisibleDisplayFrame(rect)
+            val screenHeight = rootView.height
+            val keypadHeight = screenHeight - rect.bottom
+
+            if (keypadHeight > screenHeight * 0.15) {
+                // Keyboard is opened
+            } else {
+                // Keyboard is closed
+            }
+        }
+    }
+
 
     private fun setupDistrictAdapter() {
         adapter = DistrictAdapter(districts.toMutableList())
