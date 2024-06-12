@@ -44,6 +44,12 @@
         <action
             android:id="@+id/action_mainFragment_to_userProfileFragment"
             app:destination="@id/userProfileFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_instructionFragment"
+            app:destination="@id/instructionFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_AIFragment"
+            app:destination="@id/AIFragment" />
     </fragment>
     <fragment
         android:id="@+id/articleFragment"
@@ -76,4 +82,13 @@
             android:name="sourceName"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/instructionFragment"
+        android:name="com.example.crimeguardian.presentation.instruction.fragment.InstructionFragment"
+        android:label="InstructionFragment" />
+    <fragment
+        android:id="@+id/AIFragment"
+        android:name="com.example.crimeguardian.presentation.ai.fragment.AIFragment"
+        android:label="fragment_ai"
+        tools:layout="@layout/fragment_ai" />
 </navigation>

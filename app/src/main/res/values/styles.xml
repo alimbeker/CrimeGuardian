@@ -13,4 +13,10 @@
         <item name="android:textStyle">normal</item>
         <item name="fontFamily">@font/plusjakartasans_regular</item>
     </style>
+
+        <style name="ShapeRound">
+            <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
+            <item name="android:background">@drawable/shape_bgr</item>
+            <item name="android:textColor">?android:textColorPrimaryInverse</item>
+        </style>
 </resources>

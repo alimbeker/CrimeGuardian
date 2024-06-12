@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/part1"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <ImageView
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/crime_banner" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Insructions Avoid to Crime"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/banner"
+                app:layout_constraintEnd_toStartOf="@+id/poster"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constrainedWidth="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                app:layout_goneMarginEnd="16dp"
+                />
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/map_butt"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/map_icon"
+            />
+
+        <TextView
+            android:id="@+id/map_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/map_desc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/map_butt"
+            app:layout_constraintTop_toTopOf="@id/map_butt"
+            android:textColor="@color/map_text"
+            android:textSize="16sp"
+            style="@style/ShapeRound"
+            android:fontFamily="@font/plusjakartasans_regular"
+            />
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/map_part"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="map_butt, map_text"
+            app:flow_horizontalGap="8dp"
+            app:flow_horizontalStyle="packed"
+            app:flow_verticalStyle="packed"
+            app:flow_wrapMode="chain"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/part1"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/news_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/news_icon"
+            app:layout_constraintTop_toBottomOf="@id/map_part"
+            />
+
+        <TextView
+            android:id="@+id/news_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/news_desc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/news_btn"
+            app:layout_constraintTop_toTopOf="@id/news_btn"
+            android:textColor="@color/map_text"
+            android:textSize="16sp"
+            style="@style/ShapeRound"
+            android:fontFamily="@font/plusjakartasans_regular"
+            />
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/news_part"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="news_btn, news_text"
+            app:flow_horizontalGap="8dp"
+            app:flow_horizontalStyle="packed"
+            app:flow_verticalStyle="packed"
+            app:flow_wrapMode="chain"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/map_part"
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginTop="8dp"
+            />
+
+
+        <ImageView
+            android:id="@+id/sos_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/emergency_call_icon"
+            app:layout_constraintTop_toBottomOf="@+id/news_part"
+            />
+
+        <TextView
+            android:id="@+id/sos_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/sos_btn"
+            app:layout_constraintTop_toTopOf="@id/sos_btn"
+            android:text="@string/sos_desc"
+            android:textColor="@color/map_text"
+            android:textSize="16sp"
+            style="@style/ShapeRound"
+            android:fontFamily="@font/plusjakartasans_regular"
+            />
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/sos_part"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="sos_btn, sos_text"
+            app:flow_horizontalGap="8dp"
+            app:flow_horizontalStyle="packed"
+            app:flow_verticalStyle="packed"
+            app:flow_wrapMode="chain"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/news_part"
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginTop="8dp"
+            />
+
+        <ImageView
+            android:id="@+id/profile_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/profile"
+            app:layout_constraintTop_toBottomOf="@+id/sos_part"
+            />
+
+        <TextView
+            android:id="@+id/profile_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/profile_button"
+            app:layout_constraintTop_toTopOf="@id/profile_button"
+            android:text="@string/profile_desc"
+            android:textColor="@color/map_text"
+            android:textSize="16sp"
+            style="@style/ShapeRound"
+            android:fontFamily="@font/plusjakartasans_regular"
+            />
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/profile_part"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="profile_button, profile_text"
+            app:flow_horizontalGap="8dp"
+            app:flow_horizontalStyle="packed"
+            app:flow_verticalStyle="packed"
+            app:flow_wrapMode="chain"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sos_part"
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginTop="8dp"
+            />
+
+        <ImageView
+            android:id="@+id/ai_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/ai_icon"
+            app:layout_constraintTop_toBottomOf="@+id/profile_part"
+            />
+
+        <TextView
+            android:id="@+id/ai_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ai_btn"
+            app:layout_constraintTop_toTopOf="@id/ai_btn"
+            android:text="@string/ai_desc"
+            android:textColor="@color/map_text"
+            android:textSize="16sp"
+            style="@style/ShapeRound"
+            android:fontFamily="@font/plusjakartasans_regular"
+            />
+
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/ai_part"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="ai_btn, ai_text"
+            app:flow_horizontalGap="8dp"
+            app:flow_horizontalStyle="packed"
+            app:flow_verticalStyle="packed"
+            app:flow_wrapMode="chain"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_part"
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginTop="8dp"
+            />
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

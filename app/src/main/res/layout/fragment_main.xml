@@ -143,6 +143,7 @@
                     android:gravity="center">
 
                     <ImageView
+                        android:id="@+id/map"
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:src="@drawable/map_icon"
@@ -168,6 +169,7 @@
                     android:gravity="center">
 
                     <ImageView
+                        android:id="@+id/article"
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:src="@drawable/article_icon"
@@ -193,6 +195,7 @@
                     android:gravity="center">
 
                     <ImageView
+                        android:id="@+id/news"
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:src="@drawable/news_icon"
@@ -225,6 +228,7 @@
                     android:gravity="center">
 
                     <ImageView
+                        android:id="@+id/ai"
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:src="@drawable/ai_icon"
@@ -250,6 +254,7 @@
                     android:gravity="center">
 
                     <ImageView
+                        android:id="@+id/sos"
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:src="@drawable/emergency_call_icon"
@@ -276,6 +281,7 @@
                     android:gravity="center">
 
                     <ImageView
+                        android:id="@+id/instruction"
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:src="@drawable/instruction_icon"
