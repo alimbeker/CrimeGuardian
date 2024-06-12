@@ -53,6 +53,14 @@
     <string name="instructions">Instructions</string>
     <string name="sos">SOS</string>
     <string name="districts_of_almaty">Districts of Almaty</string>
+    <string name="medeu_district">Medeu District</string>
+    <string name="almaty_district">Almaly District</string>
+    <string name="alatau_district">Alatau District</string>
+    <string name="auezov_district">Auezov District</string>
+    <string name="bostandyk_district">Bostandyk District</string>
+    <string name="turksib_district">Turksib District</string>
+
+    <string name="almaty">Almaty</string>
 
 
 </resources>
