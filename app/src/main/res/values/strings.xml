@@ -46,6 +46,12 @@
     <string name="sample_mail_com">Sample@mail.com</string>
     <string name="privacy_statement_text">CrimeGuardian not only displays crime data but also provides news articles related to incidents, giving you a comprehensive view of the safety landscape, our SOS call feature ensures that help is just a tap away in case of emergencies.</string>
     <string name="find_things_to_do">find things to do</string>
+    <string name="map">Map</string>
+    <string name="article">Article</string>
+    <string name="news_icon">News</string>
+    <string name="ai">AI</string>
+    <string name="instructions">Instructions</string>
+    <string name="sos">SOS</string>
 
 
 </resources>

@@ -146,7 +146,7 @@
                             android:id="@+id/image_news"
                             android:layout_width="45dp"
                             android:layout_height="45dp"
-                            android:src="@drawable/world_news"
+                            android:src="@drawable/news_icon"
                             app:layout_constraintBottom_toBottomOf="@id/imageView22"
                             app:layout_constraintEnd_toEndOf="@+id/imageView22"
                             app:layout_constraintStart_toStartOf="@id/imageView22"
