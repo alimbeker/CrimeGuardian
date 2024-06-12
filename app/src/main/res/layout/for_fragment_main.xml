@@ -14,7 +14,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-
         <ImageView
             android:id="@+id/back_img_fon1"
             android:layout_width="match_parent"
@@ -69,7 +68,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/discount"
         android:layout_width="match_parent"
@@ -117,7 +115,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         app:cardCornerRadius="24dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toEndOf="parent"
@@ -297,7 +295,6 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/notification"
         android:layout_width="48dp"
@@ -339,10 +336,23 @@
             android:iconifiedByDefault="true"
             android:queryHint="@string/find_things_to_do"
             android:textColorHint="#5E5E5E"
-             />
+            />
+
     </com.google.android.material.card.MaterialCardView>
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/districts_of_almaty"
+        android:fontFamily="@font/lato_bold"
+        android:textSize="@dimen/_16sdp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/navigation_for_fragments"
+        app:layout_constraintVertical_bias="0.1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
