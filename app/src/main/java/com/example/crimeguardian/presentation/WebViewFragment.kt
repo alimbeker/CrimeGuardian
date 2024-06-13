@@ -1,13 +1,13 @@
+package com.example.crimeguardian.presentation
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.crimeguardian.databinding.FragmentWebBinding
-import com.example.crimeguardian.presentation.WebViewFragmentArgs
 
 class WebViewFragment : Fragment() {
     private var _binding: FragmentWebBinding? = null
