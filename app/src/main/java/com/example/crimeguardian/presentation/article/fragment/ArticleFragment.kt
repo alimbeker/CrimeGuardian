@@ -33,7 +33,7 @@ class ArticleFragment : Fragment() {
     private fun webViewPage(){
         binding.webView1.settings.javaScriptEnabled = true
         binding.webView1.webViewClient = WebViewClient()
-        binding.webView1.loadUrl("https://tengrinews.kz/kazakhstan_news/legalnyie-sredstva-samooboronyi-zaschititsya-napadeniya-352430/")
+        binding.webView1.loadUrl("https://www.numbeo.com/crime/in/Almaty")
 
     }
 

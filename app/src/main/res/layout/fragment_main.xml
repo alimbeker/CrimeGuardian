@@ -301,43 +301,19 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/notification"
-        android:layout_width="48dp"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="25dp"
-        app:cardBackgroundColor="#80FFFFFF"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/search_view"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/search_view_background"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="#FFFFFF">
-
-        <ImageView
-            android:layout_width="22dp"
-            android:layout_height="21dp"
-            android:layout_gravity="center"
-            android:src="@drawable/notification" />
-    </com.google.android.material.card.MaterialCardView>
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_view"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="2dp"
-            android:background="@drawable/search_view_background"
-            android:iconifiedByDefault="false"
-            android:queryHint="Search"
-            app:layout_constraintEnd_toStartOf="@+id/notification"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:queryBackground="@android:color/transparent" >
-    </androidx.appcompat.widget.SearchView>
+        app:queryBackground="@android:color/transparent"></androidx.appcompat.widget.SearchView>
 
     <TextView
         android:layout_width="wrap_content"

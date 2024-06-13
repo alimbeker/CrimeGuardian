@@ -85,7 +85,7 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         }
 
         viewModel.countMarkersWithinCircle(
-            lifecycleOwner = viewLifecycleOwner, center = LatLng(43.237156, 76.930097)
+            lifecycleOwner = viewLifecycleOwner, center = LatLng(43.268667, 76.942518)
         )
         viewModel.resultLiveData.observe(viewLifecycleOwner) { count ->
             if (count > 400) {
