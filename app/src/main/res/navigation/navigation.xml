@@ -96,7 +96,7 @@
         tools:layout="@layout/fragment_ai" />
     <fragment
         android:id="@+id/webViewFragment"
-        android:name="com.example.crimeguardian.presentation.WebViewFragment"
+        android:name="com.example.crimeguardian.presentation.detailed.fragment.WebViewFragment"
         android:label="WebViewFragment">
         <argument
             android:name="url"

@@ -1,4 +1,4 @@
-package com.example.crimeguardian.presentation
+package com.example.crimeguardian.presentation.detailed.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
