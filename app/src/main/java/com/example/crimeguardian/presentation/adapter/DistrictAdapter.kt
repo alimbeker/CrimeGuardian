@@ -9,6 +9,9 @@ import com.example.crimeguardian.presentation.model.model.main.District
 class DistrictAdapter(private var districts: MutableList<District>) :
     RecyclerView.Adapter<DistrictAdapter.DistrictViewHolder>() {
 
+    var itemClick: ((District) -> Unit)? = null
+
+
     inner class DistrictViewHolder(private val binding: ItemDistrictBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -16,6 +19,10 @@ class DistrictAdapter(private var districts: MutableList<District>) :
             binding.apply {
                 image.setImageResource(district.imageResId)
                 districtName.setText(district.name)
+
+                itemView.setOnClickListener {
+                    itemClick?.invoke(district)
+                }
             }
         }
     }

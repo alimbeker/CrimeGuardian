@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.appcompat.widget.SearchView
@@ -20,12 +21,12 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val districts = listOf(
-        District(R.string.medeu_district, R.drawable.medeu_district),
-        District(R.string.almaly_district, R.drawable.almaly_district),
-        District(R.string.alatau_district, R.drawable.alatau_district),
-        District(R.string.auezov_district, R.drawable.auezov_district),
-        District(R.string.bostandyk_district, R.drawable.bostandyk_district),
-        District(R.string.turksib_district, R.drawable.turksib_district),
+        District(R.string.medeu_district, R.drawable.medeu_district, "https://krisha.kz/content/news/2016/nazvany-samye-kriminogennye-uchastki-medeuskogo-rayona"),
+        District(R.string.almaly_district, R.drawable.almaly_district, "https://www.facebook.com/almaty.today/photos/a.841835285933896/1686480271469389/?type=3&_rdr"),
+        District(R.string.alatau_district, R.drawable.alatau_district, "https://www.inform.kz/ru/naibolee-opasnye-mesta-v-alatauskom-rayone-almaty-nazvala-policiya_a3556921"),
+        District(R.string.auezov_district, R.drawable.auezov_district, "https://www.inform.kz/ru/kolichestvo-prestupleniy-v-samom-gustonaselennom-rayone-almaty-za-proshedshie-11-mesyacev-snizilos-s-35-do-19_a2219024"),
+        District(R.string.bostandyk_district, R.drawable.bostandyk_district, "https://mail.kz/ru/news/kz-news/v-bostandykskom-raione-almaty-snizilos-kolichestvo-prestuplenii"),
+        District(R.string.turksib_district, R.drawable.turksib_district, "https://tengrinews.kz/kazakhstan_news/nazvanyi-samyie-opasnyie-ulitsyi-turksibskogo-rayona-almatyi-376563/"),
     )
 
     private lateinit var adapter: DistrictAdapter
@@ -45,7 +46,20 @@ class MainFragment : Fragment() {
         setupNavigation()
         setupSearchView()
         setupKeyboardListener()
+        onItemClickListener()
 
+    }
+
+    private fun onItemClickListener() {
+        adapter.itemClick = {
+            district -> navigateToUrl(district.url)
+
+        }
+    }
+
+    private fun navigateToUrl(url: String) {
+        val action = MainFragmentDirections.actionMainFragmentToWebViewFragment(url)
+        findNavController().navigate(action)
     }
 
     private fun setupKeyboardListener() {
