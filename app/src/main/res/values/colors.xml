@@ -21,8 +21,8 @@
     <color name="back_profile">#ececec</color>
     <color name="user_back_profile">#373EBF</color>
     <color name="hint_color">#C0C0C0</color>
-    <color name="layout_head">#999999</color>
     <color name="icon_text_color">#515151</color>
     <color name="map_text">#B15D4E</color>
+    <color name="layout_head">#999999</color>
 
 </resources>
