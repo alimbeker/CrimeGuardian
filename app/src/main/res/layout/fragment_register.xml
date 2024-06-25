@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5F5"
-    tools:context=".presentation.auth.RegisterFragment">
+   >
 
 
     <ImageView
@@ -58,7 +58,7 @@
             android:layout_marginTop="133dp"
             android:fontFamily="@font/plusjakartasans_regular"
             android:text="@string/name"
-            android:textColor="@color/layout_head_text"
+            android:textColor="@color/layout_head"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +91,7 @@
             android:layout_marginTop="203dp"
             android:fontFamily="@font/plusjakartasans_regular"
             android:text="@string/email"
-            android:textColor="@color/layout_head_text"
+            android:textColor="@color/layout_head"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -124,7 +124,7 @@
             android:layout_marginTop="273dp"
             android:fontFamily="@font/plusjakartasans_regular"
             android:text="@string/password"
-            android:textColor="@color/layout_head_text"
+            android:textColor="@color/layout_head"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -157,7 +157,7 @@
             android:layout_marginTop="343dp"
             android:fontFamily="@font/plusjakartasans_regular"
             android:text="@string/re_password"
-            android:textColor="@color/layout_head_text"
+            android:textColor="@color/layout_head"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -248,7 +248,7 @@
             android:layout_marginTop="45dp"
             android:fontFamily="@font/plusjakartasans_regular"
             android:text="@string/upload_picture"
-            android:textColor="@color/layout_head_text"
+            android:textColor="@color/layout_head"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/name"

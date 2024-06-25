@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5F5"
-    tools:context=".presentation.auth.LoginFragment">
+    >
 
 
     <ImageView
@@ -58,7 +58,7 @@
             android:layout_marginTop="83dp"
             android:fontFamily="@font/plusjakartasans_regular"
             android:text="@string/email"
-            android:textColor="@color/layout_head_text"
+            android:textColor="@color/layout_head"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +91,7 @@
             android:layout_marginTop="167dp"
             android:fontFamily="@font/plusjakartasans_regular"
             android:text="@string/password"
-            android:textColor="@color/layout_head_text"
+            android:textColor="@color/layout_head"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -123,7 +123,7 @@
             android:layout_height="wrap_content"
             android:text="@string/forgot_password"
             android:fontFamily="@font/plusjakartasans_regular"
-            android:textColor="@color/layout_head_text"
+            android:textColor="@color/layout_head"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="11dp"
             android:layout_marginRight="40dp"
@@ -208,7 +208,7 @@
             android:layout_marginTop="4dp"
             android:fontFamily="@font/plusjakartasans_regular"
             android:text="@string/privacy_statement_text"
-            android:textColor="@color/layout_head_text"
+            android:textColor="@color/layout_head"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
