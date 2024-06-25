@@ -47,7 +47,13 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
         super.onViewCreated(view, savedInstanceState)
         initializeViews(savedInstanceState)
         observeViewModel()
+        initializeHelpers()
         loadAndParseGeoJsonData()
+    }
+
+    private fun initializeHelpers() {
+        notificationHelper = NotificationHelper(this)
+        alertDialogHelper = AlertDialogHelper(requireContext())
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -96,7 +102,7 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
             return
         }
 
-        viewModel.countMarkersWithinCircle(viewLifecycleOwner, location)
+        viewModel.countMarkersWithinCircle(center = location, lifecycleOwner = viewLifecycleOwner)
 
         viewModel.resultLiveData.observe(viewLifecycleOwner) { count ->
             alertDialogHelper.showMarkerCountAlert(count)
