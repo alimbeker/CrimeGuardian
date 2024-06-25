@@ -24,18 +24,6 @@ class NotificationHelper(val context : Context) {
     private val CHANNEL_ID = "todo_channel_id"
     private val NOTIFICATION_ID = 1
 
-
-    fun showNotification(title: String, message: String) {
-        if (PermissionManager.checkPermission(context, Manifest.permission.POST_NOTIFICATIONS)) {
-            val myWorkRequest = OneTimeWorkRequestBuilder<TodoWorker>()
-                .setInitialDelay(3, TimeUnit.SECONDS)
-                .setInputData(workDataOf("title" to title, "message" to message))
-                .build()
-            WorkManager.getInstance(context).enqueue(myWorkRequest)
-        } else {
-            PermissionManager.requestNotificationPermission(context)
-        }
-    }
     @SuppressLint("MissingPermission")
     fun createNotification(title:String, message: String) {
         createNotificationChannel()

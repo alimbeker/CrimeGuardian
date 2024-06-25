@@ -40,7 +40,6 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
     private lateinit var clusterManager: ClusterManager<MyClusterItem>
     private lateinit var clusterRenderer: ClusterRenderer<MyClusterItem>
     private var selectedLocationMarker: Marker? = null
-    private lateinit var notificationHelper: NotificationHelper
     private lateinit var alertDialogHelper: AlertDialogHelper
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,7 +51,6 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
     }
 
     private fun initializeHelpers() {
-        notificationHelper = NotificationHelper(this)
         alertDialogHelper = AlertDialogHelper(requireContext())
     }
 
@@ -108,9 +106,26 @@ class IncidentsFragment : BaseFragment<FragmentIncidentsBinding>(FragmentInciden
             alertDialogHelper.showMarkerCountAlert(count)
 
             if (count > 400) {
-                notificationHelper.showNotification("Notification", "Be careful! You are in a dangerous area")
+                callNotification()
             }
             Log.d("DangerLevel", "Count: $count")
+        }
+    }
+
+    private fun callNotification() {
+        if (PermissionManager.checkPermission(requireContext(),Manifest.permission.POST_NOTIFICATIONS)) {
+            val myWorkRequest = OneTimeWorkRequestBuilder<TodoWorker>()
+                .setInitialDelay(3, TimeUnit.SECONDS)
+                .setInputData(
+                    workDataOf(
+                        "title" to "Notification",
+                        "message" to "Be careful! You are in dangerous area"
+                    )
+                )
+                .build()
+            WorkManager.getInstance(requireContext()).enqueue(myWorkRequest)
+        } else {
+            PermissionManager.requestNotificationPermission(this)
         }
     }
 
