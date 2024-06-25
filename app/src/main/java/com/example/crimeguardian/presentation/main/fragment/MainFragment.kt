@@ -22,7 +22,7 @@ class MainFragment : Fragment() {
 
     private val districts = listOf(
         District(R.string.medeu_district, R.drawable.medeu_district, "https://krisha.kz/content/news/2016/nazvany-samye-kriminogennye-uchastki-medeuskogo-rayona"),
-        District(R.string.almaly_district, R.drawable.almaly_district, "https://www.facebook.com/almaty.today/photos/a.841835285933896/1686480271469389/?type=3&_rdr"),
+        District(R.string.almaly_district, R.drawable.almaly_district, "https://krisha.kz/kz/content/news/2019/opredeleny-samye-kriminal-nye-mesta-almalinskogo-rayona"),
         District(R.string.alatau_district, R.drawable.alatau_district, "https://www.inform.kz/ru/naibolee-opasnye-mesta-v-alatauskom-rayone-almaty-nazvala-policiya_a3556921"),
         District(R.string.auezov_district, R.drawable.auezov_district, "https://www.inform.kz/ru/kolichestvo-prestupleniy-v-samom-gustonaselennom-rayone-almaty-za-proshedshie-11-mesyacev-snizilos-s-35-do-19_a2219024"),
         District(R.string.bostandyk_district, R.drawable.bostandyk_district, "https://mail.kz/ru/news/kz-news/v-bostandykskom-raione-almaty-snizilos-kolichestvo-prestuplenii"),

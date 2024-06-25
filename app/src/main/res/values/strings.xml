@@ -83,5 +83,10 @@
         It automates tasks, offers insights from data, tailors experiences, drives innovation, manages risks,
         transforms healthcare, improves customer service, and aids environmental sustainability.</string>
 
-
+    <string name="medeu_district_url">https://krisha.kz/content/news/2016/nazvany-samye-kriminogennye-uchastki-medeuskogo-rayona</string>
+    <string name="almaly_district_url">https://krisha.kz/kz/content/news/2019/opredeleny-samye-kriminal-nye-mesta-almalinskogo-rayona</string>
+    <string name="alatau_district_url">https://www.inform.kz/ru/naibolee-opasnye-mesta-v-alatauskom-rayone-almaty-nazvala-policiya_a3556921</string>
+    <string name="auezov_district_url">https://www.inform.kz/ru/kolichestvo-prestupleniy-v-samom-gustonaselennom-rayone-almaty-za-proshedshie-11-mesyacev-snizilos-s-35-do-19_a2219024</string>
+    <string name="bostandyk_district_url">https://mail.kz/ru/news/kz-news/v-bostandykskom-raione-almaty-snizilos-kolichestvo-prestuplenii</string>
+    <string name="turksib_district_url">https://tengrinews.kz/kazakhstan_news/nazvanyi-samyie-opasnyie-ulitsyi-turksibskogo-rayona-almatyi-376563/</string>
 </resources>
