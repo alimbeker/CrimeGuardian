@@ -1,5 +1,6 @@
 package com.example.crimeguardian.presentation.incidents.fragment
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -10,8 +11,13 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.workDataOf
 import com.example.crimeguardian.R
+import com.example.crimeguardian.core.PermissionManager
 import com.example.crimeguardian.presentation.MainActivity
+import java.util.concurrent.TimeUnit
 
 
 class NotificationHelper(val context : Context) {
@@ -19,6 +25,17 @@ class NotificationHelper(val context : Context) {
     private val NOTIFICATION_ID = 1
 
 
+    fun showNotification(title: String, message: String) {
+        if (PermissionManager.checkPermission(context, Manifest.permission.POST_NOTIFICATIONS)) {
+            val myWorkRequest = OneTimeWorkRequestBuilder<TodoWorker>()
+                .setInitialDelay(3, TimeUnit.SECONDS)
+                .setInputData(workDataOf("title" to title, "message" to message))
+                .build()
+            WorkManager.getInstance(context).enqueue(myWorkRequest)
+        } else {
+            PermissionManager.requestNotificationPermission(context)
+        }
+    }
     @SuppressLint("MissingPermission")
     fun createNotification(title:String, message: String) {
         createNotificationChannel()
